@@ -6,27 +6,35 @@ import riak_crud
 
 # This Hardcoded data is to be removed.
 # Schema of DATA is not final yet, It might change.
+# DATA = {
+#    "E1": {
+#        "avg_gap": 10,
+#        "patient_count": 100,
+#    },
+#    "E2": {
+#        "avg_gap": 5,
+#        "patient_count": 100,
+#    },
+#    "E3": {
+#        "avg_gap": 8,
+#        "patient_count": 100,
+#    },
+#    "E4": {
+#        "avg_gap": 8,
+#        "patient_count": 100,
+#    },
+#    "E5": {
+#        "avg_gap": 6,
+#        "patient_count": 100,
+#    }
+# }
+
 DATA = {
-    "E1": {
-        "avg_gap": 10,
-        "patient_count": 100,
-    },
-    "E2": {
-        "avg_gap": 5,
-        "patient_count": 100,
-    },
-    "E3": {
-        "avg_gap": 8,
-        "patient_count": 100,
-    },
-    "E4": {
-        "avg_gap": 8,
-        "patient_count": 100,
-    },
-    "E5": {
-        "avg_gap": 6,
-        "patient_count": 100,
-    }
+    "E1": 20,
+    "E2": 100,
+    "E3": 25,
+    "E4": 32,
+    "E5": 56,
 }
 
 
