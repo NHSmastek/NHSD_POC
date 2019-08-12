@@ -7,12 +7,12 @@ INSTALLATION :-
 Run requirement27.txt file.
 
 API's :-
-Search : "http://<Domain Name>:<port_number>/<bucket_name>/search/<key_name>/"
-Write : "http://<Domain Name>:<port_number>/<bucket_name>/write/<key_name>/"
-Delete : "http://<Domain Name>:<port_number>/<bucket_name>/delete/<key_name>/"
-Update : "http://<Domain Name>:<port_number>/<bucket_name>/update/<key_name>/"
+Search : "http://<Domain Name>:<port_number>/search/<key_name>/"
+Write : "http://<Domain Name>:<port_number>/write/<key_name>/"
+Delete : "http://<Domain Name>:<port_number>/delete/<key_name>/"
+Update : "http://<Domain Name>:<port_number>/update/<key_name>/"
 
-**Note :- Update API is not functional till now. bucket_name(Table name) and key_name(Name of Trust).
+**Note :- Update API is not functional till now. Key_name(Name of Trust).
 
 Mock Data :
 The schema of Mock data is temporary and can be changed. For time being I have hard coded the data to be written in RIAK.

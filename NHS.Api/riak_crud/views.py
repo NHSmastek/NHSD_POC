@@ -38,26 +38,30 @@ DATA = {
 }
 
 
-def search(request, bucket, key):
-    bucket = riak_crud.riak_client.bucket(bucket)
+def search(request, key):
+    bucket = riak_crud.riak_client.bucket(riak_crud.bucket_name)
     user_obj = bucket.get(key)
     if not user_obj.data:
         return HttpResponse("No Data with this key is present in this bucket")
     return JsonResponse(user_obj.data)
 
 
-def write(request, bucket, key):
-    bucket = riak_crud.riak_client.bucket(bucket)
+def write(request, key):
+    bucket = _get_or_create_bucket()
     trust_data = bucket.new(key, data=DATA)
     trust_data.store()
     return HttpResponse("Write Success")
 
 
-def delete(request, bucket, key):
-    bucket = riak_crud.riak_client.bucket(bucket)
+def _get_or_create_bucket():
+    return riak_crud.riak_client.bucket(riak_crud.bucket_name)
+
+
+def delete(request, key):
+    bucket = riak_crud.riak_client.bucket(riak_crud.bucket_name)
     bucket.delete(key)
     return HttpResponse("Delete Success")
 
 
-def update(reqeust, bucket, key):
+def update(reqeust, key):
     return HttpResponse("Update Success")
