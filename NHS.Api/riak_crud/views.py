@@ -32,7 +32,6 @@ RegionTrustMap = {
 }
 
 
-@require_POST
 def search_trust(request, trust_key):
     # Get Bucket
     trust_bucket = _get_or_create_trust_bucket()
@@ -77,7 +76,7 @@ def _get_region(region_bucket):
     return region_dict
 
 
-@require_POST
+# @require_POST
 def write_trust(request, trust_key):
     bucket = _get_or_create_trust_bucket()
     trust_data = bucket.new(trust_key, data=TrustData)
@@ -85,20 +84,19 @@ def write_trust(request, trust_key):
     return HttpResponse("Trust Write Success")
 
 
-@require_POST
 def delete_trust(request, trust_key):
     bucket = _get_or_create_trust_bucket()
     bucket.delete(trust_key)
     return HttpResponse("Trust Delete Success")
 
 
-@require_POST
+# @require_POST
 def update_trust(reqeust, trust_key):
     # TODO Add Update Functionality
     return HttpResponse("Trust Update Success")
 
 
-@require_POST
+# @require_POST
 def write_region(request, region_key):
     region_bucket = _get_or_create_region_bucket()
     region_data = region_bucket.new(region_key, data=RegionData)
@@ -106,14 +104,13 @@ def write_region(request, region_key):
     return HttpResponse("Region Write Success")
 
 
-@require_POST
 def delete_region(request, region_key):
     region_bucket = _get_or_create_region_bucket()
     region_bucket.delete(region_key)
     return HttpResponse("Region Delete Success")
 
 
-@require_POST
+# @require_POST
 def update_region(request, region_key):
     # TODO Add Update Functionality
     return HttpResponse("Region Update Success")

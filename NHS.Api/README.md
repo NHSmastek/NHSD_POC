@@ -7,38 +7,38 @@ INSTALLATION :-
 Run requirement27.txt file.
 
 API's :-
-Search : "http://<Domain Name>:<port_number>/search/<key_name>/"
-Write : "http://<Domain Name>:<port_number>/write/<key_name>/"
-Delete : "http://<Domain Name>:<port_number>/delete/<key_name>/"
-Update : "http://<Domain Name>:<port_number>/update/<key_name>/"
+Trust CRUD :-
+Search : "http://<Domain Name>:<port_number>/search_trust/<trust_key_name>/"
+Write : "http://<Domain Name>:<port_number>/write_trust/<trust_key_name>/"
+Delete : "http://<Domain Name>:<port_number>/delete_trust/<trust_key_name>/"
+Update : "http://<Domain Name>:<port_number>/update_trust/<trust_key_name>/"
+
+Region CRUD :-
+Write : "http://<Domain Name>:<port_number>/write_region/<region_key_name>/"
+Delete : "http://<Domain Name>:<port_number>/delete_region/<region_key_name>/"
+Update : "http://<Domain Name>:<port_number>/update_region/<region_key_name>/"
 
 **Note :- Update API is not functional till now. Key_name(Name of Trust).
 
 Mock Data :
 The schema of Mock data is temporary and can be changed. For time being I have hard coded the data to be written in RIAK.
 
-"RR8" : {
-    "E1": {
-        "avg_gap": 10,
-        "patient_count": 100,
-    },
-    "E2": {
-        "avg_gap": 5,
-        "patient_count": 100,
-    },
-    "E3": {
-        "avg_gap": 8,
-        "patient_count": 100,
-    },
-    "E4": {
-        "avg_gap": 8,
-        "patient_count": 100,
-    },
-    "E5": {
-        "avg_gap": 6,
-        "patient_count": 100,
-    }
+TrustData = {
+    "E1": 20,
+    "E2": 100,
+    "E3": 25,
+    "E4": 32,
+    "E5": 56,
 }
+
+RegionData = {
+    "E1": 20,
+    "E2": 30,
+    "E3": 40,
+    "E4": 50,
+    "E5": 60
+}
+
 
 RIAK SERVER CONFIG :-
 Riak server config is present inside the riak_crud application. For time being the host is present at "18.217.190.19"
