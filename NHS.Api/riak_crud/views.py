@@ -4,6 +4,7 @@ from __future__ import unicode_literals
 from django.http import JsonResponse, HttpResponse
 from django.views.decorators.http import require_POST
 import riak_crud
+from django.conf import settings
 
 # This Hardcoded data is to be removed.
 # Schema of DATA is not final yet, It might change.
@@ -13,7 +14,6 @@ TrustData = {
     "E2": 100,
     "E3": 25,
     "E4": 32,
-    "E5": 56,
 }
 
 RegionData = {
@@ -21,7 +21,6 @@ RegionData = {
     "E2": 30,
     "E3": 40,
     "E4": 50,
-    "E5": 60
 }
 
 RegionTrustMap = {
@@ -34,8 +33,8 @@ RegionTrustMap = {
 
 def search_trust(request, trust_key):
     # Get Bucket
-    trust_bucket = _get_or_create_trust_bucket()
-    region_bucket = _get_or_create_region_bucket()
+    trust_bucket = _get_or_create_bucket(settings.TRUST_BUCKET_NAME)
+    region_bucket = _get_or_create_bucket(settings.REGION_BUCKET_NAME)
 
     # Get Region Code
     region_code = None
@@ -78,14 +77,14 @@ def _get_region(region_bucket):
 
 # @require_POST
 def write_trust(request, trust_key):
-    bucket = _get_or_create_trust_bucket()
+    bucket = _get_or_create_bucket(settings.TRUST_BUCKET_NAME)
     trust_data = bucket.new(trust_key, data=TrustData)
     trust_data.store()
     return HttpResponse("Trust Write Success")
 
 
 def delete_trust(request, trust_key):
-    bucket = _get_or_create_trust_bucket()
+    bucket = _get_or_create_bucket(settings.TRUST_BUCKET_NAME)
     bucket.delete(trust_key)
     return HttpResponse("Trust Delete Success")
 
@@ -98,14 +97,14 @@ def update_trust(reqeust, trust_key):
 
 # @require_POST
 def write_region(request, region_key):
-    region_bucket = _get_or_create_region_bucket()
+    region_bucket = _get_or_create_bucket(settings.REGION_BUCKET_NAME)
     region_data = region_bucket.new(region_key, data=RegionData)
     region_data.store()
     return HttpResponse("Region Write Success")
 
 
 def delete_region(request, region_key):
-    region_bucket = _get_or_create_region_bucket()
+    region_bucket = _get_or_create_bucket(settings.REGION_BUCKET_NAME)
     region_bucket.delete(region_key)
     return HttpResponse("Region Delete Success")
 
@@ -116,9 +115,6 @@ def update_region(request, region_key):
     return HttpResponse("Region Update Success")
 
 
-def _get_or_create_trust_bucket():
-    return riak_crud.riak_client.bucket(riak_crud.trust_bucket_name)
+def _get_or_create_bucket(bucket_name):
+    return riak_crud.riak_client.bucket(bucket_name)
 
-
-def _get_or_create_region_bucket():
-    return riak_crud.riak_client.bucket(riak_crud.region_bucket_name)

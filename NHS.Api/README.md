@@ -28,7 +28,6 @@ TrustData = {
     "E2": 100,
     "E3": 25,
     "E4": 32,
-    "E5": 56,
 }
 
 RegionData = {
@@ -36,11 +35,9 @@ RegionData = {
     "E2": 30,
     "E3": 40,
     "E4": 50,
-    "E5": 60
 }
 
 
 RIAK SERVER CONFIG :-
 Riak server config is present inside the riak_crud application. For time being the host is present at "18.217.190.19"
-Validate the above host is up and running before running the application. Try to ping the host server. If ping failed 
-contact Akshay or Prabhat for starting the host server.
+Validate the above host is up and running before running the application. Try to ping the host server.

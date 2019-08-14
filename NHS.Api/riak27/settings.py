@@ -10,9 +10,12 @@ SECRET_KEY = '2e3kucnc$=&nzq0#4d@ryuv5e6b^sb!zh7x66h!01v(%iy8nmh'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["*"]
+ALLOWED_HOSTS = []
 
 RIAK_HOST_IP = "3.15.181.1"
+TRUST_BUCKET_NAME = "trust_performance"
+REGION_BUCKET_NAME = "region_performance"
+
 
 INSTALLED_APPS = [
     'django.contrib.admin',

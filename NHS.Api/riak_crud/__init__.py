@@ -9,5 +9,3 @@ def create_client():
 
 
 riak_client = create_client()
-trust_bucket_name = "trust_performance"
-region_bucket_name = "region_performance"
