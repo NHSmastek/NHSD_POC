@@ -12,6 +12,8 @@ DEBUG = True
 
 ALLOWED_HOSTS = ["*"]
 
+RIAK_HOST_IP = "3.15.181.1"
+
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
