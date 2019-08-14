@@ -9,16 +9,16 @@ Run requirement27.txt file.
 API's :-
 Trust CRUD :-
 Search : "http://<Domain Name>:<port_number>/search_trust/<trust_key_name>/"
-Write : "http://<Domain Name>:<port_number>/write_trust/<trust_key_name>/"
-Delete : "http://<Domain Name>:<port_number>/delete_trust/<trust_key_name>/"
-Update : "http://<Domain Name>:<port_number>/update_trust/<trust_key_name>/"
+# Write : "http://<Domain Name>:<port_number>/write_trust/<trust_key_name>/"
+# Delete : "http://<Domain Name>:<port_number>/delete_trust/<trust_key_name>/"
+# Update : "http://<Domain Name>:<port_number>/update_trust/<trust_key_name>/"
 
 Region CRUD :-
-Write : "http://<Domain Name>:<port_number>/write_region/<region_key_name>/"
-Delete : "http://<Domain Name>:<port_number>/delete_region/<region_key_name>/"
-Update : "http://<Domain Name>:<port_number>/update_region/<region_key_name>/"
+# Write : "http://<Domain Name>:<port_number>/write_region/<region_key_name>/"
+# Delete : "http://<Domain Name>:<port_number>/delete_region/<region_key_name>/"
+# Update : "http://<Domain Name>:<port_number>/update_region/<region_key_name>/"
 
-**Note :- Update API is not functional till now. Key_name(Name of Trust).
+**Note :- Update API is not functional till now. Key_name(Name of Trust / Name of Region).
 
 Mock Data :
 The schema of Mock data is temporary and can be changed. For time being I have hard coded the data to be written in RIAK.
