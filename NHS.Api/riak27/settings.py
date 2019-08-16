@@ -14,8 +14,8 @@ ALLOWED_HOSTS = []
 
 RIAK_HOST_IP = "35.176.37.177"
 RIAK_HOST_PORT = "8087"
-TRUST_BUCKET_NAME = "trust_performance"
-REGION_BUCKET_NAME = "region_performance"
+TRUST_BUCKET_NAME = "TrustPerformance"
+REGION_BUCKET_NAME = "RegionPerformance"
 
 
 INSTALLED_APPS = [

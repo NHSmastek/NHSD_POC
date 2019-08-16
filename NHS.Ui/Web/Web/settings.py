@@ -27,6 +27,8 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+NHS_API_DOMAIN_NAME = "http://127.0.0.1"
+NHS_API_DOMAIN_PORT = "8009"
 
 # Application definition
 
