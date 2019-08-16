@@ -60,7 +60,7 @@ def search_trust(request, trust_key):
         "RegionData": region_dict,
         "TrustData": trust_dict,
     }
-    return JsonResponse(resp_data, safe=False, status=200)
+    return JsonResponse(resp_data, status=200)
 
 
 def _get_trust(trust_bucket, trust_key):
