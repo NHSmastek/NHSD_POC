@@ -3,8 +3,7 @@ from django.conf import settings
 
 
 def create_client():
-    # We can specify http port as well. For Now we are using default port.
-    client = riak.RiakClient(host=settings.RIAK_HOST_IP)
+    client = riak.RiakClient(host=settings.RIAK_HOST_IP, http_port=settings.RIAK_HOST_PORT)
     return client
 
 

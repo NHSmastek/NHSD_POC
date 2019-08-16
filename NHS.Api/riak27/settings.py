@@ -12,7 +12,8 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
-RIAK_HOST_IP = "3.15.181.1"
+RIAK_HOST_IP = "35.176.37.177"
+RIAK_HOST_PORT = "8087"
 TRUST_BUCKET_NAME = "trust_performance"
 REGION_BUCKET_NAME = "region_performance"
 

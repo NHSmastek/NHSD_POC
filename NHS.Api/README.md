@@ -39,5 +39,6 @@ RegionData = {
 
 
 RIAK SERVER CONFIG :-
-Riak server config is present inside the riak_crud application. For time being the host is present at "18.217.190.19"
+Riak server config is present inside the riak_crud application. For time being the host is present at "35.176.37.177"
+and port number "8087"
 Validate the above host is up and running before running the application. Try to ping the host server.
