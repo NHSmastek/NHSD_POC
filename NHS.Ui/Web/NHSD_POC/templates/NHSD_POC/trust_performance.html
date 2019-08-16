@@ -1,0 +1,11 @@
+{% load static %}
+
+<link rel="stylesheet" type="text/css" href="{% static 'NHSD_POC/CSS/style.css' %}">
+<script src="{% static 'NHSD_POC/trust_performance.js' %}">
+</script>
+
+<select name="trust" onchange="get_trust(this)">
+    <option value="">Select</option>
+    <option value="RR8">RR8</option>
+    <option value="RR1">RR1</option>
+</select>

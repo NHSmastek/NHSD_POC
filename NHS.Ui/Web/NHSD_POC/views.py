@@ -5,10 +5,6 @@ import requests
 from django.conf import settings
 
 
-def index(request):
-    return HttpResponse("Hello, world. You're at the polls index.")
-
-
 def patient_pathway_timeline(request):
     url = "{}:{}/search_trust/".format(settings.NHS_API_DOMAIN_NAME, settings.NHS_API_DOMAIN_PORT)
     # The name of trust will come from drop down for time being hard coded the name of trust
@@ -19,3 +15,5 @@ def patient_pathway_timeline(request):
     return HttpResponse("It will get replaced by view.")
 
 
+def get_trust_list(request):
+    return render(request, "NHSD_POC/trust_performance.html", {})
