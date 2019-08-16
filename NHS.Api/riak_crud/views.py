@@ -46,9 +46,13 @@ def search_trust(request, trust_key):
 
     # Get Region Dict
     region_dict = _get_region(region_bucket)
+    if not region_dict:
+        return HttpResponse(content="No Region Exists", status=404)
 
     # Get Trust Data
     trust_dict = _get_trust(trust_bucket, trust_key)
+    if not trust_dict[trust_key]:
+        return HttpResponse(content="Requested Trust Key Does Not Exists", status=404)
 
     # Form Resp Dict
     resp_data = {
@@ -56,7 +60,7 @@ def search_trust(request, trust_key):
         "RegionData": region_dict,
         "TrustData": trust_dict,
     }
-    return JsonResponse(resp_data, safe=False)
+    return JsonResponse(resp_data, safe=False, status=200)
 
 
 def _get_trust(trust_bucket, trust_key):
