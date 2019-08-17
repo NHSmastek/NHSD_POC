@@ -1,0 +1,9 @@
+{% load static %}
+
+<link rel="stylesheet" type="text/css" href="{% static 'NHSD_POC/CSS/trust_performance.css' %}">
+<script src="{% static 'NHSD_POC/trust_performance.js' %}">
+</script>
+
+<select id="trust_list" onchange="get_performance_data_for_map(this.value)">
+    <option value="">Select Trust</option>
+</select>
