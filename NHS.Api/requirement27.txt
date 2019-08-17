@@ -4,4 +4,4 @@ protobuf==2.6.1
 pytz==2019.2
 riak==2.7.0
 six==1.12.0
-djangorestframework 3.9.4
+djangorestframework==3.9.4
