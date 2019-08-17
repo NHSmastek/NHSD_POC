@@ -10,7 +10,7 @@ def get_trust_list(request, trust_name):
     # The name of trust will come from drop down for time being hard coded the name of trust
     trust_performance_obj = requests.get(url=url)
     trust_performance = trust_performance_obj.json()
-    return JsonResponse(trust_performance, status=200)
+    return JsonResponse(trust_performance)
 
 
 def patient_pathway_timeline(request):

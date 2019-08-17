@@ -1,8 +1,9 @@
 from django.urls import path
 
-from . import views as nhsd_poc
+from . import views
 
 urlpatterns = [
-    path('PatientPathwayTimeline', nhsd_poc.patient_pathway_timeline, name='PatientPathwayTimeline'),
-    path('<str:trust_name>', nhsd_poc.get_trust_list, name='TrustList'),
+    path('', views.patient_pathway_timeline, name='PatientPathwayTimeline'),
+    path('PatientPathwayTimeline', views.patient_pathway_timeline, name='PatientPathwayTimeline'),
+    path('<str:trust_name>', views.get_trust_list, name='TrustList'),
 ]
