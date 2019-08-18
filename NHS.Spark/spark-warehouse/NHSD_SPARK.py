@@ -37,7 +37,7 @@ df_final.printSchema()
 df_final.show()  
 
 df_trust_performance=df_final.groupBy(df_final.Org_Code).agg({"E1_days": "avg","E2_days": "avg","E3_days": "avg","E4_days": "avg"})\
-    .select(col("Org_Code"),col("avg(E1_days)").alias("E1_days"),col("avg(E2_days)").alias("E2_days"),col("avg(E3_days)").alias("E3_days"),col("avg(E4_days)").alias("E4_days"))
+    .select(col("Org_Code"),col("avg(E1_days)").alias("E1"),col("avg(E2_days)").alias("E2"),col("avg(E3_days)").alias("E3"),col("avg(E4_days)").alias("E4"))
 
 df_Region_performance=df_final.groupBy(df_final.region_id).agg({"E1_days": "avg","E2_days": "avg","E3_days": "avg","E4_days": "avg"})\
     .select(col("region_id"),col("avg(E1_days)").alias("E1_days"),col("avg(E2_days)").alias("E2_days"),col("avg(E3_days)").alias("E3_days"),col("avg(E4_days)").alias("E4_days"))
