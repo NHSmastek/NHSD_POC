@@ -1,0 +1,24 @@
+﻿#patientIndex #actionRow {
+    margin-top: 15px;
+}
+
+.standardGroupingsColumn .fa-check-circle {
+    color: green;
+}
+
+.standardGroupingsColumn .fa-times-circle {
+    color: red;
+}
+
+.standardGroupingsColumn .fa-minus-circle {
+    color: gray;
+}
+
+.standardGroupingsColumn .fa {
+    font-size: x-large;
+    vertical-align: top;
+}
+
+.standardGroupingsColumn {
+    text-align: center;
+}

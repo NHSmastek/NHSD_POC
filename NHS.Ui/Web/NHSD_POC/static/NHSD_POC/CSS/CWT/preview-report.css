@@ -1,0 +1,89 @@
+﻿#previewReportContainer tbody tr {
+    background: white;
+}
+
+#previewReportContainer tr.transparent {
+    background: transparent;
+}
+
+#previewReportContainer tfoot tr {
+    font-weight: normal;
+}
+
+#previewReportContainer tfoot td:first-child {
+    background: transparent;
+    border-left: none;
+    border-bottom: none;
+}
+
+#previewReportContainer tfoot td {
+    font-weight: normal;
+    background: papayawhip;
+}
+
+#previewReportContainer .table-bordered {
+    border: none;
+}
+
+#previewReportContainer td.no-border {
+    border: none;
+}
+
+#previewReportContainer table td em {
+    color: gray;
+}
+
+#previewReportContainer table th em {
+    color: lightgray;
+}
+
+#previewReportContainer thead th {
+    vertical-align: top;
+    font-weight: normal;
+}
+
+#previewReportContainer .meeting-standard-column {
+    width: 100px;
+}
+
+#previewReportContainer .thirty-one-day-grouping-column {
+    width: 150px;
+}
+
+#previewReportContainer #trustCodeTable td:first-child {
+    width: 80px;
+}
+
+#previewReportContainer #previewReportSummary th {
+    width: 350px;
+    font-weight: normal;
+}
+
+.previewReportFilters .alert {
+    font-size: 1.2em;
+}
+
+#previewReportContainer {
+    /* Added this because otherwise phantomjs truncates the screen and refuses to find this element */
+    min-height: 100px;
+    min-width: 100px;
+}
+
+#previewReportSummaryContainer .table-responsive {
+    overflow-x: visible;
+}
+/* start added new css declaration for new table format*/
+#previewReportContainer thead tr.transparent th {
+    vertical-align: middle;
+    border-top: 1px solid;
+    border-color: #dddddd;
+}
+
+.white-space-wrapping-starting-columns {
+    min-width: 5.4vw;
+}
+
+.white-space-wrapping-ending-columns {
+    min-width: 6vw;
+}
+/* end added new css declaration for new table format*/

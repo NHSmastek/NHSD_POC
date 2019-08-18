@@ -1,0 +1,754 @@
+﻿@font-face {
+    font-family: "Avenir LT W01 85 Heavy";
+    src: url("font/f61bf0f6-c193-4100-b940-12a1a01dcee5.eot?#iefix");
+    src: url("font/f61bf0f6-c193-4100-b940-12a1a01dcee5.eot?#iefix") format("eot"), url("font/7147ec3a-8ff8-4ec9-8c5c-bd1571dc6ae6.woff") format("woff"), url("font/d1dc54b2-878d-4693-8d6e-b442e99fef68.ttf") format("truetype"), url("font/731dd4d3-64da-427d-ba61-01575b3cf3f7.svg") format("svg");
+}
+
+html, body {
+    height: 100%;
+}
+
+#myhscic {
+    float: right;
+    margin-top: 15px;
+}
+
+#wrap {
+    min-height: 100%;
+    height: auto !important;
+    height: 100%;
+    margin: 0 auto -40px;
+}
+
+#push, #footer {
+    height: 40px;
+}
+
+#footer {
+    background-color: #003350;
+    font-size: 0.8em;
+    color: white;
+}
+
+    #footer .navbar {
+        min-height: inherit;
+    }
+
+.footer-navbar-collapse ul {
+    list-style-type: none;
+    margin-top: 12px;
+}
+
+    .footer-navbar-collapse ul li {
+        border-left: white solid 1px;
+    }
+
+        .footer-navbar-collapse ul li:first-child {
+            border-left: none;
+        }
+
+    .footer-navbar-collapse ul > li > a {
+        color: white !important;
+        padding: 0 5px;
+        line-height: 15px;
+    }
+
+.footer-navbar-collapse.in ul li:first-child {
+    border-left: white solid 1px;
+}
+
+
+.version {
+    margin-top: 12px;
+}
+
+.navbar {
+    margin-bottom: 0;
+}
+
+    .navbar h1 {
+        margin-left: 20px;
+        line-height: 56px;
+    }
+
+a.navbar-brand {
+    margin-left: 0;
+    margin-top: 15px;
+    padding-top: 0;
+    padding-bottom: 0;
+    color: transparent;
+    height: 56px;
+}
+
+    a.navbar-brand img {
+        height: 100%;
+    }
+
+    a.navbar-brand:hover, a.navbar-brand:focus {
+        color: transparent;
+    }
+
+.navbar-title {
+    margin-left: 90px;
+    border-left: 1px solid #ddd;
+}
+
+.navbar-inverse .navbar-brand {
+    background: none;
+    height: inherit;
+    width: inherit;
+    line-height: inherit;
+    padding: 0;
+    font-size: 11px;
+    color: white;
+}
+.HomePageMenuList {
+    font-weight: bold;
+    font-size: 1.5em;
+    padding-bottom: 15px;
+}
+
+.hscic-nav {
+    width: 100%;
+    border-top: #035 1px solid;
+    border-bottom: #035 1px solid;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    margin-bottom: 12px !important;
+    font-weight: bold;
+    font-size: 1.1em;
+}
+
+    .hscic-nav > li {
+        border-left: #035 1px solid;
+    }
+
+        .hscic-nav > li:first-child {
+            border-left: none;
+        }
+
+            .hscic-nav > li:first-child > a {
+                padding-left: 0;
+            }
+
+        .hscic-nav > li > a {
+            padding-top: 0 !important;
+            padding-bottom: 0 !important;
+            line-height: 18px;
+        }
+
+            .hscic-nav > li > a:hover, .hscic-nav > li > a:focus {
+                background-color: transparent;
+            }
+
+#filters {
+    margin: 5px 0;
+    font-size: 0.8em;
+    margin-left: 20px;
+}
+    
+    #filters .col-md-1, #filters .col-md-2, #filters .col-md-3, #filters .col-md-4, #filters .col-md-5, #filters .col-md-6, #filters .col-md-7, #filters .col-md-8, #filters .col-md-9, #filters .col-md-10, #filters .col-md-11, #filters .col-md-12 {
+        padding: 0 6px;
+    }
+
+    #filters.panel-body {
+        padding-bottom: 0;
+    }
+
+    #filters input[type="checkbox"] {
+        margin: 7px 0 0 0;
+        width: 15px;
+        height: auto;
+    }
+
+#resetfilters {
+    margin-top: 6px;
+    font-size: 1.2em;
+}
+
+.panel-heading #filtertoggle:after {
+    font-family: 'Glyphicons Halflings';
+    content: "\e113";
+    float: right;
+}
+
+.panel-heading #filtertoggle.collapsed:after {
+    content: "\e114";
+}
+
+.table th {
+    background-color: #707070;
+    color: #fff;
+}
+
+    .table th a {
+        color: #fff;
+    }
+
+#sortableGrid th.sortable a:before, .tablesorter-header a:before {
+    font-family: 'Glyphicons Halflings';
+    content: "\e150\00a0";
+}
+
+#sortableGrid th.asc a:before, .tablesorter-headerAsc a:before {
+    content: "\e155\00a0";
+}
+
+#sortableGrid th.desc a:before, .tablesorter-headerDesc a:before {
+    content: "\e156\00a0";
+}
+
+#sortableGrid tfoot {
+    text-align: center;
+}
+
+#overlay {
+    position: fixed;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    background: #000;
+    opacity: 0.8;
+    filter: alpha(opacity=80);
+    z-index: 1001;
+}
+
+#imgholder {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin: -45px 0 0 -65px;
+    padding: 30px 50px 30px 50px;
+    background-color: white;
+    border-radius: 5px;
+}
+
+#loading {
+    background-image: url(images/ajax-loader.gif);
+    background-repeat: no-repeat;
+    width: 31px;
+    height: 31px;
+    min-width: 31px;
+    min-height: 31px;
+    margin: 0;
+}
+
+.typeahead-loading {
+    background-image: url(images/ajax-loader-small.gif);
+    background-repeat: no-repeat;
+    background-position: right;
+}
+
+/* Override the default alignment for fontawesome so they align in bootstrap buttons */
+.fa {
+    vertical-align: middle;
+}
+
+.btn {
+    font-family: "Avenir LT W01 85 Heavy";
+    font-size: 12px;
+}
+
+.btn-sm {
+    padding: 3px 6px;
+}
+
+.validation-summary-errors {
+    font-size: 1.1em;
+}
+
+    .validation-summary-errors > span {
+        font-weight: bold;
+    }
+
+.field-validation-error {
+    color: red;
+}
+
+.tt-dropdown-menu {
+    max-height: 200px;
+    overflow-y: auto;
+}
+
+/* Bootstrap DatePicker */
+.datepicker {
+    z-index: 1001 !important;
+}
+
+.auditchange .newvalue {
+    color: #5cb85c;
+}
+
+.auditchange .oldvalue {
+    color: #d9534f;
+    text-decoration: line-through;
+}
+
+.validation-summary-valid {
+    display: none;
+}
+
+.validation-summary-errors ul {
+    display: none;
+}
+
+#validation-message-summary {
+    color: #D69A39;
+    font-weight: bold;
+}
+
+.validation-message {
+    font-size: 16px;
+    vertical-align: middle
+}
+
+.validation-loading-icon {
+    display: inline-block;
+    margin-left: 10px;
+}
+
+dl.submission-details {
+    text-align: left;
+}
+
+    dl.submission-details dt {
+        text-align: left;
+        padding-bottom: 1.5px;
+    }
+
+#returnlink {
+    margin-bottom: 17px;
+}
+
+.help-block {
+    margin-bottom: 5px;
+}
+
+tr.totals, tr.totals > td {
+    background-color: #707070 !important;
+    color: #fff;
+    font-weight: bold;
+}
+
+.breadcrumb {
+    text-transform: uppercase;
+}
+
+.legend-actionable {
+    padding-bottom: 10px;
+}
+
+.notification-message {
+    color: red;
+    font-size: 1.1em;
+    text-align: right;
+    font-weight: bold;
+}
+
+.legend-action {
+    margin-left: 3px;
+}
+
+.radio input[type="radio"],
+.radio-inline input[type="radio"],
+.checkbox input[type="checkbox"],
+.checkbox-inline input[type="checkbox"] {
+    margin-left: 0;
+}
+
+.header-aligned-buttons {
+    margin-top: 17px;
+}
+
+.no-wrap {
+    white-space: nowrap;
+}
+
+#breaches select {
+    width: inherit;
+}
+
+.preserve-linebreaks {
+    white-space: pre-wrap;
+}
+
+#identity-name {
+    display: none;
+}
+
+.offscreen-element {
+    position: absolute;
+    top: -3000px;
+}
+
+@media (min-width: 768px) {
+    #filters .form-group {
+        margin-bottom: 0;
+    }
+}
+
+@media (max-width: 980px) {
+
+    #wrap > .container {
+        padding-top: 0;
+    }
+
+    /* Enable use of floated navbar text */
+    .navbar-text.pull-right {
+        float: none;
+        padding-left: 5px;
+        padding-right: 5px;
+    }
+
+    .btn-xl {
+        padding: 10px 15px;
+        font-size: 18px;
+        line-height: 1.33;
+        border-radius: 6px;
+    }
+
+    #filters input[type="checkbox"] {
+        margin: 0 10px 10px 0;
+    }
+}
+
+@media (max-width: 767px) {
+
+    .navbar-brand {
+        margin-left: -15px;
+    }
+
+    .navbar-inverse .navbar-brand {
+        padding-left: 15px;
+    }
+
+    .navbar-title {
+        margin-left: inherit;
+        border-left: none;
+        clear: both;
+    }
+
+        .navbar-title > h1 {
+            font-size: 22px;
+            margin-bottom: 0;
+            margin-left: 0;
+            line-height: 46px;
+        }
+
+    .hscic-nav {
+        float: left;
+        margin: 0;
+    }
+
+        .hscic-nav > li {
+            float: left;
+        }
+
+    .btn-xl {
+        padding: 6px 10px;
+        font-size: 14px;
+        line-height: 1.33;
+        border-radius: 4px;
+    }
+}
+
+td.changed-field {
+    background: #FFFBCC;
+}
+
+#dateSelector {
+    margin-top: 15px;
+}
+
+#dateSelector label {
+    min-width: 30px;
+}
+
+#dateSelector .form-control {
+    width: auto;
+    display: inline-block;
+}
+
+#periodSelector {
+    margin-top: 15px;
+}
+
+#periodSelector label {
+    min-width: 30px;
+}
+
+#periodSelector .form-control {
+    width: auto;
+    display: inline-block;
+}
+
+
+.row-with-bottom-margin {
+    margin-bottom: 10px;
+}
+/*Update Patient Pathway css changes goesa*/
+
+.Patient-PathWay .row {
+    padding: 0 10px;
+}
+
+.Patient-PathWay .clickable {
+    cursor: pointer;
+}
+
+.Patient-PathWay .panel-heading span {
+    margin-top: -20px;
+    font-size: 15px;
+}
+.vertical-Align-middle {
+    vertical-align: middle !important;
+}
+.width-96pcnt {
+    width: 96% !important;
+}
+.Patient-PathWay-input {
+    padding: 6px 12px;
+    border-width: 1px;
+    border-style: solid;
+    border-color: rgb(204, 204, 204);
+    border-image: initial;
+    border-radius: 4px;
+    width: 100%
+}
+.patient-pathway-date {
+    padding: 6px 12px;
+    border-width: 1px;
+    border-style: solid;
+    border-color: rgb(204, 204, 204);
+    border-image: initial;
+    width: 100%;
+    border-top-left-radius: 4px;
+    border-bottom-left-radius: 4px;
+    border-top-right-radius: 0px;
+    border-bottom-right-radius: 0px;
+}
+
+.pointer-on-hover {
+    cursor: pointer;
+}
+.left-Margin-30{ margin-left: 30px}
+.Patient-PathWay {margin-bottom: 10px;}
+
+.totals-header-width {
+	width: 400px;
+}
+
+.totals-header {
+	margin-left: 20px;
+    font-weight: bold;
+}
+
+.totals-value {
+    font-weight: bold;
+}
+
+.totals-sub-header {
+	margin-left: 50px;
+}
+
+#create-new-patient, #create-new-ds2-record {
+    padding: 0 6px;
+}
+
+#create-new-ipt-record {
+    padding-left: 4px;
+}
+
+#create-new-ipt-record-rightpad {
+    padding-right: 15px;
+}
+
+#cancel-btn-bottom, #cancel-btn-top {
+    margin-right: 4px;
+}
+
+.buttons-top {
+    padding-bottom: 5px;
+}
+
+#CwtReportDateLink {
+    font-size: 1.5em;
+    font-weight: bold;
+    float: right;
+    padding: 10px 75px 9px 75px;
+    width: 260px;
+}
+
+/*Notifications*/
+.new-notifications {
+    display: none;
+    background-color: blue;
+    padding: 0 5px 0 5px;
+    color: white;
+}
+.notification-detail-row {
+    float: left;
+    clear: both;
+}
+.notification-detail-row-return {
+    margin-bottom: 10px;
+}
+.notification-detail-row-delete {
+    float: right;
+}
+.notification-detail-row-contents {
+    float: left;
+    clear: both;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    width: 100%;
+}
+.notification-detail-paging
+{
+    float: left;
+    clear: both;
+    width: 100%;
+}
+.notification-detail-paging .prev-notification {
+    float: left;
+}
+.notification-detail-paging .next-notification {
+    float: right;
+}
+.notification-detail-audit {
+    margin-bottom: 10px;
+}
+/*Notification End*/
+/* Down load form controls */
+#resetForm {
+    margin: 0 10px 0 10px;
+}
+
+.Patient-PathWay #viewAuditButton, #viewDeleteButton, #goBackButton {
+    margin-right: 4px;
+}
+
+#extractCheckboxContainer .checkbox label input[type="checkbox"] {
+    margin-left: -20px;
+    margin-top: 1px;
+}
+
+#extractCheckboxContainer .tab-content.panel {
+    border-top: none;
+    border-top-left-radius: 0px;
+    border-top-right-radius: 0px;
+}
+
+table.table-bordered.patient-detail td
+{
+    padding: 5px;
+    vertical-align: central;
+}
+
+.snapshot-type {
+    width: auto;
+}
+
+
+.allocationRuleTabOuterPanel {
+    font-family: 'Arial Regular', 'Arial';
+    font-weight: 400;
+    font-style: normal;
+    font-size: 13px;
+    color: #333333;
+    text-align: center;
+    line-height: normal;
+    height: 50px;     
+}
+
+.allocationRuleTab {
+    border-width: 0px;
+    position: absolute;
+    top: 55px;
+    width: 0px;
+    height: 38px;    
+}
+
+.allocationRuleTabInner {
+    border-width: 0px;
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    width: 110px;
+    height: 38px;
+    background: inherit;
+    background-color: rgba(255, 255, 255, 1);
+    box-sizing: border-box;
+    border-width: 1px;
+    border-style: solid;
+    border-color: rgba(191, 193, 195, 1);
+    border-radius: 0px;
+    -moz-box-shadow: none;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    cursor: pointer;
+}
+
+
+.allocationRuleTabInnerSelected {
+    border-width: 0px;
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    width: 110px;
+    height: 38px;
+    background: inherit;
+    background-color: #005090;
+    box-sizing: border-box;
+    border-width: 1px;
+    border-style: solid;
+    border-color: rgba(121, 121, 121, 1);
+    border-radius: 0px;
+    -moz-box-shadow: none;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    font-family: 'Arial Bold', 'Arial';
+    font-weight: 700;
+    font-style: normal;
+    color: #FFFFFF;
+    cursor: pointer;
+}
+
+.ipt {
+    left:0px;
+}
+
+.fiftyfifty {
+    left: 109px;
+}
+
+.allreports {
+    left: 218px;
+}
+
+.allocationRuleTabText {
+    border-width: 0px;
+    position: absolute;
+    left: 2px;
+    top: 11px;
+    width: 106px;
+    word-wrap: break-word;
+}
+
+.reportAllocationIndicator {    
+    padding: 3px 10px;
+    background-color: #005090;
+    color: white
+}
+
+.reports .radio, .checkbox {
+    position: relative;
+    display: block;
+    margin-top: 0px;
+    margin-bottom: 5px;
+}
+
+.reports .radio + .radio, .checkbox + .checkbox {
+    margin-top: 0px;    
+}
