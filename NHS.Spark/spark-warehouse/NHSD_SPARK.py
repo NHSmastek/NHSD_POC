@@ -1,6 +1,6 @@
 import findspark
 import riak_machine
-
+import json
 findspark.init()
 from pyspark import SparkContext
 from pyspark.sql import *
@@ -53,15 +53,73 @@ df_trust_performance=df_final.groupBy(df_final.Org_Code).agg({"E1_days": "avg","
 df_Region_performance=df_final.groupBy(df_final.region_id).agg({"E1_days": "avg","E2_days": "avg","E3_days": "avg","E4_days": "avg"})\
     .select(col("region_id"),col("avg(E1_days)").alias("E1"),col("avg(E2_days)").alias("E2"),col("avg(E3_days)").alias("E3"),col("avg(E4_days)").alias("E4"))
 
+# Regionlist=[]
+# def f(people):
+#     Regiondict={}
+#     Regionsubdict={}
+#     Regionsubdict["E1"]=people['E1']
+#     Regionsubdict["E2"]=people['E2']
+#     Regionsubdict["E3"]=people['E3']
+#     Regionsubdict["E4"]=people['E4']
+#     Regiondict[people['region_id']]=Regionsubdict
 
-trust_data=df_trust_performance.toJSON().collect()
-region_data=df_Region_performance.toJSON().collect()
+#     # print(Regiondict)
+#     Regionlist.append(Regiondict)
+#     print(Regionlist)
+#     # for person in people:
+#     #     print(person)
 
+
+# Trustlist=[]
+# def fortrust(people):
+#     trustdict={}
+#     trustsubdict={}
+   
+#     trustsubdict["E1"]=people['E1']
+#     trustsubdict["E2"]=people['E2']
+#     trustsubdict["E3"]=people['E3']
+#     trustsubdict["E4"]=people['E4']
+#     trustdict["Org_Code"]=people['Org_Code']
+#     trustdict["data"]={}
+#     trustdict["data"]=trustsubdict
+#     # trustdict["Org_Code"]=people['Org_Code']
+#     # print(Regiondict)
+#     Trustlist.append(Regiondict)
+#     print(Trustlist)
+#     # for person in people:
+#     #     print(person)
+
+
+trust_data = df_trust_performance.toJSON().map(lambda j: json.loads(j)).collect()
+region_data = df_Region_performance.toJSON().map(lambda j: json.loads(j)).collect()
+# region_data = df_Region_performance.toJSON().map(lambda j: json.loads({'Region_code':j[0],'data':[{'E1':j[1]}]})).collect()
+
+# print(region_data)
 print(trust_data)
+
+# df_Region_performance.foreach(f)
+# print(Regionlist)
+# trust_data=df_trust_performance.toJSON().collect()
+# region_data=df_Region_performance.toJSON().collect()
+
+# df_trust_performance.foreach(fortrust)
+
+# for item in trust_data:
+#     print(item)
+
+# print(Regionlist)
+
+# df_Region_performance.groupBy(lambda r: r.region_id).map(
+#   lambda g: {
+#     'region_id': g[0], 
+#     'data': [{'E1': x['E1'], 'E2': x['E2']} for x in g[1]]}
+# ).show()
+
+# print(trust_data)
 print("**********************************************************************************************","The region performance data",region_data)
 riak=riak_machine.riak_machine()
-# trust_data="TrustData   :{RR1:{E1:95,E2:96,E3:97,E4:50}, RR2:{E1:95,E2:96,E3:97,E4:50}, RR3:{E1:95,E2:96,E3:97,E4:50},RR4:{E1:95,E2:96,E3:97,E4:50}}"
-# region_data="RegionData :{R1:{E1:95,E2:96,E3:97,E4:50},R2:{E1:95,E2:96,E3:97,E4:50},R3:{E1:95,E2:96,E3:97,E4:50},R8:{E1:95,E2:96,E3:97,E4:50} }"
+# trust_data="TrustData:{RR1:{E1:95,E2:96,E3:97,E4:50}, RR2:{E1:95,E2:96,E3:97,E4:50}, RR3:{E1:95,E2:96,E3:97,E4:50},RR4:{E1:95,E2:96,E3:97,E4:50}}"
+# region_data="RegionData:{R1:{E1:95,E2:96,E3:97,E4:50},R2:{E1:95,E2:96,E3:97,E4:50},R3:{E1:95,E2:96,E3:97,E4:50},R8:{E1:95,E2:96,E3:97,E4:50} }"
 
 
 
