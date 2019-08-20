@@ -30,13 +30,21 @@ var ApiResponse = {
         { "Org_code": "RR8", "E1": "95", "E2": "96", "E3": "97", "E4": "50" }
     ]
 }
+function show_Hide_panel()
+{
+    var org_Code_value=document.getElementById("trust_list").value
+    if(org_Code_value == ''){
+        document.getElementById("dv_chart_row_panel").style.display = "none";
+        document.getElementById("dv_chart_no_selection_panel").style.display = "block";
+        return;
+    } else{
+        document.getElementById("dv_chart_row_panel").style.display = 'block';
+        document.getElementById("dv_chart_no_selection_panel").style.display = "none";
+    }
+}
 function get_performance_data_for_map(org_Code) {
     //alert(org_Code)
-    if(org_Code == ''){
-        document.getElementById("chart_div").style.display = "none";
-    } else{
-        document.getElementById("chart_div").style.display = 'block';
-    }
+    show_Hide_panel()
     
     for( i=0;i<ApiResponse.Trust_Data.length;i++)
     {
