@@ -31,7 +31,13 @@ var ApiResponse = {
     ]
 }
 function get_performance_data_for_map(org_Code) {
-    alert(org_Code)
+    //alert(org_Code)
+    if(org_Code == ''){
+        document.getElementById("chart_div").style.display = "none";
+    } else{
+        document.getElementById("chart_div").style.display = 'block';
+    }
+    
     for( i=0;i<ApiResponse.Trust_Data.length;i++)
     {
         header[i+1]=ApiResponse.Trust_Data[i];
@@ -132,6 +138,7 @@ function get_trust_list() {
 }
 
 function loadchart(type) {
+    //alert(type);
     let obj=dummychartdata[type]
         document.getElementById("current_selected_graph").value = type;
         google.charts.load('current', { 'packages': ['corechart'] });
@@ -146,5 +153,6 @@ function loadchart(type) {
 }
 window.onload = function() {
     get_trust_list();
-    loadchart(grapType.TvR)
+    loadchart(grapType.TvR);
 }
+$('.select2').select2();
