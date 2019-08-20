@@ -11,16 +11,25 @@ from django.conf import settings
 # Logic of getting Peers is pending.
 
 
+def get_trust_list(request):
+    trm_bucket = riak_crud.riak_client.bucket(settings.TRUST_REGION_MAP_BUCKET)
+    return JsonResponse(trm_bucket.get_keys(), safe=False)
+
+
 def search_trust(request, trust_name):
     # Get Bucket
     trust_bucket = _get_or_create_bucket(settings.TRUST_BUCKET_NAME)
     region_bucket = _get_or_create_bucket(settings.REGION_BUCKET_NAME)
+    trm_bucket = riak_crud.riak_client.bucket(settings.TRUST_REGION_MAP_BUCKET)
 
     # Get Region Code
-    region_code = _get_region_code(trust_name)
+    region_code = _get_region_code(trust_name, trm_bucket)
 
     if not region_code:
         return HttpResponse("Trust Specified Not In Any of 4 Regions")
+
+    # Get Trust Peer List
+    peer_list = _get_peer_list(region_code, trust_name)
 
     # Get Region Dict
     region_dict = _get_region(region_bucket)
@@ -41,8 +50,11 @@ def search_trust(request, trust_name):
     return JsonResponse(resp_data, status=200)
 
 
-def _get_region_code(trust_name):
-    trm_bucket = riak_crud.riak_client.bucket(settings.TRUST_REGION_MAP_BUCKET)
+def _get_peer_list(region_code, trust_name):
+    pass
+
+
+def _get_region_code(trust_name, trm_bucket):
     trust_region_object = trm_bucket.get(trust_name)
     return trust_region_object.data
 
