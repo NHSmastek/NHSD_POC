@@ -16,6 +16,10 @@ RIAK_HOST_IP = "35.176.37.177"
 RIAK_HOST_PORT = "8087"
 TRUST_BUCKET_NAME = "TrustPerformance"
 REGION_BUCKET_NAME = "RegionPerformance"
+TRUST_KEY = "TrustData"
+REGION_KEY = "RegionData"
+TRUST_REGION_MAP_BUCKET = "TrustRegionMap"
+TRUST_REGION_MAP_KEY = "TrustRegionMapData"
 
 
 INSTALLED_APPS = [

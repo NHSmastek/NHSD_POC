@@ -1,7 +1,7 @@
 from __future__ import unicode_literals
 from django.http import JsonResponse
 from django.shortcuts import render
-#import requests
+import requests
 from django.conf import settings
 
 
