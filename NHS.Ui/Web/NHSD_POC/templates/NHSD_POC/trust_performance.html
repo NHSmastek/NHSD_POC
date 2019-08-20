@@ -117,13 +117,13 @@
 
                 <li style="float: right; width: 19%">
                     <select class="form-control" id="trust_list" onchange="get_performance_data_for_map(this.value)">
-                    {% for trust in trust_list %}
+                        <option value="">select</option>
+                        {% for trust in trust_list %}
                         <option value={{trust}} label={{trust}}></option>
-                    {% endfor %}
+                        {% endfor %}
                     </select>
-                    
                     <input type="hidden" id="current_selected_graph">
-                    
+
                 </li>
                 <li class="active" style="text-align: center;float: unset;border-left: none;width: 81%">
                     <h3>Performance visualization</h3>
@@ -133,16 +133,20 @@
 
         <div class="container">
             <div class="container-fluid">
-                <div class="row">
+                <div class="row" style="height: 68vh;display: block;" id="dv_chart_no_selection_panel">
+                    <div class="col-sm-10">
+
+                        <img src="{% static 'NHSD_POC/images/CWT/nhs-home-page.jpg' %}" style="width: 100%">
+
+                    </div>
+                </div>
+                <div id="dv_chart_row_panel" class="row" style="display: none">
                     <div class="col-sm-10">
                         <div class="HomePageMenuList">
                             <div id="chart_div" style="width: 100%; height: 400px;"></div>
                         </div>
                     </div>
-                    <div class="col-sm-2" style="
-    border-left: 1px solid black;
-    
-">
+                    <div class="col-sm-2" style="border-left: 1px solid black;">
                         <div id="side-bar-chart-option">
                             <!-- <a id="CwtReportDateLink" target="_blank" style="padding: 10px 10px 9px 10px;">
                                 <i aria-hidden="true"></i>Other Graph</a> -->
@@ -247,15 +251,15 @@
     <script src="{% static 'NHSD_POC/js/CWT/underscore-min.js' %}"></script>
     <script src="{% static 'NHSD_POC/js/CWT/cwt.js' %}"></script>
     <script>
-    $(document).ready(function(){
-    $("#myInput").on("keyup", function() {
-      var value = $(this).val().toUpperCase();
-     
-      $("#trust_list option").filter(function() {
-        $(this).toggle($(this).text().toUpperCase().indexOf(value) > -1)
-      });
-    });
-  });
+        $(document).ready(function () {
+            $("#myInput").on("keyup", function () {
+                var value = $(this).val().toUpperCase();
+
+                $("#trust_list option").filter(function () {
+                    $(this).toggle($(this).text().toUpperCase().indexOf(value) > -1)
+                });
+            });
+        });
     </script>
 </body>
 
