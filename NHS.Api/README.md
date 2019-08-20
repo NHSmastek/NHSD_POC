@@ -9,33 +9,34 @@ Run requirement27.txt file.
 API's :-
 Trust CRUD :-
 Search : "http://<Domain Name>:<port_number>/search_trust/<trust_key_name>/"
-# Write : "http://<Domain Name>:<port_number>/write_trust/<trust_key_name>/"
-# Delete : "http://<Domain Name>:<port_number>/delete_trust/<trust_key_name>/"
-# Update : "http://<Domain Name>:<port_number>/update_trust/<trust_key_name>/"
+# Write : "http://<Domain Name>:<port_number>/write_trust"
+# Delete : "http://<Domain Name>:<port_number>/delete_trust"
+# Update : "http://<Domain Name>:<port_number>/update_trust"
 
 Region CRUD :-
-# Write : "http://<Domain Name>:<port_number>/write_region/<region_key_name>/"
-# Delete : "http://<Domain Name>:<port_number>/delete_region/<region_key_name>/"
-# Update : "http://<Domain Name>:<port_number>/update_region/<region_key_name>/"
+# Write : "http://<Domain Name>:<port_number>/write_region"
+# Delete : "http://<Domain Name>:<port_number>/delete_region"
+# Update : "http://<Domain Name>:<port_number>/update_region"
 
 **Note :- Update API is not functional till now. Key_name(Name of Trust / Name of Region).
 
 Mock Data :
 The schema of Mock data is temporary and can be changed. For time being I have hard coded the data to be written in RIAK.
 
-TrustData = {
-    "E1": 20,
-    "E2": 100,
-    "E3": 25,
-    "E4": 32,
-}
+TrustData = [
+    {"OrgCode": "RR8", "E1": 21, "E2": 23, "E3": 24, "E4": 25},
+    {"OrgCode": "RR1", "E1": 21, "E2": 23, "E3": 24, "E4": 25},
+    {"OrgCode": "RR2", "E1": 21, "E2": 23, "E3": 24, "E4": 25},
+    {"OrgCode": "RR3", "E1": 21, "E2": 23, "E3": 24, "E4": 25},
+    {"OrgCode": "RR4", "E1": 21, "E2": 23, "E3": 24, "E4": 25},
+]
 
-RegionData = {
-    "E1": 20,
-    "E2": 30,
-    "E3": 40,
-    "E4": 50,
-}
+RegionData = [
+    {"RegionCode": "R1", "E1": 11, "E2": 12, "E3": 13, "E4": 14},
+    {"RegionCode": "R2", "E1": 11, "E2": 12, "E3": 13, "E4": 14},
+    {"RegionCode": "R3", "E1": 11, "E2": 12, "E3": 13, "E4": 14},
+    {"RegionCode": "R4", "E1": 11, "E2": 12, "E3": 13, "E4": 14},
+]
 
 
 RIAK SERVER CONFIG :-
