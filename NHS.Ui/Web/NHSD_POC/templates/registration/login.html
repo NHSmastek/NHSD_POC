@@ -1,0 +1,57 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>NHS-Login</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" type="text/css" href="{% static 'NHSD_POC/login_form/vendor/bootstrap/css/bootstrap.min.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static 'NHSD_POC/login_form/css/util.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static 'NHSD_POC/login_form/css/main.css' %}">
+</head>
+<body>
+	<div class="limiter">
+		<div class="container-login100">
+			<div class="wrap-login100 p-t-25 p-b-20">
+				<form method="post" class="login100-form validate-form" action="{% url 'login' %}">
+						{% csrf_token %}
+					<span class="login100-form-title p-b-30">
+						Welcome
+					</span>
+					<span class="login100-form-avatar">
+						<img src="{% static 'NHSD_POC/images/CWT/logo.png' %}" alt="AVATAR">
+					</span>
+
+					<div class="wrap-input100 validate-input m-t-30 m-b-35" data-validate = "Enter username">
+						<span class="input100"></span>
+						<span class="focus-input100" data-placeholder="Username"></span>
+						{{ form.username }}
+					</div>
+					<div class="wrap-input100 validate-input m-b-50" data-validate="Enter password">
+						<span class="input100"></span>
+						<span class="focus-input100" data-placeholder="Password"></span>
+						{{form.password}}
+					</div>
+					<div class="form-group">
+							{% if form.errors %}
+								  <p style="color:red">Your username and password didn't match. Please try again.</p>
+							{% endif %}
+						</div>
+					<div class="container-login100-form-btn">
+						<button class="login100-form-btn">
+								<input type="submit" value="Login" class="login100-form-btn" style="cursor: pointer">
+						</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+	<script src="{% static 'NHSD_POC/js/CWT/jquery.js' %}"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+	<script src="{% static 'NHSD_POC/js/CWT/bootstrap.js' %}"></script>
+	<script type="text/javascript">
+				document.getElementById("id_username").setAttribute("size", "50");
+				document.getElementById("id_password").setAttribute("size", "50");
+	</script>
+</body>
+</html>

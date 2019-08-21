@@ -3,5 +3,5 @@ from django.contrib import admin
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url('', include("riak_crud.urls")),
+    url('', include("NHS_AnalyticsAPI.urls")),
 ]
