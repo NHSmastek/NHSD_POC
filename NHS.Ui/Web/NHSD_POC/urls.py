@@ -5,5 +5,5 @@ from . import views
 urlpatterns = [
     path('', views.patient_pathway_timeline, name='PatientPathwayTimeline'),
     path('PatientPathwayTimeline', views.patient_pathway_timeline, name='PatientPathwayTimeline'),
-    path('<str:trust_name>', views.get_trust_list, name='TrustList'),
+    # path('<str:trust_name>', views.get_trust_list, name='TrustList'),
 ]
