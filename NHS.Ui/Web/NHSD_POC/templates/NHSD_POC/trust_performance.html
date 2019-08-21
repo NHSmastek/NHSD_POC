@@ -3,10 +3,7 @@
 <link rel="stylesheet" type="text/css" href="{% static 'NHSD_POC/CSS/trust_performance.css' %}">
 <script src="{% static 'NHSD_POC/js/trust_performance.js' %}">
 </script>
-
-<select id="trust_list" onchange="get_performance_data_for_map(this.value)">
-    <option value="">Select Trust</option>
-</select> -->
+-->
 
 <!DOCTYPE html>
 <html lang="en" style="display: block;"
@@ -22,9 +19,19 @@
 
     <link href="{% static 'NHSD_POC/images/CWT/favicon.ico' %}" type="image/x-icon" rel="shortcut icon">
     <link href="{% static 'NHSD_POC/images/CWT/favicon.ico' %}" type="image/ico" rel="icon">
+
     <style>
         html {
             display: none
+        }
+
+        .select2-container .select2-selection--single {
+            height: 34px !important;
+        }
+
+        .select2-container--default .select2-selection--single {
+            border: 1px solid #ccc !important;
+            border-radius: 0px !important;
         }
     </style>
 
@@ -62,9 +69,9 @@
                     <img src="{% static 'NHSD_POC/images/CWT/logo.png' %}">
                 </a>
 
-                <div id="myhscic">
+                <!--  <div id="myhscic">
                     Hello Admin...
-                </div>
+                </div> -->
                 <div class="navbar-title">
                     <h1>Cancer Waiting Times</h1>
                     <div class="notification-message "> </div>
@@ -105,52 +112,62 @@
 
 
         <div class="container">
-            <ul class="nav navbar-nav hscic-nav" style="padding-top:3px; padding-bottom:2px; border-bottom:0;  padding-top: 5px;">
+            <ul class="nav navbar-nav hscic-nav"
+                style="padding-top:3px; padding-bottom:2px; border-bottom:0;  padding-top: 5px;">
 
                 <li style="float: right; width: 19%">
                     <select class="form-control" id="trust_list" onchange="get_performance_data_for_map(this.value)">
-                        <option value="">Select</option>
+                        <option value="">select</option>
+                        {% for trust in trust_list %}
+                        <option value={{trust}} label={{trust}}></option>
+                        {% endfor %}
                     </select>
                     <input type="hidden" id="current_selected_graph">
+
                 </li>
-                <li class="active" style="text-align: center;float: unset;border-left: none;width: 81%"><h3>Performance visualization</h3></li>
+                <li class="active" style="text-align: center;float: unset;border-left: none;width: 81%">
+                    <h3>Performance visualization</h3>
+                </li>
             </ul>
         </div>
 
         <div class="container">
             <div class="container-fluid">
-                <div class="row">
-                    <div class="col-sm-9">
+                <div class="row" style="height: 68vh;display: block;" id="dv_chart_no_selection_panel">
+                    <div class="col-sm-10">
+
+                        <img src="{% static 'NHSD_POC/images/CWT/nhs-home-page.jpg' %}" style="width: 100%">
+
+                    </div>
+                </div>
+                <div id="dv_chart_row_panel" class="row" style="display: none">
+                    <div class="col-sm-10">
                         <div class="HomePageMenuList">
-                            <div id="chart_div" style="width: 100%; height: 400px; "></div>
+                            <div id="chart_div" style="width: 100%; height: 400px;"></div>
                         </div>
                     </div>
-                    <div class="col-sm-3" style="
-    border-left: 1px solid black;
-    width: 19%;
-    float: right;
-">
-                        <div id="side-bar-chart-option" >
-                           <!-- <a id="CwtReportDateLink" target="_blank" style="padding: 10px 10px 9px 10px;">
+                    <div class="col-sm-2" style="border-left: 1px solid black;">
+                        <div id="side-bar-chart-option">
+                            <!-- <a id="CwtReportDateLink" target="_blank" style="padding: 10px 10px 9px 10px;">
                                 <i aria-hidden="true"></i>Other Graph</a> -->
-                                <strong>Other Graph </strong> 
+                            <strong>Other Graph </strong>
                         </div>
                         <div
-                            style="border-bottom: 1px solid black;margin: 7px 0px 0px 0px;padding: 5px;text-align: center;">
+                            style="border-bottom: 1px solid black;margin: 7px 0px 0px 0px;padding: 5px;text-align: center;height: 120px;">
                             <a style="cursor: pointer" onclick="loadchart(grapType.TvP)">
                                 <img src="{% static 'NHSD_POC/images/regions.png' %}" style="width: 100%">
                                 <span style="display: block">Trust vs Peers</span>
                             </a>
                         </div>
                         <div
-                            style="border-bottom: 1px solid black;margin: 7px 0px 0px 0px;padding:  5px;text-align: center;">
-                            <a style="cursor: pointer" onclick="loadchart(grapType.TvR)">
+                            style="border-bottom: 1px solid black;margin: 7px 0px 0px 0px;padding:  5px;text-align: center;height: 120px;">
+                            <a style="cursor: pointer" onclick="loadchart(grapType.TvR )">
 
                                 <img src="{% static 'NHSD_POC/images/trustvsregion.png' %}" style="width: 100%">
                                 <span style="display: block">Trust vs Region </span>
                             </a>
                         </div>
-                        <div style="margin: 7px 0px 0px 0px;padding:  5px;text-align: center;">
+                        <div style="margin: 7px 0px 0px 0px;padding:  5px;text-align: center;height: 120px;">
                             <a style="cursor: pointer" onclick="loadchart(grapType.Regions)">
 
                                 <img src="{% static 'NHSD_POC/images/trustwise.png' %}" style="width: 100%">
@@ -169,11 +186,11 @@
 
     </div>
 
-    <div id="footer">
+    <div id="footer" class="fixed-bottom">
         <div class="navbar navbar-inverse" role="navigation">
             <div class="container">
 
-                <div class="navbar-header">
+                <div class="navbar-header fixed-bottom">
                     <button type="button" class="navbar-toggle" data-toggle="collapse"
                         data-target=".footer-navbar-collapse">
                         <span class="sr-only">Toggle footer navigation</span>
@@ -233,6 +250,17 @@
     <script src="{% static 'NHSD_POC/js/CWT/common.js' %}"></script>
     <script src="{% static 'NHSD_POC/js/CWT/underscore-min.js' %}"></script>
     <script src="{% static 'NHSD_POC/js/CWT/cwt.js' %}"></script>
+    <script>
+        $(document).ready(function () {
+            $("#myInput").on("keyup", function () {
+                var value = $(this).val().toUpperCase();
+
+                $("#trust_list option").filter(function () {
+                    $(this).toggle($(this).text().toUpperCase().indexOf(value) > -1)
+                });
+            });
+        });
+    </script>
 </body>
 
 </html>
