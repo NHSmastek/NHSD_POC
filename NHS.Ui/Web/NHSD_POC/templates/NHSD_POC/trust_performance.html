@@ -69,14 +69,13 @@
                 <a href="" class="navbar-brand" title="Link to NHS Digital homepage">
                     <img src="{% static 'NHSD_POC/images/CWT/logo.png' %}">
                 </a>
+                <div id="myhscic">
+                    Hello {% if request.user.is_authenticated %} {{ request.user.username }} <a href="{% url 'logout' %}">Logout</a>{% endif %} 
+                </div>
 
-                <!--  <div id="myhscic">
-                    Hello Admin...
-                </div> -->
                 <div class="navbar-title">
                     <h1>Cancer Waiting Times</h1>
                     <div class="notification-message "> </div>
-
                 </div>
             </div>
         </div>

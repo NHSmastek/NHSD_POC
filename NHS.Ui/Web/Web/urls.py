@@ -19,4 +19,5 @@ from django.urls import path,include
 urlpatterns = [
     # path('admin/', admin.site.urls),
     path('NHSD_POC/', include('NHSD_POC.urls')),
+    path('', include('django.contrib.auth.urls')),
 ]
