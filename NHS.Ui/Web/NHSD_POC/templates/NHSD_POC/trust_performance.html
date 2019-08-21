@@ -3,10 +3,7 @@
 <link rel="stylesheet" type="text/css" href="{% static 'NHSD_POC/CSS/trust_performance.css' %}">
 <script src="{% static 'NHSD_POC/js/trust_performance.js' %}">
 </script>
-
-<select id="trust_list" onchange="get_performance_data_for_map(this.value)">
-    <option value="">Select Trust</option>
-</select> -->
+-->
 
 <!DOCTYPE html>
 <html lang="en" style="display: block;"
@@ -109,7 +106,9 @@
 
                 <li style="float: right; width: 19%">
                     <select class="form-control" id="trust_list" onchange="get_performance_data_for_map(this.value)">
-                        <option value="">Select</option>
+                    {% for trust in trust_list %}
+                        <option value={{trust}} label={{trust}}></option>
+                    {% endfor %}
                     </select>
                     <input type="hidden" id="current_selected_graph">
                 </li>

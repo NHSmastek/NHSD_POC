@@ -7,44 +7,29 @@ import riak_crud
 import riak
 from django.conf import settings
 
-# This Hardcoded data is to be removed (TrustData, RegionData, RegionTrustMap).
-# Schema of DATA is not final yet, It might change.
 # Repetition of CRUD Logic is to be removed.
 # Logic of getting Peers is pending.
 
-TrustData = [
-    {"OrgCode": "RR8", "E1": 21, "E2": 23, "E3": 24, "E4": 25},
-    {"OrgCode": "RR1", "E1": 21, "E2": 23, "E3": 24, "E4": 25},
-    {"OrgCode": "RR2", "E1": 21, "E2": 23, "E3": 24, "E4": 25},
-    {"OrgCode": "RR3", "E1": 21, "E2": 23, "E3": 24, "E4": 25},
-    {"OrgCode": "RR4", "E1": 21, "E2": 23, "E3": 24, "E4": 25},
-]
 
-RegionData = [
-    {"RegionCode": "R1", "E1": 11, "E2": 12, "E3": 13, "E4": 14},
-    {"RegionCode": "R2", "E1": 11, "E2": 12, "E3": 13, "E4": 14},
-    {"RegionCode": "R3", "E1": 11, "E2": 12, "E3": 13, "E4": 14},
-    {"RegionCode": "R4", "E1": 11, "E2": 12, "E3": 13, "E4": 14},
-]
-
-RTM = [
-    {"RTM": "R0", "Trust": ["RR1", "RR2"]},
-    {"RTM": "R1", "Trust": ["RR3", "RR4", "RR5"]},
-    {"RTM": "R2", "Trust": ["RR6", "RR7"]},
-    {"RTM": "R3", "Trust": ["RR8", "RR9", "RR0"]}
-]
+def get_trust_list(request):
+    trm_bucket = riak_crud.riak_client.bucket(settings.TRUST_REGION_MAP_BUCKET)
+    return JsonResponse(trm_bucket.get_keys(), safe=False)
 
 
 def search_trust(request, trust_name):
     # Get Bucket
     trust_bucket = _get_or_create_bucket(settings.TRUST_BUCKET_NAME)
     region_bucket = _get_or_create_bucket(settings.REGION_BUCKET_NAME)
+    trm_bucket = _get_or_create_bucket.riak_client.bucket(settings.TRUST_REGION_MAP_BUCKET)
 
     # Get Region Code
-    region_code = _get_region_code(trust_name)
+    region_code = _get_region_code(trust_name, trm_bucket)
 
     if not region_code:
         return HttpResponse("Trust Specified Not In Any of 4 Regions")
+
+    # Get Trust Peer List
+    peer_list = _get_peer_list(region_code, trust_name)
 
     # Get Region Dict
     region_dict = _get_region(region_bucket)
@@ -58,30 +43,20 @@ def search_trust(request, trust_name):
 
     # Form Resp Dict
     resp_data = {
-        "RegionCode": region_code,
-        "RegionData": region_dict,
-        "TrustData": trust_dict,
+        "Region_Code": region_code,
+        "Region_Data": region_dict,
+        "Trust_Data": trust_dict,
     }
     return JsonResponse(resp_data, status=200)
 
 
-def _get_region_code(trust_name):
-    query = riak_crud.riak_client.add(settings.TRUST_REGION_MAP_BUCKET)
-    query_str = "function(v) {\
-        var val = JSON.parse(v.values[0].data);\
-        for (var key in val) {\
-            for (t in val[key]['Trust']) {\
-                if ([val[key]['Trust'][t]] == '" + trust_name + "') {\
-                    return [val[key]['RTM']]\
-                }\
-            }\
-        }\
-    }"
-    query.map(query_str)
-    try:
-        return query.run()[0]
-    except riak.RiakError:
-        return None
+def _get_peer_list(region_code, trust_name):
+    pass
+
+
+def _get_region_code(trust_name, trm_bucket):
+    trust_region_object = trm_bucket.get(trust_name)
+    return trust_region_object.data
 
 
 def _get_trust(bucket_name, trust_name):
@@ -91,7 +66,7 @@ def _get_trust(bucket_name, trust_name):
     query_str = "function(v) {\
         var val = JSON.parse(v.values[0].data);\
         for (var key in val) {\
-            if (val[key]['OrgCode']=='" + trust_name + "'){\
+            if (val[key]['Org_Code']=='" + trust_name + "'){\
                 return [val[key]];\
             }\
         }\
@@ -111,7 +86,7 @@ def _get_region(region_bucket):
     region_dict = {}
     region_obj = region_bucket.get(settings.REGION_KEY)
     for region in region_obj.data:
-        region_dict[region["RegionCode"]] = region
+        region_dict[region["Region_Code"]] = region
     return region_dict
 
 

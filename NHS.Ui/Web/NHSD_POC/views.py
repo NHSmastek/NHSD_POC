@@ -7,11 +7,12 @@ from django.conf import settings
 
 def get_trust_list(request, trust_name):
     url = "{}:{}/search_trust/{}".format(settings.NHS_API_DOMAIN_NAME, settings.NHS_API_DOMAIN_PORT, trust_name)
-    # The name of trust will come from drop down for time being hard coded the name of trust
     trust_performance_obj = requests.get(url=url)
     trust_performance = trust_performance_obj.json()
     return JsonResponse(trust_performance)
 
 
 def patient_pathway_timeline(request):
-    return render(request, "NHSD_POC/trust_performance.html", {})
+    url = "{}:{}/get_trust_list".format(settings.NHS_API_DOMAIN_NAME, settings.NHS_API_DOMAIN_PORT)
+    trust_list_obj = requests.get(url=url)
+    return render(request, "NHSD_POC/trust_performance.html", {"trust_list": trust_list_obj.json()})
