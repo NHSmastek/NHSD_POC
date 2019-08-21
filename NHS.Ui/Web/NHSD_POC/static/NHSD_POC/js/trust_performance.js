@@ -30,8 +30,22 @@ var ApiResponse = {
         { "Org_code": "RR8", "E1": "95", "E2": "96", "E3": "97", "E4": "50" }
     ]
 }
+function show_Hide_panel()
+{
+    var org_Code_value=document.getElementById("trust_list").value
+    if(org_Code_value == ''){
+        document.getElementById("dv_chart_row_panel").style.display = "none";
+        document.getElementById("dv_chart_no_selection_panel").style.display = "block";
+        return;
+    } else{
+        document.getElementById("dv_chart_row_panel").style.display = 'block';
+        document.getElementById("dv_chart_no_selection_panel").style.display = "none";
+    }
+}
 function get_performance_data_for_map(org_Code) {
-    alert(org_Code)
+    //alert(org_Code)
+    show_Hide_panel()
+    
     for( i=0;i<ApiResponse.Trust_Data.length;i++)
     {
         header[i+1]=ApiResponse.Trust_Data[i];
@@ -132,6 +146,7 @@ function get_trust_list() {
 }
 
 function loadchart(type) {
+    //alert(type);
     let obj=dummychartdata[type]
         document.getElementById("current_selected_graph").value = type;
         google.charts.load('current', { 'packages': ['corechart'] });
@@ -146,5 +161,6 @@ function loadchart(type) {
 }
 window.onload = function() {
     get_trust_list();
-    loadchart(grapType.TvR)
+    loadchart(grapType.TvR);
 }
+$('.select2').select2();
