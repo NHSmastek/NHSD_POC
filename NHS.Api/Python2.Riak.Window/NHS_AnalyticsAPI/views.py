@@ -1,6 +1,9 @@
+# -*- coding: utf-8 -*-
+from __future__ import unicode_literals
+
 from django.http import JsonResponse, HttpResponse
 from django.views.decorators.http import require_POST
-import DB_crud
+import NHS_AnalyticsAPI
 import riak
 from django.conf import settings
 
@@ -9,7 +12,7 @@ from django.conf import settings
 
 
 def get_trust_list(request):
-    trm_bucket = DB_crud.riak_client.bucket(settings.TRUST_REGION_MAP_BUCKET)
+    trm_bucket = NHS_AnalyticsAPI.riak_client.bucket(settings.TRUST_REGION_MAP_BUCKET)
     return JsonResponse(trm_bucket.get_keys(), safe=False)
 
 
@@ -17,7 +20,7 @@ def search_trust(request, trust_name):
     # Get Bucket
     trust_bucket = _get_or_create_bucket(settings.TRUST_BUCKET_NAME)
     region_bucket = _get_or_create_bucket(settings.REGION_BUCKET_NAME)
-    trm_bucket = _get_or_create_bucket(settings.TRUST_REGION_MAP_BUCKET)
+    trm_bucket = NHS_AnalyticsAPI.riak_client.bucket(settings.TRUST_REGION_MAP_BUCKET)
 
     # Get Region Code
     region_code = _get_region_code(trust_name, trm_bucket)
@@ -59,7 +62,7 @@ def _get_region_code(trust_name, trm_bucket):
 def _get_trust(bucket_name, trust_name):
     trust_dict = {}
 
-    query = DB_crud.riak_client.add(bucket_name)
+    query = NHS_AnalyticsAPI.riak_client.add(bucket_name)
     query_str = "function(v) {\
         var val = JSON.parse(v.values[0].data);\
         for (var key in val) {\
@@ -128,5 +131,4 @@ def update_region(request):
 
 
 def _get_or_create_bucket(bucket_name):
-    return DB_crud.riak_client.bucket(bucket_name)
-
+    return NHS_AnalyticsAPI.riak_client.bucket(bucket_name)
