@@ -15,14 +15,14 @@
 			<div class="wrap-login100 p-t-85 p-b-20">
 				<form method="post" class="login100-form validate-form" action="{% url 'login' %}">
 						{% csrf_token %}
-					<span class="login100-form-title p-b-70">
+					<span class="login100-form-title p-b-30">
 						Welcome
 					</span>
 					<span class="login100-form-avatar">
 						<img src="{% static 'NHSD_POC/images/CWT/logo.png' %}" alt="AVATAR">
 					</span>
 
-					<div class="wrap-input100 validate-input m-t-85 m-b-35" data-validate = "Enter username">
+					<div class="wrap-input100 validate-input m-t-30 m-b-35" data-validate = "Enter username">
 						<span class="input100"></span>
 						<span class="focus-input100" data-placeholder="Username"></span>
 						{{ form.username }}
