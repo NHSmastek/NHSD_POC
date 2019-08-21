@@ -5,11 +5,12 @@ import requests
 from django.conf import settings
 from django.contrib.auth.decorators import login_required
 
-def get_trust_list(request, trust_name):
-    url = "{}:{}/search_trust/{}".format(settings.NHS_API_DOMAIN_NAME, settings.NHS_API_DOMAIN_PORT, trust_name)
-    trust_performance_obj = requests.get(url=url)
-    trust_performance = trust_performance_obj.json()
-    return JsonResponse(trust_performance)
+# def get_trust_list(request, trust_name):
+#     #url = "{}:{}/search_trust/{}".format(settings.NHS_API_DOMAIN_NAME, settings.NHS_API_DOMAIN_PORT, trust_name)
+#     url = "http://172.16.243.211:8009/getDummy"
+#     trust_performance_obj = requests.get(url=url)
+#     trust_performance = trust_performance_obj.json()
+#     return JsonResponse(trust_performance)
 
 @login_required
 def patient_pathway_timeline(request):
