@@ -4,6 +4,8 @@ function get_performance_data_for_map(trust_code) {
         if (this.readyState == 4 && this.status == 200) {
             // Will arrange the data according to the map
             console.log( JSON.parse(this.responseText))            
+            var ApiResponse = JSON.parse(this.responseText)
+            createChartsData(trust_code)
         }
     };
     xhttp.open("GET", trust_code, true);
@@ -44,7 +46,7 @@ Object.keys(grapType).forEach(key => {
 });
 
 function get_performance_data_for_map(org_Code) {
-    
+        
     //TVP
     for( i=0;i<ApiResponse.Trust_Data.length;i++)
     {       
@@ -168,6 +170,7 @@ function loadchart(type) {
 window.onload = function() {
     get_trust_list();
     loadchart(grapType.Regions)
+    get_performance_data_for_map("RR8")
 }
 
-get_performance_data_for_map()
+// get_performance_data_for_map(trust_code)
