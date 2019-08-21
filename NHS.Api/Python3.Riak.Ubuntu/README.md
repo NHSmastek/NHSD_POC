@@ -11,7 +11,7 @@ LIST OF TRUSTS
 Get : "http://<Domain Name>:<port_number>/get_trust_list"
 
 Trust CRUD :-
-Search : "http://<Domain Name>:<port_number>/search_trust/<trust_key_name>/"
+Search : "http://<Domain Name>:<port_number>/search_trust/<trust_key_name>"
 # Write : "http://<Domain Name>:<port_number>/write_trust"
 # Delete : "http://<Domain Name>:<port_number>/delete_trust"
 # Update : "http://<Domain Name>:<port_number>/update_trust"
