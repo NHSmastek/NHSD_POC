@@ -47,6 +47,7 @@
 
     <link href="{% static 'NHSD_POC/CSS/CWT/font-awesome.min.css' %}" rel="stylesheet">
     <script src="{% static 'NHSD_POC/js/CWT/modernizr.2.6.2.js' %}"></script>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"> </script>
     <script src="{% static 'NHSD_POC/js/trust_performance.js' %}"></script>
 
     <script>
@@ -68,14 +69,13 @@
                 <a href="" class="navbar-brand" title="Link to NHS Digital homepage">
                     <img src="{% static 'NHSD_POC/images/CWT/logo.png' %}">
                 </a>
+                <div id="myhscic">
+                    Hello {% if request.user.is_authenticated %} {{ request.user.username }} <a href="{% url 'logout' %}">Logout</a>{% endif %} 
+                </div>
 
-                <!--  <div id="myhscic">
-                    Hello Admin...
-                </div> -->
                 <div class="navbar-title">
                     <h1>Cancer Waiting Times</h1>
                     <div class="notification-message "> </div>
-
                 </div>
             </div>
         </div>
@@ -116,12 +116,14 @@
                 style="padding-top:3px; padding-bottom:2px; border-bottom:0;  padding-top: 5px;">
 
                 <li style="float: right; width: 19%">
-                    <select class="form-control" id="trust_list" onchange="get_performance_data_for_map(this.value)">
-                        <option value="">select</option>
-                        {% for trust in trust_list %}
-                        <option value={{trust}} label={{trust}}></option>
-                        {% endfor %}
-                    </select>
+                    <input type="text" list="trust" class="form-control" id="trust_list" value=""
+                        onchange="get_performance_data_for_map(this.value)" />
+                        <datalist id="trust">
+                                <option value="">select</option>
+                                {% for trust in trust_list %}
+                                <option value={{trust}} label={{trust}}></option>
+                                {% endfor %}
+                        </datalist>
                     <input type="hidden" id="current_selected_graph">
 
                 </li>

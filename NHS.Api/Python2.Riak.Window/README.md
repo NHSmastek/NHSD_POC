@@ -7,6 +7,9 @@ INSTALLATION :-
 Run requirement27.txt file.
 
 API's :-
+LIST OF TRUSTS
+Get : "http://<Domain Name>:<port_number>/get_trust_list"
+
 Trust CRUD :-
 Search : "http://<Domain Name>:<port_number>/search_trust/<trust_key_name>/"
 # Write : "http://<Domain Name>:<port_number>/write_trust"
