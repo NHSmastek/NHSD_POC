@@ -1,0 +1,11 @@
+1. Remove Hard coded bucket data
+2. Move riak client and bucket configuration to config file
+3. Modify region data to :-
+    region_data: {
+        R1: {...},
+        R2: {...},
+        R3: {...},
+        R4: {...},
+    }
+4. Change view to class based view using SOC
+5. Remove Hardcoded url name "RR8"(for example) from NHS_Ui/web/NHSD_POC/views.py file
