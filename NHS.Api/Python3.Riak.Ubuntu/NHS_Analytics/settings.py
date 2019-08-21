@@ -1,45 +1,14 @@
 import os
 
-# Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '2e3kucnc$=&nzq0#4d@ryuv5e6b^sb!zh7x66h!01v(%iy8nmh'
+SECRET_KEY = 'h#xsunyjqs4n+m1v@f-h6jyv9$ed+t310zbe*xtyif1^a9%&e5'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = [""]
-
-# CORS_ORIGIN_WHITELIST = [
-#     "https://172.16.243.211:8100",
-#     "http://localhost:8100",
-#     "http://127.0.0.1:8100",
-#     "http://172.16.243.211:8100"
-# ]
-CORS_ORIGIN_ALLOW_ALL=True
-
-# CORS_ALLOW_METHODS = [
-#     'DELETE',
-#     'GET',
-#     'OPTIONS',
-#     'PATCH',
-#     'POST',
-#     'PUT',
-# ]
-
-# CORS_ALLOW_HEADERS = [
-#     'accept',
-#     'accept-encoding',
-#     'authorization',
-#     'content-type',
-#     'dnt',
-#     'origin',
-#     'user-agent',
-#     'x-csrftoken',
-#     'x-requested-with',
-# ]
+ALLOWED_HOSTS = []
 
 RIAK_HOST_IP = "35.176.37.177"
 RIAK_HOST_PORT = "8087"
@@ -50,24 +19,22 @@ REGION_KEY = "RegionData"
 TRUST_REGION_MAP_BUCKET = "TrustRegionMap"
 TRUST_REGION_MAP_KEY = "TrustRegionMapData"
 
+# Application definition
 
 INSTALLED_APPS = [
-    'corsheaders',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'NHS_AnalyticsAPI',
     'rest_framework',
-    'riak_crud',
 ]
 
 MIDDLEWARE = [
-    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
-    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -75,7 +42,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF = 'riak27.urls'
+ROOT_URLCONF = 'NHS_Analytics.urls'
 
 TEMPLATES = [
     {
@@ -93,11 +60,19 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'riak27.wsgi.application'
+WSGI_APPLICATION = 'NHS_Analytics.wsgi.application'
+
+
+# Database
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+    }
+}
+
 
 # Password validation
-# https://docs.djangoproject.com/en/1.11/ref/settings/#auth-password-validators
-
 AUTH_PASSWORD_VALIDATORS = [
     {
         'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
@@ -115,8 +90,6 @@ AUTH_PASSWORD_VALIDATORS = [
 
 
 # Internationalization
-# https://docs.djangoproject.com/en/1.11/topics/i18n/
-
 LANGUAGE_CODE = 'en-us'
 
 TIME_ZONE = 'UTC'
@@ -129,6 +102,4 @@ USE_TZ = True
 
 
 # Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/1.11/howto/static-files/
-
 STATIC_URL = '/static/'
