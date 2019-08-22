@@ -3,13 +3,13 @@ var ApiResponse = {}
 function get_performance_data_for_map(trust_code) {
     $.ajax({
         //TODO : replace static url with correct url
-        url: "http://172.16.243.211:8009/getDummy"
+        // url: "http://172.16.243.211:8009/getDummy"
+        url: "http://127.0.0.1:8000/search_trust/" + trust_code
     }).then(function (data) {
         //Use response here        
-        ApiResponse = {};        
-        ApiResponse = JSON.parse(JSON.stringify(data));       
+        ApiResponse = {};
+        ApiResponse = JSON.parse(JSON.stringify(data));
         createChartsData(trust_code)
-        loadchart(grapType.TvR)
     });
 
 }
@@ -45,66 +45,66 @@ function createChartsData(org_Code) {
     show_Hide_panel();
 
     var datacreated = {}
-    Object.keys(grapType).forEach(key => {    
-        datacreated[key] = JSON.parse(JSON.stringify(headerRow));        
+    Object.keys(grapType).forEach(key => {
+        datacreated[key] = JSON.parse(JSON.stringify(headerRow));
     });
 
     var region_code = ApiResponse.Region_Code;
-    var i=0;
-   //TVP
-    Object.keys(ApiResponse.Trust_Data).forEach(trust => {    
-        datacreated.TvP.header[i+1]=trust;
-        datacreated.TvP.rows[0][i+1]=ApiResponse.Trust_Data[trust]["E1"];
-        datacreated.TvP.rows[1][i+1]=ApiResponse.Trust_Data[trust]["E2"];
-        datacreated.TvP.rows[2][i+1]=ApiResponse.Trust_Data[trust]["E3"];
-        datacreated.TvP.rows[3][i+1]=ApiResponse.Trust_Data[trust]["E4"];      
+    var i = 0;
+    //TVP
+    Object.keys(ApiResponse.Trust_Data).forEach(trust => {
+        datacreated.TvP.header[i + 1] = trust;
+        datacreated.TvP.rows[0][i + 1] = ApiResponse.Trust_Data[trust]["E1"];
+        datacreated.TvP.rows[1][i + 1] = ApiResponse.Trust_Data[trust]["E2"];
+        datacreated.TvP.rows[2][i + 1] = ApiResponse.Trust_Data[trust]["E3"];
+        datacreated.TvP.rows[3][i + 1] = ApiResponse.Trust_Data[trust]["E4"];
         i++;
     });
 
-   //Region
-    i=0;
-    Object.keys(ApiResponse.Region_Data).forEach(region => {    
-        datacreated.Regions.header[i+1]=region;
-        datacreated.Regions.rows[0][i+1]=ApiResponse.Region_Data[region]["E1"];
-        datacreated.Regions.rows[1][i+1]=ApiResponse.Region_Data[region]["E2"];
-        datacreated.Regions.rows[2][i+1]=ApiResponse.Region_Data[region]["E3"];
-        datacreated.Regions.rows[3][i+1]=ApiResponse.Region_Data[region]["E4"];      
+    //Region
+    i = 0;
+    Object.keys(ApiResponse.Region_Data).forEach(region => {
+        datacreated.Regions.header[i + 1] = region;
+        datacreated.Regions.rows[0][i + 1] = ApiResponse.Region_Data[region]["E1"];
+        datacreated.Regions.rows[1][i + 1] = ApiResponse.Region_Data[region]["E2"];
+        datacreated.Regions.rows[2][i + 1] = ApiResponse.Region_Data[region]["E3"];
+        datacreated.Regions.rows[3][i + 1] = ApiResponse.Region_Data[region]["E4"];
         i++;
     });
- 
+
     //TVR    
-    Object.keys(ApiResponse.Trust_Data).forEach(trust => {    
-        if(trust==org_Code){
-            datacreated.TvR.header[1]=trust;
-            datacreated.TvR.rows[0][1]=ApiResponse.Trust_Data[trust]["E1"];
-            datacreated.TvR.rows[1][1]=ApiResponse.Trust_Data[trust]["E2"];
-            datacreated.TvR.rows[2][1]=ApiResponse.Trust_Data[trust]["E3"];
-            datacreated.TvR.rows[3][1]=ApiResponse.Trust_Data[trust]["E4"];            
-        }
-    });    
-    Object.keys(ApiResponse.Region_Data).forEach(region => {    
-        if(region==region_code){
-        datacreated.TvR.header[2]=region;
-        datacreated.TvR.rows[0][2]=ApiResponse.Region_Data[region]["E1"];
-        datacreated.TvR.rows[1][2]=ApiResponse.Region_Data[region]["E2"];
-        datacreated.TvR.rows[2][2]=ApiResponse.Region_Data[region]["E3"];
-        datacreated.TvR.rows[3][2]=ApiResponse.Region_Data[region]["E4"];              
+    Object.keys(ApiResponse.Trust_Data).forEach(trust => {
+        if (trust == org_Code) {
+            datacreated.TvR.header[1] = trust;
+            datacreated.TvR.rows[0][1] = ApiResponse.Trust_Data[trust]["E1"];
+            datacreated.TvR.rows[1][1] = ApiResponse.Trust_Data[trust]["E2"];
+            datacreated.TvR.rows[2][1] = ApiResponse.Trust_Data[trust]["E3"];
+            datacreated.TvR.rows[3][1] = ApiResponse.Trust_Data[trust]["E4"];
         }
     });
-    
+    Object.keys(ApiResponse.Region_Data).forEach(region => {
+        if (region == region_code) {
+            datacreated.TvR.header[2] = region;
+            datacreated.TvR.rows[0][2] = ApiResponse.Region_Data[region]["E1"];
+            datacreated.TvR.rows[1][2] = ApiResponse.Region_Data[region]["E2"];
+            datacreated.TvR.rows[2][2] = ApiResponse.Region_Data[region]["E3"];
+            datacreated.TvR.rows[3][2] = ApiResponse.Region_Data[region]["E4"];
+        }
+    });
+
     //Average calculation 
     Object.keys(datacreated).forEach(function (key) {
         var type = datacreated[key];
         var j = Object.keys(datacreated[key].header).length;
-        datacreated[key].header[j]="Average";
+        datacreated[key].header[j] = "Average";
 
         Object.keys(datacreated[key].rows).forEach(function (r) {
-            var k = Object.keys(datacreated[key].rows[r]).length;            
+            var k = Object.keys(datacreated[key].rows[r]).length;
             var sum = 0;
-            for( var i = 1; i < k ; i++ ){
-            sum += datacreated[key].rows[r][i]; 
+            for (var i = 1; i < k; i++) {
+                sum += datacreated[key].rows[r][i];
             }
-            var avg = sum/(k-1);
+            var avg = sum / (k - 1);
             datacreated[key].rows[r][k] = parseInt(avg);
         });
     });
@@ -118,9 +118,9 @@ function createChartsData(org_Code) {
                 grapType: grapType.Tvp
             },
             options: {
-                title: 'Trust '+org_Code+ ' vs Peers',
+                title: 'Trust ' + org_Code + ' vs Peers',
                 vAxis: { title: 'Transition Time (in days)' },
-                hAxis: { title: org_Code+ ' and Peers' },
+                hAxis: { title: org_Code + ' and Peers' },
                 seriesType: 'bars',
                 series: { 4: { type: 'line' } }
             }
@@ -132,9 +132,9 @@ function createChartsData(org_Code) {
                 grapType: grapType.Regions
             },
             options: {
-                title: 'Region ' +region_code+ ' vs others',
+                title: 'Region ' + region_code + ' vs others',
                 vAxis: { title: 'Transition Time (in days)' },
-                hAxis: { title: 'Region ' +region_code+ ' and others' },
+                hAxis: { title: 'Region ' + region_code + ' and others' },
                 seriesType: 'bars',
                 series: { 4: { type: 'line' } }
             }
@@ -146,14 +146,15 @@ function createChartsData(org_Code) {
                 grapType: grapType.TvR
             },
             options: {
-                title: 'Trust '+org_Code+' vs Region '+region_code,
+                title: 'Trust ' + org_Code + ' vs Region ' + region_code,
                 vAxis: { title: 'Transition Time (in days)' },
-                hAxis: { title: org_Code+' and Region '+region_code},
+                hAxis: { title: org_Code + ' and Region ' + region_code },
                 seriesType: 'bars',
                 series: { 2: { type: 'line' } }
             }
         }
     }
+    loadchart(grapType.TvR)
 }
 
 function loadchart(type) {
@@ -169,8 +170,5 @@ function loadchart(type) {
     }
 }
 window.onload = function () {
-    // get_trust_list();
-    //loadchart(grapType.TvR)
-    //get_performance_data_for_map("RR8")
+    show_Hide_panel()
 }
-

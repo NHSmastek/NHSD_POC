@@ -10,6 +10,12 @@ from django.conf import settings
 # Repetition of CRUD Logic is to be removed.
 # Logic of getting Peers is pending.
 
+TrustRegionMapData= {
+        'R1': [{'Region_Code':'R1'},'REM', 'RCF', 'RBS', 'RFF', 'RXL', 'RMC', 'RAE', 'RWY', 'RLN', 'RJR', 'RXP', 'RP5', 'RJN', 'RXR', 'RR7', 'RCD', 'RWA', 'RXN', 'RR8', 'RBQ', 'R0A', 'REP', 'RBT', 'RXF', 'RNL', 'RVW', 'RJL', 'RTF', 'RW6', 'RQ6', 'RM3', 'RCU', 'RHQ', 'RTR', 'RE9', 'RVY', 'RBN', 'RWJ', 'RMP', 'RBV', 'REN', 'RTD', 'RFR', 'RET', 'RTX', 'RWW', 'RBL', 'RRF', 'RCB'],
+        'R2': [{'Region_Code':'R2'},'RDD', 'RC1', 'RQ3', 'RJF', 'RGT', 'RFS', 'RDE', 'RTG', 'RWH', 'R1L', 'RLT', 'RR1', 'RGQ', 'RGP', 'RNQ', 'RC9', 'RQ8', 'RD8', 'RM1', 'RGN', 'RNS', 'RX1', 'RGM', 'RXK', 'RK5', 'RXW', 'RJC', 'RAJ', 'RNA', 'RQW', 'RCX', 'RL1', 'RRJ', 'RL4', 'RWD', 'RRK', 'RKB', 'RWE', 'RJE', 'RBK', 'RWG', 'RGR', 'RWP', 'RLQ'],
+        'R3': [{'Region_Code':'R3'},'RF4', 'R1H', 'RQM', 'RJ6', 'RVR', 'RP4', 'RJ1', 'RQX', 'RYJ', 'RJZ', 'RAX', 'RJ2', 'RAP', 'RT3', 'RAL', 'RAN', 'RJ7', 'RAS', 'RPY', 'RKE', 'RRV'],
+        'R4': [{'Region_Code':'R4'},'RTK', 'RXH', 'RXQ', 'RN7', 'RBD', 'RVV', 'RXC', 'RDU', 'RTE', 'RN3', 'RN5', 'R1F', 'RWF', 'RPA', 'RVJ', 'RBZ', 'RTH', 'RK9', 'RD3', 'RHU', 'RPC', 'RHW', 'REF', 'RH8', 'RA2', 'RD1', 'RNZ', 'RTP', 'RBA', 'RDZ', 'RA9', 'RHM', 'RA7', 'RYR', 'RA3', 'RA4']
+    }
 
 def get_trust_list(request):
     trm_bucket = NHS_AnalyticsAPI.riak_client.bucket(settings.TRUST_REGION_MAP_BUCKET)
@@ -29,17 +35,30 @@ def search_trust(request, trust_name):
         return HttpResponse("Trust Specified Not In Any of 4 Regions")
 
     # Get Trust Peer List
-    peer_list = _get_peer_list(region_code, trust_name)
+    peer_list={}
+    peer_id_list=[]
+    for i in range(1,5):
+        peer_id_list.append(TrustRegionMapData["R1"][i])
+    
+    # peer_id_list.append(_get_trust(trust_bucket.name, TrustRegionMapData["R1"][i]))
 
-    # Get Region Dict
+    for item in peer_id_list:
+        print( item)
+        print( 'item')
+    
+    if trust_name not in peer_id_list:
+        peer_id_list[3]=trust_name
+       
+    for item in peer_id_list:
+        tempdict=_get_trust(trust_bucket.name, item) 
+        peer_list[tempdict.keys()[0]]=tempdict.values()[0] 
+
     region_dict = _get_region(region_bucket)
     if not region_dict:
         return HttpResponse(content="No Region Exists", status=404)
 
-    # Get Trust Data
-    trust_dict = _get_trust(trust_bucket.name, trust_name)
-    if not trust_dict[trust_name]:
-        return HttpResponse(content="Requested Trust Key Does Not Exists", status=404)
+    trust_dict =peer_list
+
 
     # Form Resp Dict
     resp_data = {
@@ -55,8 +74,15 @@ def _get_peer_list(region_code, trust_name):
 
 
 def _get_region_code(trust_name, trm_bucket):
-    trust_region_object = trm_bucket.get(trust_name)
-    return trust_region_object.data
+
+    for key,value in TrustRegionMapData.items():
+        # print(item)
+        if  trust_name in value:
+            print(value[0]["Region_Code"])
+            print(key)
+            return key
+    # trust_region_object = trm_bucket.get(trust_name)
+    # return trust_region_object.data
 
 
 def _get_trust(bucket_name, trust_name):
