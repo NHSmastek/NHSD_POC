@@ -170,7 +170,7 @@ function createChartsData(org_Code) {
 }
 
 function loadchart(type) {
-    onoff_loader(true);
+    onoff_loader_chart(true);
     let obj = dummychartdata[type]
     document.getElementById("current_selected_graph").value = type;
     google.charts.load('current', { 'packages': ['corechart'] });
@@ -179,8 +179,9 @@ function loadchart(type) {
     function drawVisualization() {
         var chart = new google.visualization.ComboChart(document.getElementById('chart_div'));
         var data = [obj.data.header, obj.data.rows[0], obj.data.rows[1], obj.data.rows[2], obj.data.rows[3]]
+       
         chart.draw(google.visualization.arrayToDataTable(data), obj.options);
-        onoff_loader(false);
+        onoff_loader_chart(false);
     }
 }
 
@@ -190,12 +191,31 @@ function onoff_loader(loaderStatus)
         
         //document.getElementById("dv_chart_no_selection_panel").style.display = "block";
         document.getElementById("default-img").style.display = "none";
+        
+        document.getElementById("loaderbg").style.display = "block";
         document.getElementById("loader").style.display = "block";
     }
     else{
         //document.getElementById("dv_chart_no_selection_panel").style.display = "block";
+        document.getElementById("loaderbg").style.display = "none";
         document.getElementById("loader").style.display = "none";
         document.getElementById("default-img").style.display = "block";
+    }
+}
+
+function onoff_loader_chart(loaderStatus){
+    if(loaderStatus){
+        
+        //document.getElementById("dv_chart_no_selection_panel").style.display = "block";
+        document.getElementById("loaderbg").style.display = "block";
+        // document.getElementById("chart_div").style.display = "none";
+       
+    }
+    else{
+       
+        //document.getElementById("dv_chart_no_selection_panel").style.display = "block";
+        document.getElementById("loaderbg").style.display = "none";
+        // document.getElementById("chart_div").style.display = "block";
     }
 }
 window.onload = function () {
