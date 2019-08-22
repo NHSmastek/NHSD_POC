@@ -33,6 +33,18 @@
             border: 1px solid #ccc !important;
             border-radius: 0px !important;
         }
+        
+        #loader {
+            border: 16px solid #f3f3f3;
+            border-radius: 50%;
+            border-top: 16px solid #3498db;
+            width: 120px;
+            height: 120px;
+            -webkit-animation: spin 2s linear infinite; /* Safari */
+            animation: spin 2s linear infinite;
+            display: none;
+            margin-left: 42%;
+        }
     </style>
 
     <link href="{% static 'NHSD_POC/CSS/CWT/bootstrap.css' %}" rel="stylesheet">
@@ -118,7 +130,7 @@
                 <li style="float: right; width: 19%">
                     <input type="text" list="trust" class="form-control" id="trust_list" value=""
                         onchange="get_performance_data_for_map(this.value)" />
-                        <datalist id="trust">
+                        <datalist id="trust" >
                                 <option value="">select</option>
                                 {% for trust in trust_list %}
                                 <option value={{trust}} label={{trust}}></option>
@@ -136,7 +148,10 @@
         <div class="container">
             <div class="container-fluid">
                 <div class="row" style="height: 68vh;display: block;" id="dv_chart_no_selection_panel">
-                    <div class="col-sm-10">
+                    <div id="loader">
+
+                    </div>
+                    <div class="col-sm-10" id="default-img" style="display: block;">
 
                         <img src="{% static 'NHSD_POC/images/CWT/nhs-home-page.jpg' %}" style="width: 100%">
 

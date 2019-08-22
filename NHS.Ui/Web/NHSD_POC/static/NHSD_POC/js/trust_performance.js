@@ -1,6 +1,15 @@
 
 var ApiResponse = {}
 function get_performance_data_for_map(trust_code) {
+    if(trust_code == '')
+    {
+        document.getElementById("dv_chart_no_selection_panel").style.display = "block";
+        document.getElementById("default-img").style.display = "block";
+        document.getElementById("loader").style.display = "none";
+        document.getElementById("dv_chart_row_panel").style.display = "none";
+        return false;
+    }
+    onoff_loader(true);
     $.ajax({
         //TODO : replace static url with correct url
         url: "http://172.16.243.211:8009/getDummy"
@@ -13,9 +22,12 @@ function get_performance_data_for_map(trust_code) {
         console.log(ApiResponse);
         createChartsData(trust_code)
         loadchart(grapType.TvR)
+        
     });
 
 }
+
+
 
 var grapType =
 {
@@ -31,6 +43,7 @@ function show_Hide_panel() {
         document.getElementById("dv_chart_no_selection_panel").style.display = "block";
         return;
     } else {
+        
         document.getElementById("dv_chart_row_panel").style.display = 'block';
         document.getElementById("dv_chart_no_selection_panel").style.display = "none";
     }
@@ -144,6 +157,7 @@ function createChartsData(org_Code) {
 }
 
 function loadchart(type) {
+    onoff_loader(true);
     let obj = dummychartdata[type]
     document.getElementById("current_selected_graph").value = type;
     google.charts.load('current', { 'packages': ['corechart'] });
@@ -153,6 +167,22 @@ function loadchart(type) {
         var chart = new google.visualization.ComboChart(document.getElementById('chart_div'));
         var data = [obj.data.header, obj.data.rows[0], obj.data.rows[1], obj.data.rows[2], obj.data.rows[3]]
         chart.draw(google.visualization.arrayToDataTable(data), obj.options);
+        onoff_loader(false);
+    }
+}
+
+function onoff_loader(loaderStatus)
+{
+    if(loaderStatus){
+        
+        //document.getElementById("dv_chart_no_selection_panel").style.display = "block";
+        document.getElementById("default-img").style.display = "none";
+        document.getElementById("loader").style.display = "block";
+    }
+    else{
+        //document.getElementById("dv_chart_no_selection_panel").style.display = "block";
+        document.getElementById("loader").style.display = "none";
+        document.getElementById("default-img").style.display = "block";
     }
 }
 window.onload = function () {
