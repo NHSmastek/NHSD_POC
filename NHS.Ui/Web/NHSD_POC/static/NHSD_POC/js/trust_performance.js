@@ -5,10 +5,9 @@ function get_performance_data_for_map(trust_code) {
         //TODO : replace static url with correct url
         url: "http://172.16.243.211:8009/getDummy"
     }).then(function (data) {
-        //Use response here
-        ApiResponse = {};
-        ApiResponse = data;
-        ApiResponse = JSON.parse(JSON.stringify(data));
+        //Use response here        
+        ApiResponse = {};        
+        ApiResponse = JSON.parse(JSON.stringify(data));       
         createChartsData(trust_code)
     });
 
@@ -49,7 +48,7 @@ function createChartsData(org_Code) {
         datacreated[key] = JSON.parse(JSON.stringify(headerRow));        
     });
 
-
+    var region_code = ApiResponse.Region_Code;
     var i=0;
    //TVP
     Object.keys(ApiResponse.Trust_Data).forEach(trust => {    
@@ -83,7 +82,7 @@ function createChartsData(org_Code) {
         }
     });    
     Object.keys(ApiResponse.Region_Data).forEach(region => {    
-        if(region==ApiResponse.Region_Code){
+        if(region==region_code){
         datacreated.TvR.header[2]=region;
         datacreated.TvR.rows[0][2]=ApiResponse.Region_Data[region]["E1"];
         datacreated.TvR.rows[1][2]=ApiResponse.Region_Data[region]["E2"];
@@ -91,7 +90,23 @@ function createChartsData(org_Code) {
         datacreated.TvR.rows[3][2]=ApiResponse.Region_Data[region]["E4"];              
         }
     });
+    
+    //Average calculation 
+    Object.keys(datacreated).forEach(function (key) {
+        var type = datacreated[key];
+        var j = Object.keys(datacreated[key].header).length;
+        datacreated[key].header[j]="Average";
 
+        Object.keys(datacreated[key].rows).forEach(function (r) {
+            var k = Object.keys(datacreated[key].rows[r]).length;            
+            var sum = 0;
+            for( var i = 1; i < k ; i++ ){
+            sum += datacreated[key].rows[r][i]; 
+            }
+            var avg = sum/(k-1);
+            datacreated[key].rows[r][k] = parseInt(avg);
+        });
+    });
 
     dummychartdata = {};
     dummychartdata = {
@@ -102,9 +117,9 @@ function createChartsData(org_Code) {
                 grapType: grapType.Tvp
             },
             options: {
-                title: 'Trust RR8 vs Peers',
+                title: 'Trust '+org_Code+ ' vs Peers',
                 vAxis: { title: 'Transition Time (in days)' },
-                hAxis: { title: 'RR8 and Peers' },
+                hAxis: { title: org_Code+ ' and Peers' },
                 seriesType: 'bars',
                 series: { 4: { type: 'line' } }
             }
@@ -116,9 +131,9 @@ function createChartsData(org_Code) {
                 grapType: grapType.Regions
             },
             options: {
-                title: 'Region R1 vs others',
+                title: 'Region ' +region_code+ ' vs others',
                 vAxis: { title: 'Transition Time (in days)' },
-                hAxis: { title: 'Region R1 and others' },
+                hAxis: { title: 'Region ' +region_code+ ' and others' },
                 seriesType: 'bars',
                 series: { 4: { type: 'line' } }
             }
@@ -130,9 +145,9 @@ function createChartsData(org_Code) {
                 grapType: grapType.TvR
             },
             options: {
-                title: 'Trust RR8 vs Region R1',
+                title: 'Trust '+org_Code+' vs Region '+region_code,
                 vAxis: { title: 'Transition Time (in days)' },
-                hAxis: { title: 'RR8 and Region R1' },
+                hAxis: { title: org_Code+' and Region '+region_code},
                 seriesType: 'bars',
                 series: { 2: { type: 'line' } }
             }
