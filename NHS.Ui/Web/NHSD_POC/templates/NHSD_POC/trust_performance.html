@@ -1,25 +1,15 @@
 {% load static %}
-<!-- 
-<link rel="stylesheet" type="text/css" href="{% static 'NHSD_POC/CSS/trust_performance.css' %}">
-<script src="{% static 'NHSD_POC/js/trust_performance.js' %}">
-</script>
--->
-
 <!DOCTYPE html>
 <html lang="en" style="display: block;"
     class=" js flexbox flexboxlegacy canvas canvastext webgl no-touch geolocation postmessage websqldatabase indexeddb hashchange history draganddrop websockets rgba hsla multiplebgs backgroundsize borderimage borderradius boxshadow textshadow opacity cssanimations csscolumns cssgradients cssreflections csstransforms no-csstransforms3d csstransitions fontface no-generatedcontent video audio localstorage sessionstorage webworkers applicationcache svg inlinesvg smil svgclippaths">
 
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-
     <title>Cancer Waiting Times | Home</title>
-
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <link href="{% static 'NHSD_POC/images/CWT/favicon.ico' %}" type="image/x-icon" rel="shortcut icon">
     <link href="{% static 'NHSD_POC/images/CWT/favicon.ico' %}" type="image/ico" rel="icon">
-
     <style>
         html {
             display: none
@@ -49,18 +39,8 @@
 
     <link href="{% static 'NHSD_POC/CSS/CWT/bootstrap.css' %}" rel="stylesheet">
     <link href="{% static 'NHSD_POC/CSS/CWT/site.css' %}" rel="stylesheet">
-    <link href="{% static 'NHSD_POC/CSS/CWT/patient-audit.css' %}" rel="stylesheet">
-    <link href="{% static 'NHSD_POC/CSS/CWT/patient-index.css' %}" rel="stylesheet">
-    <link href="{% static 'NHSD_POC/CSS/CWT/preview-report.css' %}" rel="stylesheet">
-    <link href="{% static 'NHSD_POC/CSS/CWT/patient-search.css' %}" rel="stylesheet">
     <link href="{% static 'NHSD_POC/CSS/CWT/bootstrap-chosen.css' %}" rel="stylesheet">
-    <link href="{% static 'NHSD_POC/CSS/CWT/bootstrap-typeahead.css' %}" rel="stylesheet">
-    <link href="{% static 'NHSD_POC/CSS/CWT/datepicker3.css' %}" rel="stylesheet">
-
     <link href="{% static 'NHSD_POC/CSS/CWT/font-awesome.min.css' %}" rel="stylesheet">
-    <script src="{% static 'NHSD_POC/js/CWT/modernizr.2.6.2.js' %}"></script>
-    <script src="https://code.jquery.com/jquery-3.4.1.min.js"> </script>
-    <script src="{% static 'NHSD_POC/js/trust_performance.js' %}"></script>
 
     <script>
         if (self == top) {
@@ -69,21 +49,23 @@
             top.location = self.location;
         }
     </script>
-    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-
 </head>
-
 <body cz-shortcut-listen="true">
     <div id="wrap">
-
         <div class="navbar navbar-static-top">
             <div class="container" style="padding-top:2px; padding-bottom:2px">
                 <a href="" class="navbar-brand" title="Link to NHS Digital homepage">
                     <img src="{% static 'NHSD_POC/images/CWT/logo.png' %}">
                 </a>
                 <div id="myhscic">
-                    Hello {% if request.user.is_authenticated %} {{ request.user.username }} <a href="{% url 'logout' %}">Logout</a>{% endif %} 
-                </div>
+                        Hello {% if request.user.is_authenticated %} {{ request.user.username }} |
+                        <a href="{% url 'logout' %}">
+                                <button id="" type="button" class="btn btn-sm btn-primary">
+                                    Sign out&nbsp;<i class="fa fa-chevron-circle-right fa-2x"></i>
+                                </button>
+                        </a>
+                        {% endif %} 
+                    </div>
 
                 <div class="navbar-title">
                     <h1>Cancer Waiting Times</h1>
@@ -91,44 +73,11 @@
                 </div>
             </div>
         </div>
-
-        <div id="confirmSignoutDiv">
-            <div class="modal" id="confirmSignout" role="dialog" aria-labelledby="confirmSignoutLabel"
-                aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                            <h4 class="modal-title">Confirmation Required</h4>
-                        </div>
-                        <div class="modal-body">
-                            <p>
-                                By selecting Sign Out you will only be signing out of this application. If you are <br>
-                                authenticated into any other NHS Digital application via SSO you will not be signed out
-                                <br>
-                                by this action and to achieve this you must sign out of each one individually. <br>
-                            </p>
-                        </div>
-                        <div class="modal-footer">
-                            <form action="http://localhost/LegacyWeb/Account/SignOut" id="signout" method="post"
-                                novalidate="novalidate"> <button type="submit" class="btn btn-sm btn-primary"
-                                    id="btnConfirmSignout">
-                                    Continue &nbsp; <i class="fa fa-chevron-circle-right fa-2x"></i>
-                                </button>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-
         <div class="container">
             <ul class="nav navbar-nav hscic-nav"
                 style="padding-top:3px; padding-bottom:2px; border-bottom:0;  padding-top: 5px;">
-
                 <li style="float: right; width: 19%">
-                    <input type="text" list="trust" class="form-control" id="trust_list" value=""
+                        <input type="text" list="trust" class="form-control" id="trust_list" value=""
                         onchange="get_performance_data_for_map(this.value)" />
                         <datalist id="trust" >
                                 <option value="">select</option>
@@ -137,7 +86,6 @@
                                 {% endfor %}
                         </datalist>
                     <input type="hidden" id="current_selected_graph">
-
                 </li>
                 <li class="active" style="text-align: center;float: unset;border-left: none;width: 81%">
                     <h3>Performance visualization</h3>
@@ -195,8 +143,6 @@
                 </div>
             </div>
             <br>
-
-
         </div>
 
         <div id="push"></div>
@@ -215,25 +161,25 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" href="http://localhost/LegacyWeb/#">v1.0.0.0</a>
+                    <a class="navbar-brand" href="javascript:void()">v1.0.0.0</a>
                 </div>
 
                 <div class="navbar-collapse collapse footer-navbar-collapse">
                     <ul class="nav navbar-nav pull-right">
                         <li>
-                            <a href="https://www.linkedin.com/company/nhs-digital">
-                                <img src="./Cancer Waiting Times _ Home_files/icon-linkedin.png"
-                                    style="width: 1em; height: 1em; margin-top: -1px;">
-                                LinkedIn
-                            </a>
-                        </li>
-                        <li>
-                            <a href="https://www.twitter.com/NHSDigital">
-                                <img src="./Cancer Waiting Times _ Home_files/icon-twitter.png"
-                                    style="width: 1em; height: 1em; margin-top: -1px;">
-                                Twitter
-                            </a>
-                        </li>
+                                <a href="https://www.linkedin.com/company/nhs-digital">
+                                    <img src="{% static 'NHSD_POC/images/CWT/icon-twitter.png' %}"
+                                        style="width: 1em; height: 1em; margin-top: -1px;">
+                                    LinkedIn
+                                </a>
+                       </li>
+                            <li>
+                                <a href="https://www.twitter.com/NHSDigital">
+                                    <img src="{% static 'NHSD_POC/images/CWT/icon-linkedin.png' %}"
+                                        style="width: 1em; height: 1em; margin-top: -1px;">
+                                    Twitter
+                                </a>
+                            </li>
                         <li><a href="https://digital.nhs.uk/about-nhs-digital/accessibility-help"
                                 accesskey="0">Accessibility</a></li>
                         <li><a href="https://digital.nhs.uk/about-nhs-digital/contact-us/freedom-of-information">Freedom
@@ -251,22 +197,9 @@
     </div>
     <script src="{% static 'NHSD_POC/js/CWT/jquery.js' %}"></script>
     <script src="{% static 'NHSD_POC/js/CWT/jquery.validate.js' %}"></script>
-    <script src="{% static 'NHSD_POC/js/CWT/jquery.validate.unobtrusive.js' %}"></script>
     <script src="{% static 'NHSD_POC/js/CWT/bootstrap.js' %}"></script>
-    <script src="{% static 'NHSD_POC/js/CWT/json2.js' %}"></script>
-    <script src="{% static 'NHSD_POC/js/CWT/history.adapter.jquery.js' %}"></script>
-    <script src="{% static 'NHSD_POC/js/CWT/history.html4.js' %}"></script>
-    <script src="{% static 'NHSD_POC/js/CWT/history.js' %}"></script>
-    <script src="{% static 'NHSD_POC/js/CWT/chosen.jquery.js' %}"></script>
-    <script src="{% static 'NHSD_POC/js/CWT/typeahead.js' %}"></script>
-    <script src="{% static 'NHSD_POC/js/CWT/date-selector.js' %}"></script>
-    <script src="{% static 'NHSD_POC/js/CWT/period-selector.js' %}"></script>
-    <script src="{% static 'NHSD_POC/js/CWT/extract-index.js' %}"></script>
-    <script src="{% static 'NHSD_POC/js/CWT/download-type.js' %}"></script>
-    <script src="{% static 'NHSD_POC/js/CWT/bootstrap-datepicker.js' %}"></script>
-    <script src="{% static 'NHSD_POC/js/CWT/common.js' %}"></script>
-    <script src="{% static 'NHSD_POC/js/CWT/underscore-min.js' %}"></script>
-    <script src="{% static 'NHSD_POC/js/CWT/cwt.js' %}"></script>
+    <script src="https://www.gstatic.com/charts/loader.js"></script>
+    <script src="{% static 'NHSD_POC/js/trust_performance.js' %}"></script>
     <script>
         $(document).ready(function () {
             $("#myInput").on("keyup", function () {
