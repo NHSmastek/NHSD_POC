@@ -6,13 +6,10 @@ function get_performance_data_for_map(trust_code) {
         url: "http://172.16.243.211:8009/getDummy"
     }).then(function (data) {
         //Use response here
-        console.log(data)
         ApiResponse = {};
         ApiResponse = data;
         ApiResponse = JSON.parse(JSON.stringify(data));
-        console.log(ApiResponse);
         createChartsData(trust_code)
-        loadchart(grapType.TvR)
     });
 
 }
@@ -141,6 +138,7 @@ function createChartsData(org_Code) {
             }
         }
     }
+    loadchart(grapType.TvR)
 }
 
 function loadchart(type) {
@@ -155,9 +153,6 @@ function loadchart(type) {
         chart.draw(google.visualization.arrayToDataTable(data), obj.options);
     }
 }
-window.onload = function () {
-    // get_trust_list();
-    //loadchart(grapType.TvR)
-    //get_performance_data_for_map("RR8")
+window.onload = function() {
+    show_Hide_panel()
 }
-
