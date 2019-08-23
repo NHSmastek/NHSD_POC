@@ -12,7 +12,7 @@ function get_performance_data_for_map(trust_code) {
     onoff_loader(true);
     $.ajax({
         //TODO : replace static url with correct url
-        url: "http://172.16.243.211:8009/getDummy"
+        url: "http://172.16.243.211:8009/search_trust/"+trust_code
     }).then(function (data) {
         //Use response here        
         ApiResponse = {};        
