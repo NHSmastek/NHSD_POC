@@ -1,0 +1,7 @@
+[ConfigDetails]
+Test_Browser = Chrome
+Application_URL = http://172.16.243.211:8200/NHSD_POC/
+Exe_Path = ..\\chromedriver.exe
+Excel_Path = ../test_data/TestData.xlsx
+Excel_Sheet = Sheet1
+Head_Less = False
