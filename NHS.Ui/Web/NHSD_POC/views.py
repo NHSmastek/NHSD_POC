@@ -16,4 +16,5 @@ from django.contrib.auth.decorators import login_required
 def patient_pathway_timeline(request):
     url = "{}:{}/get_trust_list".format(settings.NHS_API_DOMAIN_NAME, settings.NHS_API_DOMAIN_PORT)
     trust_list_obj = requests.get(url=url)
-    return render(request, "NHSD_POC/trust_performance.html", {"trust_list": trust_list_obj.json()})
+    api_url = "{}:{}/".format(settings.NHS_API_DOMAIN_NAME,settings.NHS_API_DOMAIN_PORT)
+    return render(request, "NHSD_POC/trust_performance.html", {"trust_list": trust_list_obj.json(),"api_url":api_url})
