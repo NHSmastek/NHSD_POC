@@ -5,7 +5,7 @@ function get_performance_data_for_map(trust_code) {
     $.ajax({
         //TODO : replace static url with correct url
         // url: "http://172.16.243.211:8009/getDummy"
-        url: "http://172.16.243.211:8009/search_trust/" + trust_code
+        url: ajax_url+"search_trust/" + trust_code
 
     }).then(function (data) {
         //Use response here        
@@ -24,7 +24,7 @@ var grapType =
 }
 
 function show_Hide_panel() {
-    var org_Code_value = document.getElementById("search").value
+    var org_Code_value = document.getElementById("trust_input").value
     if (org_Code_value == '') {
         document.getElementById("dv_chart_row_panel").style.display = "none";
         document.getElementById("dv_chart_no_selection_panel").style.display = "block";
@@ -175,9 +175,9 @@ window.onload = function () {
     show_Hide_panel()
 }
 
-var search = document.querySelector('#search');
-var results = document.querySelector('#searchresults');
-var templateContent = document.querySelector('#resultstemplate').content;
+var search = document.querySelector('#trust_input');
+var results = document.querySelector('#trustresults');
+var templateContent = document.querySelector('#trustResultsTemplate').content;
 search.addEventListener('keyup', function handler(event) {
     while (results.children.length) results.removeChild(results.firstChild);
     var inputVal = new RegExp(search.value.trim(), 'i');
