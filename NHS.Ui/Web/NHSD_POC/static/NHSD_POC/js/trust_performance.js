@@ -1,10 +1,12 @@
 
 var ApiResponse = {}
 function get_performance_data_for_map(trust_code) {
+    show_Hide_panel()
     $.ajax({
         //TODO : replace static url with correct url
         // url: "http://172.16.243.211:8009/getDummy"
-        url: "http://127.0.0.1:8000/search_trust/" + trust_code
+        url: ajax_url+"search_trust/" + trust_code
+
     }).then(function (data) {
         //Use response here        
         ApiResponse = {};
@@ -22,7 +24,7 @@ var grapType =
 }
 
 function show_Hide_panel() {
-    var org_Code_value = document.getElementById("trust_list").value
+    var org_Code_value = document.getElementById("trust_input").value
     if (org_Code_value == '') {
         document.getElementById("dv_chart_row_panel").style.display = "none";
         document.getElementById("dv_chart_no_selection_panel").style.display = "block";
@@ -172,3 +174,17 @@ function loadchart(type) {
 window.onload = function () {
     show_Hide_panel()
 }
+
+var search = document.querySelector('#trust_input');
+var results = document.querySelector('#trustresults');
+var templateContent = document.querySelector('#trustResultsTemplate').content;
+search.addEventListener('keyup', function handler(event) {
+    while (results.children.length) results.removeChild(results.firstChild);
+    var inputVal = new RegExp(search.value.trim(), 'i');
+    var clonedOptions = templateContent.cloneNode(true);
+    var set = Array.prototype.reduce.call(clonedOptions.children, function searchFilter(frag, el) {
+        if (inputVal.test(el.textContent) && frag.children.length < 10) frag.appendChild(el);
+        return frag;
+    }, document.createDocumentFragment());
+    results.appendChild(set);
+});
