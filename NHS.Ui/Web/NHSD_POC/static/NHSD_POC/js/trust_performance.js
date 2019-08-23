@@ -9,12 +9,14 @@ function get_performance_data_for_map(trust_code) {
         document.getElementById("dv_chart_row_panel").style.display = "none";
         return false;
     }
-    onoff_loader(true);
+    
+    showHideLoaderContent(true);
+    showHideLoaderChart(true);
     $.ajax({
         //TODO : replace static url with correct url
 
         // url: "http://172.16.243.211:8009/getDummy"
-        url: "http://127.0.0.1:8000/search_trust/" + trust_code
+        url: "http://172.16.243.211:8009/search_trust/" + trust_code
 
     }).then(function (data) {
         //Use response here        
@@ -174,7 +176,7 @@ function createChartsData(org_Code) {
 }
 
 function loadchart(type) {
-    onoff_loader_chart(true);
+    showHideLoaderChart(true);
     let obj = dummychartdata[type]
     document.getElementById("current_selected_graph").value = type;
     google.charts.load('current', { 'packages': ['corechart'] });
@@ -185,41 +187,32 @@ function loadchart(type) {
         var data = [obj.data.header, obj.data.rows[0], obj.data.rows[1], obj.data.rows[2], obj.data.rows[3]]
        
         chart.draw(google.visualization.arrayToDataTable(data), obj.options);
-        onoff_loader_chart(false);
+        showHideLoaderChart(false);
     }
 }
 
-function onoff_loader(loaderStatus)
+//Loader on very first time on content
+function showHideLoaderContent(loaderStatus)
 {
     if(loaderStatus){
-        
-        //document.getElementById("dv_chart_no_selection_panel").style.display = "block";
         document.getElementById("default-img").style.display = "none";
-        
         document.getElementById("loaderbg").style.display = "block";
         document.getElementById("loader").style.display = "block";
     }
     else{
-        //document.getElementById("dv_chart_no_selection_panel").style.display = "block";
         document.getElementById("loaderbg").style.display = "none";
         document.getElementById("loader").style.display = "none";
         document.getElementById("default-img").style.display = "block";
     }
 }
 
-function onoff_loader_chart(loaderStatus){
+// Loader for only chart div
+function showHideLoaderChart(loaderStatus){
     if(loaderStatus){
-        
-        //document.getElementById("dv_chart_no_selection_panel").style.display = "block";
         document.getElementById("loaderbg").style.display = "block";
-        // document.getElementById("chart_div").style.display = "none";
-       
     }
     else{
-       
-        //document.getElementById("dv_chart_no_selection_panel").style.display = "block";
         document.getElementById("loaderbg").style.display = "none";
-        // document.getElementById("chart_div").style.display = "block";
     }
 }
 window.onload = function () {
