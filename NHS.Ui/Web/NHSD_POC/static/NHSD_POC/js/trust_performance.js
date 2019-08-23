@@ -181,10 +181,9 @@ var templateContent = document.querySelector('#resultstemplate').content;
 search.addEventListener('keyup', function handler(event) {
     while (results.children.length) results.removeChild(results.firstChild);
     var inputVal = new RegExp(search.value.trim(), 'i');
-    console.log(inputVal);
     var clonedOptions = templateContent.cloneNode(true);
     var set = Array.prototype.reduce.call(clonedOptions.children, function searchFilter(frag, el) {
-        if (inputVal.test(el.textContent) && frag.children.length < 50000) frag.appendChild(el);
+        if (inputVal.test(el.textContent) && frag.children.length < 10) frag.appendChild(el);
         return frag;
     }, document.createDocumentFragment());
     results.appendChild(set);
