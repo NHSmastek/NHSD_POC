@@ -1,17 +1,19 @@
 
 var ApiResponse = {}
+var region_code, org_Code;
 function get_performance_data_for_map(trust_code) {
     $.ajax({
         //TODO : replace static url with correct url
-        url: "http://172.16.243.211:8009/getDummy"
+        url: "http://172.16.243.211:8009/search_trust/"+trust_code       
     }).then(function (data) {
         //Use response here        
         ApiResponse = {};        
         ApiResponse = JSON.parse(JSON.stringify(data));       
-        createChartsData(trust_code)
+        region_code = ApiResponse.Region_Code;
+        org_Code = trust_code;
+        createChartsData()
         loadchart(grapType.TvR)
-    });
-
+    });    
 }
 
 var grapType =
@@ -40,7 +42,7 @@ var headerRow = {
 };
 
 
-function createChartsData(org_Code) {
+function createChartsData() {
 
     show_Hide_panel();
 
@@ -49,11 +51,11 @@ function createChartsData(org_Code) {
         datacreated[key] = JSON.parse(JSON.stringify(headerRow));        
     });
 
-    var region_code = ApiResponse.Region_Code;
+    
     var i=0;
    //TVP
     Object.keys(ApiResponse.Trust_Data).forEach(trust => {    
-        datacreated.TvP.header[i+1]=trust;
+        datacreated.TvP.header[i+1]=trust;                
         datacreated.TvP.rows[0][i+1]=ApiResponse.Trust_Data[trust]["E1"];
         datacreated.TvP.rows[1][i+1]=ApiResponse.Trust_Data[trust]["E2"];
         datacreated.TvP.rows[2][i+1]=ApiResponse.Trust_Data[trust]["E3"];
@@ -64,7 +66,7 @@ function createChartsData(org_Code) {
    //Region
     i=0;
     Object.keys(ApiResponse.Region_Data).forEach(region => {    
-        datacreated.Regions.header[i+1]=region;
+        datacreated.Regions.header[i+1]=region;        
         datacreated.Regions.rows[0][i+1]=ApiResponse.Region_Data[region]["E1"];
         datacreated.Regions.rows[1][i+1]=ApiResponse.Region_Data[region]["E2"];
         datacreated.Regions.rows[2][i+1]=ApiResponse.Region_Data[region]["E3"];
@@ -74,7 +76,7 @@ function createChartsData(org_Code) {
  
     //TVR    
     Object.keys(ApiResponse.Trust_Data).forEach(trust => {    
-        if(trust==org_Code){
+        if(trust==org_Code){            
             datacreated.TvR.header[1]=trust;
             datacreated.TvR.rows[0][1]=ApiResponse.Trust_Data[trust]["E1"];
             datacreated.TvR.rows[1][1]=ApiResponse.Trust_Data[trust]["E2"];
@@ -83,8 +85,8 @@ function createChartsData(org_Code) {
         }
     });    
     Object.keys(ApiResponse.Region_Data).forEach(region => {    
-        if(region==region_code){
-        datacreated.TvR.header[2]=region;
+        if(region==region_code){        
+        datacreated.TvR.header[2]=region;      
         datacreated.TvR.rows[0][2]=ApiResponse.Region_Data[region]["E1"];
         datacreated.TvR.rows[1][2]=ApiResponse.Region_Data[region]["E2"];
         datacreated.TvR.rows[2][2]=ApiResponse.Region_Data[region]["E3"];
@@ -107,7 +109,7 @@ function createChartsData(org_Code) {
             var avg = sum/(k-1);
             datacreated[key].rows[r][k] = parseInt(avg);
         });
-    });
+    });   
 
     dummychartdata = {};
     dummychartdata = {
@@ -122,7 +124,8 @@ function createChartsData(org_Code) {
                 vAxis: { title: 'Transition Time (in days)' },
                 hAxis: { title: org_Code+ ' and Peers' },
                 seriesType: 'bars',
-                series: { 4: { type: 'line' } }
+                series: { 4: { type: 'line' } },
+                colors: ['#3366cc', '#dc3912','#ff9900','#109618','#990099']                
             }
         },
         Regions: {
@@ -136,7 +139,8 @@ function createChartsData(org_Code) {
                 vAxis: { title: 'Transition Time (in days)' },
                 hAxis: { title: 'Region ' +region_code+ ' and others' },
                 seriesType: 'bars',
-                series: { 4: { type: 'line' } }
+                series: { 4: { type: 'line' } },                
+                colors: ['#dc3912','#3366cc','#ff9900','#109618','#990099']
             }
         },
         TvR: {
@@ -150,7 +154,8 @@ function createChartsData(org_Code) {
                 vAxis: { title: 'Transition Time (in days)' },
                 hAxis: { title: org_Code+' and Region '+region_code},
                 seriesType: 'bars',
-                series: { 2: { type: 'line' } }
+                series: { 2: { type: 'line' } },
+                colors: ['#3366cc', '#dc3912','#990099']
             }
         }
     }
@@ -165,7 +170,26 @@ function loadchart(type) {
     function drawVisualization() {
         var chart = new google.visualization.ComboChart(document.getElementById('chart_div'));
         var data = [obj.data.header, obj.data.rows[0], obj.data.rows[1], obj.data.rows[2], obj.data.rows[3]]
-        chart.draw(google.visualization.arrayToDataTable(data), obj.options);
+        //chart.draw(google.visualization.arrayToDataTable(data), obj.options);
+              
+       //set column order
+       var count = obj.data.header.length;
+       var viewHeaders = JSON.parse(JSON.stringify(obj.data.header));
+       var matchCode = (type == "TvR") || (type == "TvP")? org_Code : region_code;
+       for( var i = 0; i < count ; i++ ){
+           if(obj.data.header[i]==matchCode)
+           {
+                var text = viewHeaders[1];
+                viewHeaders[1] = obj.data.header[i];
+                viewHeaders[i] = text;
+           }
+       }      
+      
+        // build data view
+        var preData = google.visualization.arrayToDataTable(data);
+        var view = new google.visualization.DataView(preData);
+        view.setColumns(viewHeaders);
+        chart.draw(view, obj.options);
     }
 }
 window.onload = function () {
