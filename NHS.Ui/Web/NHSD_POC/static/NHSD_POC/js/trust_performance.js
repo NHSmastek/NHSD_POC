@@ -1,10 +1,24 @@
 
 var ApiResponse = {}
 function get_performance_data_for_map(trust_code) {
+
+    if(trust_code == '')
+    {
+        document.getElementById("dv_chart_no_selection_panel").style.display = "block";
+        document.getElementById("default-img").style.display = "block";
+        document.getElementById("loader").style.display = "none";
+        document.getElementById("dv_chart_row_panel").style.display = "none";
+        return false;
+    }
+    
+    showHideLoaderContent(true);
+    showHideLoaderChart(true);
+
     show_Hide_panel()
+
     $.ajax({
         //TODO : replace static url with correct url
-        // url: "http://172.16.243.211:8009/getDummy"
+        //url: "http://172.16.243.211:8009/search_trust/" + trust_code,
         url: ajax_url+"search_trust/" + trust_code
 
     }).then(function (data) {
@@ -12,9 +26,13 @@ function get_performance_data_for_map(trust_code) {
         ApiResponse = {};
         ApiResponse = JSON.parse(JSON.stringify(data));
         createChartsData(trust_code)
+        loadchart(grapType.TvR)
+        
     });
 
 }
+
+
 
 var grapType =
 {
@@ -30,6 +48,7 @@ function show_Hide_panel() {
         document.getElementById("dv_chart_no_selection_panel").style.display = "block";
         return;
     } else {
+        
         document.getElementById("dv_chart_row_panel").style.display = 'block';
         document.getElementById("dv_chart_no_selection_panel").style.display = "none";
     }
@@ -160,6 +179,7 @@ function createChartsData(org_Code) {
 }
 
 function loadchart(type) {
+    showHideLoaderChart(true);
     let obj = dummychartdata[type]
     document.getElementById("current_selected_graph").value = type;
     google.charts.load('current', { 'packages': ['corechart'] });
@@ -168,7 +188,34 @@ function loadchart(type) {
     function drawVisualization() {
         var chart = new google.visualization.ComboChart(document.getElementById('chart_div'));
         var data = [obj.data.header, obj.data.rows[0], obj.data.rows[1], obj.data.rows[2], obj.data.rows[3]]
+       
         chart.draw(google.visualization.arrayToDataTable(data), obj.options);
+        showHideLoaderChart(false);
+    }
+}
+
+//Loader on very first time on content
+function showHideLoaderContent(loaderStatus)
+{
+    if(loaderStatus){
+        document.getElementById("default-img").style.display = "none";
+        document.getElementById("loaderbg").style.display = "block";
+        document.getElementById("loader").style.display = "block";
+    }
+    else{
+        document.getElementById("loaderbg").style.display = "none";
+        document.getElementById("loader").style.display = "none";
+        document.getElementById("default-img").style.display = "block";
+    }
+}
+
+// Loader for only chart div
+function showHideLoaderChart(loaderStatus){
+    if(loaderStatus){
+        document.getElementById("loaderbg").style.display = "block";
+    }
+    else{
+        document.getElementById("loaderbg").style.display = "none";
     }
 }
 window.onload = function () {
