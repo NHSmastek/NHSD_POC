@@ -104,3 +104,4 @@ venv.bak/
 .mypy_cache/
 /.vs
 /NHS.Spark/spark-warehouse/testspark.py
+/NHS.Spark/spark-warehouse/riak_db.py

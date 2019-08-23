@@ -45,14 +45,14 @@ df_final=df.alias('df1').join(df.alias('df2'), 'Nhs_No' , 'inner').join(df.alias
 # sqlDF.show()
 # sqlDF.printSchema()
 df_final.printSchema()
-df_final.show()  
+df_final.show()
 print("**********************************************************************************************")
 print("The org performance data")
 df_trust_performance=df_final.groupBy(df_final.Org_Code).agg({"E1_days": "avg","E2_days": "avg","E3_days": "avg","E4_days": "avg"})\
     .select(col("Org_Code"),col("avg(E1_days)").alias("E1"),col("avg(E2_days)").alias("E2"),col("avg(E3_days)").alias("E3"),col("avg(E4_days)").alias("E4"))
 
 df_Region_performance=df_final.groupBy(df_final.region_id).agg({"E1_days": "avg","E2_days": "avg","E3_days": "avg","E4_days": "avg"})\
-    .select(col("region_id"),col("avg(E1_days)").alias("E1"),col("avg(E2_days)").alias("E2"),col("avg(E3_days)").alias("E3"),col("avg(E4_days)").alias("E4"))
+    .select(col("region_id").alias("Region_Code"),col("avg(E1_days)").alias("E1"),col("avg(E2_days)").alias("E2"),col("avg(E3_days)").alias("E3"),col("avg(E4_days)").alias("E4"))
 
 # Regionlist=[]
 # def f(people):
@@ -75,7 +75,7 @@ df_Region_performance=df_final.groupBy(df_final.region_id).agg({"E1_days": "avg"
 # def fortrust(people):
 #     trustdict={}
 #     trustsubdict={}
-   
+
 #     trustsubdict["E1"]=people['E1']
 #     trustsubdict["E2"]=people['E2']
 #     trustsubdict["E3"]=people['E3']
@@ -96,12 +96,13 @@ region_data = df_Region_performance.toJSON().map(lambda j: json.loads(j)).collec
 # region_data = df_Region_performance.toJSON().map(lambda j: json.loads({'Region_code':j[0],'data':[{'E1':j[1]}]})).collect()
 
 # print(region_data)
-print(trust_data)
+# print(trust_data)
 
 # df_Region_performance.foreach(f)
 # print(Regionlist)
-# trust_data=df_trust_performance.toJSON().collect()
-# region_data=df_Region_performance.toJSON().collect()
+#  trust_data=df_trust_performance.toJSON().collect()
+# tempregion_data=df_Region_performance.toJSON().collect()
+# trust_data_data=df_trust_performance.toJSON().collect()
 
 # df_trust_performance.foreach(fortrust)
 
@@ -112,15 +113,21 @@ print(trust_data)
 
 # df_Region_performance.groupBy(lambda r: r.region_id).map(
 #   lambda g: {
-#     'region_id': g[0], 
+#     'region_id': g[0],
 #     'data': [{'E1': x['E1'], 'E2': x['E2']} for x in g[1]]}
 # ).show()
 
 # print(trust_data)
-print("**********************************************************************************************","The region performance data",region_data)
+# print("**********************************************************************************************","The region performance data",region_data)
+# print("**********************************************************************************************","The region performance data",tempregion_data)
+# print("**********************************************************************************************","The region performance data",trust_data_data)
+
 riak=riak_machine.riak_machine()
 # trust_data="TrustData:{RR1:{E1:95,E2:96,E3:97,E4:50}, RR2:{E1:95,E2:96,E3:97,E4:50}, RR3:{E1:95,E2:96,E3:97,E4:50},RR4:{E1:95,E2:96,E3:97,E4:50}}"
 # region_data="RegionData:{R1:{E1:95,E2:96,E3:97,E4:50},R2:{E1:95,E2:96,E3:97,E4:50},R3:{E1:95,E2:96,E3:97,E4:50},R8:{E1:95,E2:96,E3:97,E4:50} }"
 
-# riak.write_to_riak("TrustPerformance","TrustData",trust_data)
-# riak.write_to_riak("RegionPerformance","RegionData",region_data)
+riak.write_to_riak("TrustPerformance","TrustData",trust_data)
+riak.write_to_riak("RegionPerformance","RegionData",region_data)
+
+# riak.write_to_riak("TrustPerformance","TrustData",trust_data_data)
+# riak.write_to_riak("RegionPerformance","RegionData",tempregion_data)
