@@ -3,13 +3,11 @@ import os
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
-# SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = '2e3kucnc$=&nzq0#4d@ryuv5e6b^sb!zh7x66h!01v(%iy8nmh'
 
-# SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = [""]
+ALLOWED_HOSTS = []
 
 # CORS_ORIGIN_WHITELIST = [
 #     "https://172.16.243.211:8100",
@@ -19,27 +17,6 @@ ALLOWED_HOSTS = [""]
 # ]
 
 CORS_ORIGIN_ALLOW_ALL=True
-
-# CORS_ALLOW_METHODS = [
-#     'DELETE',
-#     'GET',
-#     'OPTIONS',
-#     'PATCH',
-#     'POST',
-#     'PUT',
-# ]
-
-# CORS_ALLOW_HEADERS = [
-#     'accept',
-#     'accept-encoding',
-#     'authorization',
-#     'content-type',
-#     'dnt',
-#     'origin',
-#     'user-agent',
-#     'x-csrftoken',
-#     'x-requested-with',
-# ]
 
 RIAK_HOST_IP = "35.176.37.177"
 RIAK_HOST_PORT = "8087"
