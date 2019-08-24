@@ -13,10 +13,8 @@ var graphOption =
     }
 };
 
-
 var dummychartdata = {};
 var headerRow = graphOption.headerRow
-
 
 function createChartsData() {
     show_Hide_panel();
