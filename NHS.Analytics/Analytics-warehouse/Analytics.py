@@ -1,19 +1,20 @@
 import findspark
 # import riak_machine
-import json
 findspark.init()
 from pyspark import SparkContext
 from pyspark.sql import *
 from pyspark.sql.functions import col,datediff,unix_timestamp
 from datetime import date, datetime
+import os
+import json
 
 class Analytics(object):
 
     def run_Analytic_Engine(self):
         sc = SparkContext("local", "Simple App").getOrCreate()
         spark = SparkSession(sc)
-        trustFilePath = 'F:\\Work\\POC\\extracted\\NHSD_POC\\NHS.Spark\\Csvs\\NhsdSampleData_1Lac.csv'
-        pathMappingFilePath='F:\\Work\\POC\\extracted\\NHSD_POC\\NHS.Spark\\Csvs\\NhsdROMapping.csv'
+        trustFilePath =os.path.join(os.getcwd(), '..\\Csvs\\NhsdSampleData_1Lac.csv') 
+        pathMappingFilePath=os.path.join(os.getcwd(), '..\\Csvs\\NhsdROMapping.csv')
         # df = spark.read.csv(path,inferSchema=True,header=True)
         
         df = spark.read.format("com.databricks.spark.csv")\
@@ -67,4 +68,3 @@ class Analytics(object):
         
         riak.write_to_riak("TrustPerformance","TrustData",trust_data)
         riak.write_to_riak("RegionPerformance","RegionData",region_data)
-
