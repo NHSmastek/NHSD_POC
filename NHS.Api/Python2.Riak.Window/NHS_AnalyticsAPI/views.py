@@ -8,9 +8,9 @@ import random
 
 def get_trust_list(request):
     trust_list=[]
-    regions=rc().get_keys_from_bucket(config['Riak']['Buckets']['Trusts_Region_Map'])
+    regions=rc().get_keys(config['Riak']['Buckets']['Trusts_Region_Map'])
     for region in regions:
-        trust_list.extend(rc().get_data_by_key(config['Riak']['Buckets']['Trusts_Region_Map'],region))
+        trust_list.extend(rc().get_by_key(config['Riak']['Buckets']['Trusts_Region_Map'],region))
     return JsonResponse(trust_list, safe=False)
 
 def search_trust(request, trust_name):
@@ -34,25 +34,25 @@ def search_trust(request, trust_name):
 
 def _get_peer_list(trust_name, region_code):
     peer_list = {}
-    peer_id_list = random.sample(rc().get_data_by_key(config['Riak']['Buckets']['Trusts_Region_Map'],region_code),4)
+    peer_id_list = random.sample(rc().get_by_key(config['Riak']['Buckets']['Trusts_Region_Map'],region_code),4)
     if trust_name not in peer_id_list:
         peer_id_list[0] = trust_name
     for item in peer_id_list:
-        tempdict = rc().get_data_by_inner_key(
+        tempdict = rc().get_by_inner_key(
             config['Riak']['Buckets']['Trust'], 'Org_Code', item)
         peer_list[tempdict.keys()[0]] = tempdict.values()[0]
     return peer_list
 
 def _get_region_code_for_trust(trust_name):
-    keys = rc().get_keys_from_bucket(config['Riak']['Buckets']['Trusts_Region_Map'])
+    keys = rc().get_keys(config['Riak']['Buckets']['Trusts_Region_Map'])
     for key in keys:
-        rc().get_data_by_key(config['Riak']['Buckets']['Trusts_Region_Map'],key)
-        if trust_name in rc().get_data_by_key(config['Riak']['Buckets']['Trusts_Region_Map'],key):
+        rc().get_by_key(config['Riak']['Buckets']['Trusts_Region_Map'],key)
+        if trust_name in rc().get_by_key(config['Riak']['Buckets']['Trusts_Region_Map'],key):
             return key
 
 def _get_region_list():
     region_dict = {}
-    region_obj = rc().get_data_by_key(
+    region_obj = rc().get_by_key(
         config['Riak']['Buckets']['Region'], config['Riak']['BucketsKey']['Region'])
     for region in region_obj:
         region_dict[region["Region_Code"]] = region

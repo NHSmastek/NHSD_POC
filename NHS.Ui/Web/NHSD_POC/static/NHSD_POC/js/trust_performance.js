@@ -68,7 +68,12 @@ function showHideLoaderChart(loaderStatus) {
 window.onload = function () {
     show_Hide_panel()
 }
-
+function showchart(chartType)
+{
+    document.getElementById("current_selected_graph").value = chartType;
+    
+    loadchart(chartType)
+}
 var search = document.querySelector('#trust_input');
 var results = document.querySelector('#trustresults');
 var templateContent = document.querySelector('#trustResultsTemplate').content;

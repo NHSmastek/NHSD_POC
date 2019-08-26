@@ -135,8 +135,13 @@ function createChartsData() {
 
 function loadchart(type) {
     showHideLoaderChart(true);
+    var gt=document.getElementById("current_selected_graph").value
+    if(gt != undefined && gt != null && gt != '')
+    {
+        type=gt
+    }
     let obj = dummychartdata[type]
-    document.getElementById("current_selected_graph").value = type;
+    
     google.charts.load('current', { 'packages': ['corechart'] });
     google.charts.setOnLoadCallback(drawVisualization);
 
