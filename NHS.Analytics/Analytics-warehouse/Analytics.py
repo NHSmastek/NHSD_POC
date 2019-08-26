@@ -1,5 +1,5 @@
 import findspark
-# import riak_machine
+from riak_connector import Riak_Connector as rc
 findspark.init()
 from pyspark import SparkContext
 from pyspark.sql import *
@@ -62,9 +62,8 @@ class Analytics(object):
         
         
         # print("**********************************************************************************************","The region performance data",region_data)
-        riak=riak_machine.riak_machine()
         # trust_data="TrustData:{RR1:{E1:95,E2:96,E3:97,E4:50}, RR2:{E1:95,E2:96,E3:97,E4:50}, RR3:{E1:95,E2:96,E3:97,E4:50},RR4:{E1:95,E2:96,E3:97,E4:50}}"
         # region_data="RegionData:{R1:{E1:95,E2:96,E3:97,E4:50},R2:{E1:95,E2:96,E3:97,E4:50},R3:{E1:95,E2:96,E3:97,E4:50},R8:{E1:95,E2:96,E3:97,E4:50} }"
         
-        riak.write_to_riak("TrustPerformance","TrustData",trust_data)
-        riak.write_to_riak("RegionPerformance","RegionData",region_data)
+        rc.getRc().write_to_riak("TrustPerformance","TrustData",trust_data)
+        rc.getRc().write_to_riak("RegionPerformance","RegionData",region_data)
