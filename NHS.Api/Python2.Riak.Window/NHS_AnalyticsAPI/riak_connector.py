@@ -4,9 +4,21 @@ from django.conf import settings
 from AnalyticConfig import config
 
 class Riak_Connector:
-
+    __rc=None
+ 
     def __init__(self):
-        self._client = riak.RiakClient(host=config['Riak']['Ip'], http_port=config['Riak']['Port'])
+       
+        if Riak_Connector.__rc!=None:
+            raise Exception("This class is a singleton!")
+        else:
+            self._client = riak.RiakClient(host=config['Riak']['Ip'], http_port=config['Riak']['Port'])
+            Riak_Connector.__rc=self
+
+    @staticmethod
+    def getRc():
+        if Riak_Connector.__rc==None:
+            Riak_Connector()
+        return Riak_Connector.__rc
 
     def _bucket(self, bucket_name):
         return self._client.bucket(bucket_name)
