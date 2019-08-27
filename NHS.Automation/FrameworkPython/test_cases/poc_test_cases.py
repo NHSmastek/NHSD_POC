@@ -20,6 +20,11 @@ def test_tc01_login_to_application():
     #Log in to the application
     common_functions.login_application(login_cred,password)
 
+    #Logout From the Application
+    obj_home_page_class = home_page.HomePageClass(driver)
+    obj_home_page_class.click_logout()
+
+    #Closing the Browser
     close = common_functions.close_browser()
 
 def test_tc02_verify_trust_vs_region_graphs():
@@ -41,7 +46,10 @@ def test_tc02_verify_trust_vs_region_graphs():
     obj_home_page_class.select_dropdown_value()
 
     #Validate graph
-    obj_home_page_class.validate_graph_trust_vs_region()
+    obj_home_page_class.validate_graph_trust_vs_region(str_excel_ws)
+
+    # Logout From the Application
+    obj_home_page_class.click_logout()
 
     #Close browser
     close = common_functions.close_browser()
@@ -53,19 +61,24 @@ def test_tc03_verify_trust_vs_peers_graphs():
     login_cred = str_excel_ws.cell(row=2, column=5).value
     password = str_excel_ws.cell(row=2, column=6).value
 
+
     # Launch the application browser and URL
     driver = common_functions.launch_browser_url(str_browser, str_url)
 
     # Log in to the application
     common_functions.login_application(login_cred, password)
 
+
     # Select trust
     obj_home_page_class = home_page.HomePageClass(driver)
     obj_home_page_class.select_dropdown_value()
 
-#Click on the Trust vr peers graph & Validate
+     #Click on the Trust vr peers graph & Validate
     obj_home_page_class.select_graph_trust_vs_peers()
-    obj_home_page_class.validate_graph_trust_vs_peers()
+    obj_home_page_class.validate_graph_trust_vs_peers(str_excel_ws)
+
+    # Logout From the Application
+    obj_home_page_class.click_logout()
 
     #Close browser
     close = common_functions.close_browser()
@@ -90,7 +103,10 @@ def test_tc04_verify_region_vs_peer_regions_graphs():
 
     # Click on the Region vs peer Regions graph & Validate
     obj_home_page_class.select_graph_region_vs_peer_region()
-    obj_home_page_class.validate_graph_trust_vs_peer_region()
+    obj_home_page_class.validate_graph_trust_vs_peer_region(str_excel_ws)
+
+    # Logout From the Application
+    obj_home_page_class.click_logout()
 
     # Close browser
     close = common_functions.close_browser()

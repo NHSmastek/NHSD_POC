@@ -29,7 +29,7 @@ class LoginPageClass:
 
       label_welcome = driver.find_element_by_xpath(read_config.read_element_locator('Login_page','Label_Hello_Admin'))
       label_welcome_text = label_welcome.text
-      print(label_welcome_text)
+      #print(label_welcome_text)
       assert label_welcome_text.find("Hello") != -1,"Test Passed"
 
 

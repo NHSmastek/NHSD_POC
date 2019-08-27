@@ -9,24 +9,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
-# CORS_ORIGIN_WHITELIST = [
-#     "https://172.16.243.211:8100",
-#     "http://localhost:8100",
-#     "http://127.0.0.1:8100",
-#     "http://172.16.243.211:8100"
-# ]
-
 CORS_ORIGIN_ALLOW_ALL=True
-
-RIAK_HOST_IP = "35.176.37.177"
-RIAK_HOST_PORT = "8087"
-TRUST_BUCKET_NAME = "TrustPerformance"
-REGION_BUCKET_NAME = "RegionPerformance"
-TRUST_KEY = "TrustData"
-REGION_KEY = "RegionData"
-TRUST_REGION_MAP_BUCKET = "TrustRegionMap"
-TRUST_REGION_MAP_KEY = "TrustRegionMapData"
-
 
 INSTALLED_APPS = [
     'corsheaders',
@@ -88,8 +71,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
-# Internationalization
 LANGUAGE_CODE = 'en-us'
 
 TIME_ZONE = 'UTC'
@@ -99,7 +80,6 @@ USE_I18N = True
 USE_L10N = True
 
 USE_TZ = True
-
 
 # Static files (CSS, JavaScript, Images)
 STATIC_URL = '/static/'

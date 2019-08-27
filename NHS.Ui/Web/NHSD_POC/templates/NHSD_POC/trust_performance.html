@@ -161,11 +161,20 @@
                         <div id="side-bar-chart-option">
                             <!-- <a id="CwtReportDateLink" target="_blank" style="padding: 10px 10px 9px 10px;">
                                 <i aria-hidden="true"></i>Other Graph</a> -->
+
                             <strong style="margin-left: 20%;">Other Graph </strong>
                         </div>
                         <div
+                            style="border-bottom: 1px solid black;margin: 7px 0px 0px 0px;padding: 5px;text-align: center;height: 120px;">
+                            <a style="cursor: pointer" onclick="showchart(grapType.TvP)">
+                                <img src="{% static 'NHSD_POC/images/regions.png' %}" style="width: 100%">
+                                <span style="display: block">Trust vs Peers</span>
+                            </a>
+
+                        </div>
+                        <div
                             style="border-bottom: 1px solid black;margin: 7px 0px 0px 0px;padding:  5px;text-align: center;height: 120px;">
-                            <a style="cursor: pointer" onclick="loadchart(grapType.TvR )">
+                            <a style="cursor: pointer" onclick="showchart(grapType.TvR )">
 
                                 <img src="{% static 'NHSD_POC/images/trustvsregion.png' %}" style="width: 100%">
                                 <span style="display: block">Trust vs Region </span>
@@ -180,7 +189,7 @@
                         </div>
                         
                         <div style="margin: 7px 0px 0px 0px;padding:  5px;text-align: center;height: 120px;">
-                            <a style="cursor: pointer" onclick="loadchart(grapType.Regions)">
+                            <a style="cursor: pointer" onclick="showchart(grapType.Regions)">
 
                                 <img src="{% static 'NHSD_POC/images/trustwise.png' %}" style="width: 100%">
                                 <span style="display: block">Regions</span>
@@ -244,6 +253,8 @@
     <script src="{% static 'NHSD_POC/js/CWT/jquery.validate.js' %}"></script>
     <script src="{% static 'NHSD_POC/js/CWT/bootstrap.js' %}"></script>
     <script src="https://www.gstatic.com/charts/loader.js"></script>
+    <script src="{% static 'NHSD_POC/js/jsConfig.js' %}"></script>
+    <script src="{% static 'NHSD_POC/js/graph_wrapper.js' %}"></script>
     <script src="{% static 'NHSD_POC/js/trust_performance.js' %}"></script>
     <script>
         $(document).ready(function () {
