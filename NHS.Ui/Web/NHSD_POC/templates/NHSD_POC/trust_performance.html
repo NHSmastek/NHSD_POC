@@ -62,6 +62,9 @@
             border-radius: 10px;
             border: 1px solid black;
         }
+        .emptyInput{
+            background-color: yellow;
+        }
     </style>
 
     <link href="{% static 'NHSD_POC/CSS/CWT/bootstrap.css' %}" rel="stylesheet">
@@ -107,13 +110,15 @@
                 style="padding-top:3px; padding-bottom:2px; border-bottom:0;  padding-top: 5px;">
                 <li style="float: right; width: 16%">
                        <template id="trustResultsTemplate">
-                                  {% for trust in trust_list %}
-                                    <option>{{trust}}</option>
-                                    {% endfor %}
+                                {% for trust in trust_list %}
+                                <option>{{trust}}</option>
+                                {% endfor %}
                             </template>
                             <input type="text" name="search" id="trust_input"  placeholder="select the region" list="trustresults" autocomplete="off" class="form-control" onchange="get_performance_data_for_map(this.value)"/>
                             <datalist id="trustresults"></datalist>
                         <input type="hidden" id="current_selected_graph">
+                        <br>
+                        <span id="region_text"></span>
 
                 </li>
                 <li class="active" style="text-align: center;float: unset;border-left: none;width: 81%">
@@ -151,14 +156,7 @@
                         <div id="side-bar-chart-option">
                             <!-- <a id="CwtReportDateLink" target="_blank" style="padding: 10px 10px 9px 10px;">
                                 <i aria-hidden="true"></i>Other Graph</a> -->
-                            <strong>Other Graph </strong>
-                        </div>
-                        <div
-                            style="border-bottom: 1px solid black;margin: 7px 0px 0px 0px;padding: 5px;text-align: center;height: 120px;">
-                            <a style="cursor: pointer" onclick="loadchart(grapType.TvP)">
-                                <img src="{% static 'NHSD_POC/images/regions.png' %}" style="width: 100%">
-                                <span style="display: block">Trust vs Peers</span>
-                            </a>
+                            <center><strong>Other Graph </strong></center>
                         </div>
                         <div
                             style="border-bottom: 1px solid black;margin: 7px 0px 0px 0px;padding:  5px;text-align: center;height: 120px;">
@@ -166,6 +164,13 @@
 
                                 <img src="{% static 'NHSD_POC/images/trustvsregion.png' %}" style="width: 100%">
                                 <span style="display: block">Trust vs Region </span>
+                            </a>
+                        </div>
+                        <div
+                            style="border-bottom: 1px solid black;margin: 7px 0px 0px 0px;padding: 5px;text-align: center;height: 120px;">
+                            <a style="cursor: pointer" onclick="loadchart(grapType.TvP)">
+                                <img src="{% static 'NHSD_POC/images/regions.png' %}" style="width: 100%">
+                                <span style="display: block">Trust vs Peers</span>
                             </a>
                         </div>
                         <div style="margin: 7px 0px 0px 0px;padding:  5px;text-align: center;height: 120px;">
@@ -238,17 +243,6 @@
     <script src="{% static 'NHSD_POC/js/CWT/bootstrap.js' %}"></script>
     <script src="https://www.gstatic.com/charts/loader.js"></script>
     <script src="{% static 'NHSD_POC/js/trust_performance.js' %}"></script>
-    <script>
-        $(document).ready(function () {
-            $("#myInput").on("keyup", function () {
-                var value = $(this).val().toUpperCase();
-
-                $("#trust_list option").filter(function () {
-                    $(this).toggle($(this).text().toUpperCase().indexOf(value) > -1)
-                });
-            });
-        });
-    </script>
 </body>
 
 </html>

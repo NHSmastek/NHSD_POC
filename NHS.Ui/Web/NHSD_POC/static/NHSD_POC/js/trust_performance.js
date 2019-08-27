@@ -2,35 +2,46 @@
 var ApiResponse = {}
 var region_code, org_Code;
 function get_performance_data_for_map(trust_code) {
-
+    
+    if(trust_code == ''){
+        $('#trust_input').css('background-color:yellow');
+    }else{
+        $('#trust_input').css('background-color:""');
+    }
     if(trust_code == '')
     {
         document.getElementById("dv_chart_no_selection_panel").style.display = "block";
         document.getElementById("default-img").style.display = "block";
         document.getElementById("loader").style.display = "none";
         document.getElementById("dv_chart_row_panel").style.display = "none";
+        $("#region_text").html("");
         return false;
     }
     
-    showHideLoaderContent(true);
-    showHideLoaderChart(true);
-
-    show_Hide_panel()
-
     $.ajax({
-        //TODO : replace static url with correct url
-        //url: "http://172.16.243.211:8009/search_trust/" + trust_code,
-        url: ajax_url+"search_trust/" + trust_code
-
-    }).then(function (data) {
-        //Use response here        
-        ApiResponse = {};        
-        ApiResponse = JSON.parse(JSON.stringify(data));       
-        region_code = ApiResponse.Region_Code;
-        org_Code = trust_code;
-        createChartsData()
-        loadchart(grapType.TvR)
-    });    
+        url: ajax_url+"search_trust/" + trust_code,
+        beforeSend: function() {
+            showHideLoaderContent(true);
+            showHideLoaderChart(true);
+            show_Hide_panel(); 
+        },
+        success:function(data) {
+            ApiResponse = {};        
+            ApiResponse = JSON.parse(JSON.stringify(data));       
+            region_code = ApiResponse.Region_Code;
+            org_Code = trust_code;
+            $("#region_text").html('<b style="box-shadow: 5px 5px 5px grey;">Region Code :'+region_code+'</b><hr>');
+            createChartsData()
+            loadchart(grapType.TvR)
+        },
+        error:function(){
+            alert("Someting went wrong");
+            document.getElementById("dv_chart_no_selection_panel").style.display = "block";
+            document.getElementById("default-img").style.display = "block";
+            document.getElementById("loader").style.display = "none";
+            document.getElementById("dv_chart_row_panel").style.display = "none";
+        }
+    });
 }
 
 var grapType =
