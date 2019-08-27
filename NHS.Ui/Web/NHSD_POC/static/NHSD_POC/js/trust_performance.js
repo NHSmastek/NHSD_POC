@@ -255,3 +255,15 @@ search.addEventListener('keyup', function handler(event) {
     }, document.createDocumentFragment());
     results.appendChild(set);
 });
+
+
+function focusToSearchTrust(e) {
+    var ele = document.getElementById('trust_input');
+    var newVal = 'Search The Trust.\n';
+   
+    ele.value = newVal;
+    ele.focus();
+   
+    // To update cursor position to recently added character in textBox
+    ele.setSelectionRange(newVal.length, newVal.length);
+   }

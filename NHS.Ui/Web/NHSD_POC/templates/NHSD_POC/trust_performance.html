@@ -4,7 +4,7 @@
     class=" js flexbox flexboxlegacy canvas canvastext webgl no-touch geolocation postmessage websqldatabase indexeddb hashchange history draganddrop websockets rgba hsla multiplebgs backgroundsize borderimage borderradius boxshadow textshadow opacity cssanimations csscolumns cssgradients cssreflections csstransforms no-csstransforms3d csstransitions fontface no-generatedcontent video audio localstorage sessionstorage webworkers applicationcache svg inlinesvg smil svgclippaths">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title>Exploratory analytics | Patient Waiting Times | Home</title>
+    <title>Exploratory Analytics | Patient Waiting Times | Home</title>
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://www.mastek.com/sites/default/files/favicon1_0.png" type="image/x-icon" rel="shortcut icon">
@@ -97,7 +97,7 @@
                 </div>
 
                 <div class="navbar-title">
-                    <h1>Patient Waiting Times- <em style="font-size: 18px;">Exploratory analytics</em> </h1> 
+                    <h1>Patient Waiting Times- <em style="font-size: 18px;">Exploratory Analytics</em> </h1> 
                     <div class="notification-message "> </div>
                 </div>
             </div>
@@ -116,9 +116,9 @@
                         <input type="hidden" id="current_selected_graph">
 
                 </li>
-                <li class="active" style="text-align: center;float: unset;border-left: none;width: 81%">
+                <!--<li class="active" style="text-align: center;float: unset;border-left: none;width: 81%">
                     <h3>Exploratory analytics </h3>
-                </li>
+                </li> -->
             </ul>
         </div>
 
@@ -130,19 +130,16 @@
 
                         </div>
                     </div>
-                    <div class="col-sm-10" id="default-img" style="display: block;">
+                    <div class="col-sm-10" id="default-img" style="display: block;margin-left: -36px;">
 
                         <img src="{% static 'NHSD_POC/images/CWT/waiting_times.png' %}" style="width: 100%">
-
+                       <div class="pull-right" style="margin-top: 40px;font-size: 15px;">
+                            <a href="JavaScript:Void(0);" onclick="focusToSearchTrust()" > Click here </a><strong>To Select the Trust</strong>
+                        </div> 
                     </div>
                 </div>
                 <div id="dv_chart_row_panel" class="row" style="display: none">
-                        <div style="margin-left:10%">
-                                <b>E1: </b>Transition 1, 
-                                 <b>E2: </b>Transition 2,
-                                 <b>E3: </b>Transition 3,
-                                <b>E4: </b>Transition 4.
-                             </div>
+                        
                     <div class="col-sm-10">
                         <div id="loaderbg">
                             <div id="loaderc" style="display: block;position: absolute;top: 0;z-index: 2;background-color: black">
@@ -152,7 +149,14 @@
                             <div class="chartHome" id="chart_div" style="width: 100%; height: 400px; display: block ">
                             </div>
                         </div>
+                        <div style="margin-left:10%">
+                                <b>E1: </b>Transition 1, 
+                                 <b>E2: </b>Transition 2,
+                                 <b>E3: </b>Transition 3,
+                                <b>E4: </b>Transition 4.
+                             </div>
                     </div>
+                    
                     <div class="col-sm-2" style="border-left: 1px solid black;">
                         <div id="side-bar-chart-option">
                             <!-- <a id="CwtReportDateLink" target="_blank" style="padding: 10px 10px 9px 10px;">
@@ -204,9 +208,9 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" href="javascript:void()">v1.0.0.0</a>
+                    <a class="navbar-brand" href="javascript:void()">Version:-Alfa</a>
                 </div>
-                <div class="navbar-header" style="margin-left:45%">
+                <div class="navbar-header" style="margin-left:40%">
                         <a class="navbar-brand" href="https://www.mastek.com/" >Copyright © 2019 Mastek</a>
                     </div>
                 <div class="navbar-collapse collapse footer-navbar-collapse">
@@ -220,7 +224,7 @@
                                 LinkedIn
                             </a>
                        </li>
-                            <li>
+                           <!-- <li>
                                 <a href="https://twitter.com/MastekUK">
                                     <img src="{% static 'NHSD_POC/images/CWT/icon-twitter.png' %}"
                                         style="width: 1em; height: 1em; margin-top: -1px;">
@@ -229,7 +233,7 @@
                             </li>
                             <li><a href="">Terms and
                                 Conditions</a></li>
-                        
+                            -->    
                         <li><a href="https://www.mastek.com/contact-us">Contact Us</a></li>
                     </ul>
                 </div>
