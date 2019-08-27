@@ -19,8 +19,8 @@ function get_performance_data_for_map(trust_code) {
 
     $.ajax({
         //TODO : replace static url with correct url
-        //url: "http://172.16.243.211:8009/search_trust/" + trust_code,
-        url: ajax_url+"search_trust/" + trust_code
+        url: "http://172.16.243.211:8009/search_trust/" + trust_code,
+        //url: ajax_url+"search_trust/" + trust_code
 
     }).then(function (data) {
         //Use response here        
