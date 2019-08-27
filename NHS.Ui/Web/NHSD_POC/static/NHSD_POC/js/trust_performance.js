@@ -19,8 +19,9 @@ function get_performance_data_for_map(trust_code) {
     $.ajax({
         url: ajax_url + "search_trust/" + trust_code
     }).then(function (data) {
-        ApiResponse = {};
-        ApiResponse = JSON.parse(JSON.stringify(data));
+        //Use response here        
+        ApiResponse = {};        
+        ApiResponse = JSON.parse(data);       
         region_code = ApiResponse.Region_Code;
         org_Code = trust_code;
         createChartsData()

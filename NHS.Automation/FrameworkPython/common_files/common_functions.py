@@ -55,5 +55,6 @@ def login_application(login_cred,password):
     obj_login_class.btn_clk_login()
     obj_login_class.validate_home_page()
 
+
 def close_browser():
-    return driver.close()
+    return driver.close()/
