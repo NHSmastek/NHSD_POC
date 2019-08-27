@@ -2,14 +2,14 @@
 var ApiResponse = {}
 var region_code, org_Code;
 function IsValidTrust(trust_code){
-    var availability;
+    var IsValid;
     $("#trustresults > option").each(function(i){
           trust_cd = $(this).text().trim();
           if(trust_cd == trust_code.toUpperCase()){
-              availability = true;
+            IsValid = true;
           }
     });
-    return availability;
+    return IsValid;
 }
 function get_performance_data_for_map(trust_code) {
     if(trust_code == '' || IsValidTrust(trust_code) != true)
