@@ -1,16 +1,25 @@
 
 var ApiResponse = {}
 var region_code, org_Code;
+function IsValidTrust(trust_code){
+    var IsValid;
+    $("#trustresults > option").each(function(i){
+          trust_cd = $(this).text().trim();
+          if(trust_cd == trust_code.toUpperCase()){
+            IsValid = true;
+          }
+    });
+    return IsValid;
+}
 function get_performance_data_for_map(trust_code) {
-
-    if (trust_code == '') {
+    if(trust_code == '' || IsValidTrust(trust_code) != true)
+    {
         document.getElementById("dv_chart_no_selection_panel").style.display = "block";
         document.getElementById("default-img").style.display = "block";
         document.getElementById("loader").style.display = "none";
         document.getElementById("dv_chart_row_panel").style.display = "none";
         return false;
-    }
-
+    }    
     showHideLoaderContent(true);
     showHideLoaderChart(true);
 
