@@ -1,7 +1,7 @@
 
 var ApiResponse = {}
 var region_code, org_Code;
-function trustcode_availability(trust_code){
+function IsValidTrust(trust_code){
     var availability;
     $("#trustresults > option").each(function(i){
           trust_cd = $(this).text().trim();
@@ -12,7 +12,7 @@ function trustcode_availability(trust_code){
     return availability;
 }
 function get_performance_data_for_map(trust_code) {
-    if(trust_code == '' || trustcode_availability(trust_code) != true)
+    if(trust_code == '' || IsValidTrust(trust_code) != true)
     {
         document.getElementById("dv_chart_no_selection_panel").style.display = "block";
         document.getElementById("default-img").style.display = "block";
