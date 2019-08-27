@@ -87,7 +87,7 @@
                     <img src="{% static 'NHSD_POC/images/CWT/mastek-logo1.png' %}">
                 </a>
                 <div id="myhscic">
-                    Hello {% if request.user.is_authenticated %} {{ request.user.username }} |
+                    Hello {% if request.user.is_authenticated %} {{ request.user.username|lower|capfirst }} |
                     <a href="{% url 'logout' %}">
                         <button id="" type="button" class="btn btn-sm btn-primary">
                             Sign out&nbsp;<i class="fa fa-chevron-circle-right fa-2x"></i>

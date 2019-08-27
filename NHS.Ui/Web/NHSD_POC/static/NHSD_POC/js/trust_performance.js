@@ -259,7 +259,7 @@ search.addEventListener('keyup', function handler(event) {
 
 function focusToSearchTrust(e) {
     var ele = document.getElementById('trust_input');
-    var newVal = 'Search The Trust.\n';
+    var newVal = '';
    
     ele.value = newVal;
     ele.focus();
