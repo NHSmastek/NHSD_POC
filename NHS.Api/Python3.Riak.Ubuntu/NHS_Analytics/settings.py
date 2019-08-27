@@ -12,9 +12,10 @@ ALLOWED_HOSTS = [
     "rest_framework"
 ]
 
+# CORS ATTRIBUTES
+CORS_ORIGIN_ALLOW_ALL = True
 
-CORS_ORIGIN_ALLOW_ALL=True
-
+# APPLICATION ATTRIBUTES
 RIAK_HOST_IP = "35.176.37.177"
 RIAK_HOST_PORT = "8087"
 TRUST_BUCKET_NAME = "TrustPerformance"
@@ -24,8 +25,8 @@ REGION_KEY = "RegionData"
 TRUST_REGION_MAP_BUCKET = "TrustRegionMap"
 TRUST_REGION_MAP_KEY = "TrustRegionMapData"
 
-# Application definition
 
+# Application definition
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -72,15 +73,6 @@ TEMPLATES = [
 WSGI_APPLICATION = 'NHS_Analytics.wsgi.application'
 
 
-# Database
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    }
-}
-
-
 # Password validation
 AUTH_PASSWORD_VALIDATORS = [
     {
@@ -97,8 +89,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
-# Internationalization
 LANGUAGE_CODE = 'en-us'
 
 TIME_ZONE = 'UTC'
@@ -109,6 +99,4 @@ USE_L10N = True
 
 USE_TZ = True
 
-
-# Static files (CSS, JavaScript, Images)
 STATIC_URL = '/static/'

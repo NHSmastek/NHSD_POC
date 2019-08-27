@@ -6,12 +6,14 @@ from AnalyticConfig import config
 from riak_connector import Riak_Connector as rc
 import random
 
+
 def get_trust_list(request):
     trust_list=[]
     regions=rc.getRc().get_keys(config['Riak']['Buckets']['Trusts_Region_Map'])
     for region in regions:
         trust_list.extend(rc.getRc().get_by_key(config['Riak']['Buckets']['Trusts_Region_Map'],region))
     return JsonResponse(trust_list, safe=False)
+
 
 def search_trust(request, trust_name):
     # Get Region Code
@@ -32,6 +34,7 @@ def search_trust(request, trust_name):
     }
     return JsonResponse(resp_data, status=200)
 
+
 def _get_peer_list(trust_name, region_code):
     peer_list = {}
     peer_id_list = random.sample(rc.getRc().get_by_key(config['Riak']['Buckets']['Trusts_Region_Map'],region_code),4)
@@ -43,12 +46,14 @@ def _get_peer_list(trust_name, region_code):
         peer_list[tempdict.keys()[0]] = tempdict.values()[0]
     return peer_list
 
+
 def _get_region_code_for_trust(trust_name):
     keys = rc.getRc().get_keys(config['Riak']['Buckets']['Trusts_Region_Map'])
     for key in keys:
         rc.getRc().get_by_key(config['Riak']['Buckets']['Trusts_Region_Map'],key)
         if trust_name in rc.getRc().get_by_key(config['Riak']['Buckets']['Trusts_Region_Map'],key):
             return key
+
 
 def _get_region_list():
     region_dict = {}

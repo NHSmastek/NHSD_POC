@@ -1,18 +1,16 @@
-from __future__ import unicode_literals
 import riak
 from AnalyticConfig import config
 
 
 class Riak_Connector(object):
-    __rc=None
- 
+    __rc = None
+
     def __init__(self):
-       
         if Riak_Connector.__rc:
             raise Exception("This class is a singleton!")
         else:
             self._client = riak.RiakClient(host=config['Riak']['Ip'], http_port=config['Riak']['Port'])
-            Riak_Connector.__rc=self
+            Riak_Connector.__rc = self
 
     @staticmethod
     def getRc():
@@ -37,9 +35,9 @@ class Riak_Connector(object):
                 for (var key in val) {\
                     if (val[key]['" + key_name+"']=='" + key_value + "'){\
                         return [val[key]];\
-                            }\
-                                }\
-                                    }"
+                    }\
+                }\
+            }"
         query.map(query_str)
         try:
             for search_data in query.run():
