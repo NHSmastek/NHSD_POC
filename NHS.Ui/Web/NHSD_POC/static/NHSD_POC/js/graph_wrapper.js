@@ -90,10 +90,8 @@ function createChartsData() {
                 rows: [datacreated.TvP.rows[0], datacreated.TvP.rows[1], datacreated.TvP.rows[2], datacreated.TvP.rows[3]],
                 grapType: grapType.Tvp
             },
-            options: {
-                title: 'Trust ' + org_Code + ' vs Peers',
-                vAxis: { title: 'Transition Time (in days)' },
-                hAxis: { title: org_Code + ' and Peers' },
+            options: {                
+                vAxis: { title: 'Transition Time (in days)' },                
                 seriesType: 'bars',
                 series: { 4: { type: 'line' } },
                 colors: ['#3366cc', '#dc3912', '#ff9900', '#109618', '#990099']
@@ -105,10 +103,8 @@ function createChartsData() {
                 rows: [datacreated.Regions.rows[0], datacreated.Regions.rows[1], datacreated.Regions.rows[2], datacreated.Regions.rows[3]],
                 grapType: grapType.Regions
             },
-            options: {
-                title: 'Region ' + region_code + ' vs others',
-                vAxis: { title: 'Transition Time (in days)' },
-                hAxis: { title: 'Region ' + region_code + ' and others' },
+            options: {                
+                vAxis: { title: 'Transition Time (in days)' },                
                 seriesType: 'bars',
                 series: { 4: { type: 'line' } },
                 colors: ['#dc3912', '#3366cc', '#ff9900', '#109618', '#990099']
@@ -120,10 +116,8 @@ function createChartsData() {
                 rows: [datacreated.TvR.rows[0], datacreated.TvR.rows[1], datacreated.TvR.rows[2], datacreated.TvR.rows[3]],
                 grapType: grapType.TvR
             },
-            options: {
-                title: 'Trust ' + org_Code + ' vs Region ' + region_code,
-                vAxis: { title: 'Transition Time (in days)' },
-                hAxis: { title: org_Code + ' and Region ' + region_code },
+            options: {                
+                vAxis: { title: 'Transition Time (in days)' },                
                 seriesType: 'bars',
                 series: { 2: { type: 'line' } },
                 colors: ['#3366cc', '#dc3912', '#990099']
