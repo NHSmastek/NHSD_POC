@@ -6,6 +6,8 @@ from django.views.decorators.http import require_POST
 import NHS_AnalyticsAPI
 import riak
 from django.conf import settings
+from django.core.serializers.json import DjangoJSONEncoder
+import json
 
 # Repetition of CRUD Logic is to be removed.
 # Logic of getting Peers is pending.
@@ -66,7 +68,8 @@ def search_trust(request, trust_name):
         "Region_Data": region_dict,
         "Trust_Data": trust_dict,
     }
-    return JsonResponse(resp_data, status=200)
+    resp_data = json.dumps(resp_data, cls=DjangoJSONEncoder)
+    return JsonResponse(resp_data, safe=False, status=200)
 
 
 def _get_peer_list(region_code, trust_name):
