@@ -57,4 +57,4 @@ def login_application(login_cred,password):
 
 
 def close_browser():
-    return driver.close()/
+    return driver.close()
