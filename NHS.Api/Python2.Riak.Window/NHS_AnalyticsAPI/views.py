@@ -1,17 +1,18 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 from django.http import JsonResponse, HttpResponse
-import NHS_AnalyticsAPI
 from AnalyticConfig import config
 from riak_connector import Riak_Connector as rc
 import random
+from django.core.serializers.json import DjangoJSONEncoder
+import json
 
 
 def get_trust_list(request):
-    trust_list=[]
-    regions=rc.getRc().get_keys(config['Riak']['Buckets']['Trusts_Region_Map'])
+    trust_list = []
+    regions = rc.getRc().get_keys(config['Riak']['Buckets']['Trusts_Region_Map'])
     for region in regions:
-        trust_list.extend(rc.getRc().get_by_key(config['Riak']['Buckets']['Trusts_Region_Map'],region))
+        trust_list.extend(rc.getRc().get_by_key(config['Riak']['Buckets']['Trusts_Region_Map'], region))
     return JsonResponse(trust_list, safe=False)
 
 
@@ -38,7 +39,7 @@ def search_trust(request, trust_name):
 
 def _get_peer_list(trust_name, region_code):
     peer_list = {}
-    peer_id_list = random.sample(rc.getRc().get_by_key(config['Riak']['Buckets']['Trusts_Region_Map'],region_code),4)
+    peer_id_list = random.sample(rc.getRc().get_by_key(config['Riak']['Buckets']['Trusts_Region_Map'], region_code), 4)
     if trust_name not in peer_id_list:
         peer_id_list[0] = trust_name
     for item in peer_id_list:
@@ -51,8 +52,8 @@ def _get_peer_list(trust_name, region_code):
 def _get_region_code_for_trust(trust_name):
     keys = rc.getRc().get_keys(config['Riak']['Buckets']['Trusts_Region_Map'])
     for key in keys:
-        rc.getRc().get_by_key(config['Riak']['Buckets']['Trusts_Region_Map'],key)
-        if trust_name in rc.getRc().get_by_key(config['Riak']['Buckets']['Trusts_Region_Map'],key):
+        rc.getRc().get_by_key(config['Riak']['Buckets']['Trusts_Region_Map'], key)
+        if trust_name in rc.getRc().get_by_key(config['Riak']['Buckets']['Trusts_Region_Map'], key):
             return key
 
 
