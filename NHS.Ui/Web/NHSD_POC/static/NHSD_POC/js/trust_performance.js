@@ -19,8 +19,7 @@ function get_performance_data_for_map(trust_code) {
         document.getElementById("loader").style.display = "none";
         document.getElementById("dv_chart_row_panel").style.display = "none";
         return false;
-    }
-    
+    }    
     showHideLoaderContent(true);
     showHideLoaderChart(true);
 
