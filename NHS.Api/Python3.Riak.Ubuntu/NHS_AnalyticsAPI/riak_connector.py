@@ -1,4 +1,3 @@
-from __future__ import unicode_literals
 import riak
 from AnalyticConfig import config
 
@@ -11,7 +10,7 @@ class Riak_Connector(object):
             raise Exception("This class is a singleton!")
         else:
             self._client = riak.RiakClient(host=config['Riak']['Ip'], http_port=config['Riak']['Port'])
-            Riak_Connector.__rc=self
+            Riak_Connector.__rc = self
 
     @staticmethod
     def getRc():
