@@ -4,11 +4,13 @@
     class=" js flexbox flexboxlegacy canvas canvastext webgl no-touch geolocation postmessage websqldatabase indexeddb hashchange history draganddrop websockets rgba hsla multiplebgs backgroundsize borderimage borderradius boxshadow textshadow opacity cssanimations csscolumns cssgradients cssreflections csstransforms no-csstransforms3d csstransitions fontface no-generatedcontent video audio localstorage sessionstorage webworkers applicationcache svg inlinesvg smil svgclippaths">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title>Cancer Waiting Times | Home</title>
+    <title>Exploratory analytics | Patient Waiting Times | Home</title>
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="{% static 'NHSD_POC/images/CWT/favicon.ico' %}" type="image/x-icon" rel="shortcut icon">
-    <link href="{% static 'NHSD_POC/images/CWT/favicon.ico' %}" type="image/ico" rel="icon">
+    <link href="https://www.mastek.com/sites/default/files/favicon1_0.png" type="image/x-icon" rel="shortcut icon">
+    <link href="https://www.mastek.com/sites/default/files/favicon1_0.png" type="image/ico" rel="icon">
+    <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css" rel="stylesheet">
+
     <style>
         html {
             display: none
@@ -65,6 +67,19 @@
         .emptyInput{
             background-color: yellow;
         }
+        .inner-addon {
+             position: relative;
+        }
+        .inner-addon .glyphicon {
+            position: absolute;
+            padding: 7px;
+            pointer-events: none;
+        }
+        .left-addon .glyphicon  { left:  0px;}
+        .right-addon .glyphicon { right: 0px;}
+
+        .left-addon input  { padding-left:  30px; }
+        .right-addon input { padding-right: 30px; }
     </style>
 
     <link href="{% static 'NHSD_POC/CSS/CWT/bootstrap.css' %}" rel="stylesheet">
@@ -81,26 +96,26 @@
        var ajax_url = "{{ api_url }}";
     </script>
 </head>
-
-<body cz-shortcut-listen="true">
+<!--style="overflow:hidden"-->
+<body cz-shortcut-listen="true" >
     <div id="wrap">
         <div class="navbar navbar-static-top">
             <div class="container" style="padding-top:2px; padding-bottom:2px">
                 <a href="" class="navbar-brand" title="Link to NHS Digital homepage">
-                    <img src="{% static 'NHSD_POC/images/CWT/logo.png' %}">
+                    <img src="{% static 'NHSD_POC/images/CWT/mastek-logo1.png' %}">
                 </a>
                 <div id="myhscic">
-                    Hello {% if request.user.is_authenticated %} {{ request.user.username }} |
+                    Hello {% if request.user.is_authenticated %} {{ request.user.username |upper }} |
                     <a href="{% url 'logout' %}">
                         <button id="" type="button" class="btn btn-sm btn-primary">
-                            Sign out&nbsp;<i class="fa fa-chevron-circle-right fa-2x"></i>
+                            Sign Out&nbsp;<i class="fa fa-chevron-circle-right fa-2x"></i>
                         </button>
                     </a>
                     {% endif %}
                 </div>
 
                 <div class="navbar-title">
-                    <h1>Cancer Waiting Times</h1>
+                    <h1>Patient Waiting Times- <em style="font-size: 18px;">Exploratory analytics</em> </h1> 
                     <div class="notification-message "> </div>
                 </div>
             </div>
@@ -114,15 +129,19 @@
                                 <option>{{trust}}</option>
                                 {% endfor %}
                             </template>
-                            <input type="text" name="search" id="trust_input"  placeholder="select the region" list="trustresults" autocomplete="off" class="form-control" onchange="get_performance_data_for_map(this.value)"/>
+                            <div class="inner-addon right-addon">
+                                    <i class="glyphicon glyphicon-search"></i>
+                                    <input type="text" name="search" id="trust_input"  placeholder="Select The Trust" list="trustresults" autocomplete="off" class="form-control trust_input" onchange="get_performance_data_for_map(this.value)"/>
+                            </div>
                             <datalist id="trustresults"></datalist>
+                           
                         <input type="hidden" id="current_selected_graph">
                         <br>
                         <span id="region_text"></span>
 
                 </li>
                 <li class="active" style="text-align: center;float: unset;border-left: none;width: 81%">
-                    <h3>Performance visualization</h3>
+                    <h3>Exploratory analytics </h3>
                 </li>
             </ul>
         </div>
@@ -137,11 +156,17 @@
                     </div>
                     <div class="col-sm-10" id="default-img" style="display: block;">
 
-                        <img src="{% static 'NHSD_POC/images/CWT/nhs-home-page.jpg' %}" style="width: 100%">
+                        <img src="{% static 'NHSD_POC/images/CWT/waiting_times.png' %}" style="width: 100%">
 
                     </div>
                 </div>
                 <div id="dv_chart_row_panel" class="row" style="display: none">
+                        <div style="margin-left:10%">
+                                <b>E1: </b>Transition 1, 
+                                 <b>E2: </b>Transition 2,
+                                 <b>E3: </b>Transition 3,
+                                <b>E4: </b>Transition 4.
+                             </div>
                     <div class="col-sm-10">
                         <div id="loaderbg">
                             <div id="loaderc" style="display: block;position: absolute;top: 0;z-index: 2;background-color: black">
@@ -173,6 +198,7 @@
                                 <span style="display: block">Trust vs Peers</span>
                             </a>
                         </div>
+                        
                         <div style="margin: 7px 0px 0px 0px;padding:  5px;text-align: center;height: 120px;">
                             <a style="cursor: pointer" onclick="loadchart(grapType.Regions)">
 
@@ -204,35 +230,31 @@
                     </button>
                     <a class="navbar-brand" href="javascript:void()">v1.0.0.0</a>
                 </div>
-
+                <div class="navbar-header" style="margin-left:45%">
+                        <a class="navbar-brand" href="https://www.mastek.com/" >Copyright © 2019 Mastek</a>
+                    </div>
                 <div class="navbar-collapse collapse footer-navbar-collapse">
+                
+                    
                     <ul class="nav navbar-nav pull-right">
                         <li>
-                            <a href="https://www.linkedin.com/company/nhs-digital">
-                                <img src="{% static 'NHSD_POC/images/CWT/icon-twitter.png' %}"
+                            <a href="//www.linkedin.com/company/164825?trk=tyah&amp;trkInfo=clickedVertical%3Acompany%2CclickedEntityId%3A164825%  2Cidx%3A3-1-8%2CtarId%3A1458651117535%2Ctas%3AMastek%20">
+                                <img src="{% static 'NHSD_POC/images/CWT/icon-linkedin.png' %}"
                                     style="width: 1em; height: 1em; margin-top: -1px;">
                                 LinkedIn
                             </a>
-
                        </li>
                             <li>
-                                <a href="https://www.twitter.com/NHSDigital">
-                                    <img src="{% static 'NHSD_POC/images/CWT/icon-linkedin.png' %}"
+                                <a href="https://twitter.com/MastekUK">
+                                    <img src="{% static 'NHSD_POC/images/CWT/icon-twitter.png' %}"
                                         style="width: 1em; height: 1em; margin-top: -1px;">
                                     Twitter
                                 </a>
                             </li>
-
-                        <li><a href="https://digital.nhs.uk/about-nhs-digital/accessibility-help"
-                                accesskey="0">Accessibility</a></li>
-                        <li><a href="https://digital.nhs.uk/about-nhs-digital/contact-us/freedom-of-information">Freedom
-                                of Information</a></li>
-                        <li><a href="https://digital.nhs.uk/hidden-articles/our-use-of-cookies">Privacy and cookies</a>
-                        </li>
-                        <li><a href="https://digital.nhs.uk/hidden-articles/footer/terms-and-conditions">Terms and
+                            <li><a href="">Terms and
                                 Conditions</a></li>
-                        <li><a href="https://digital.nhs.uk/legal">Legal</a></li>
-                        <li><a href="http://digital.nhs.uk/contact-us">Contact Us</a></li>
+                        
+                        <li><a href="https://www.mastek.com/contact-us">Contact Us</a></li>
                     </ul>
                 </div>
             </div>

@@ -2,11 +2,10 @@
 var ApiResponse = {}
 var region_code, org_Code;
 function get_performance_data_for_map(trust_code) {
-    
     if(trust_code == ''){
-        $('#trust_input').css('background-color:yellow');
+        $('.trust_input').css("background-color", "lightgoldenrodyellow");
     }else{
-        $('#trust_input').css('background-color:""');
+        $('.trust_input').css("background-color", "");
     }
     if(trust_code == '')
     {
@@ -30,7 +29,7 @@ function get_performance_data_for_map(trust_code) {
             ApiResponse = JSON.parse(JSON.stringify(data));       
             region_code = ApiResponse.Region_Code;
             org_Code = trust_code;
-            $("#region_text").html('<b style="box-shadow: 5px 5px 5px grey;">Region Code :'+region_code+'</b><hr>');
+            $("#region_text").html('<p style="box-shadow: 5px 5px 5px grey;">Region Code :'+region_code+'</p><hr>');
             createChartsData()
             loadchart(grapType.TvR)
         },
