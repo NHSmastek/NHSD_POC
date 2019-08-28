@@ -17,7 +17,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
 # Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
+# See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/l
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = '$u@ej&@wzr+sg1q!x=rr-3s&6u&!dk0&-9c^^z!fn^d0i_^d-f'
@@ -27,7 +27,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
-NHS_API_DOMAIN_NAME = "http://127.0.0.1"
+NHS_API_DOMAIN_NAME = "http://172.16.243.211"
 NHS_API_DOMAIN_PORT = "8009"
 
 # Application definition
@@ -122,7 +122,7 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 LOGIN_REDIRECT_URL = "/NHSD_POC"
-LOGOUT_REDIRECT_URL = "/login"
+LOGOUT_REDIRECT_URL = "/NHSD_POC"
 LOGIN_URL = "/login"
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static/NHSD_POC'),
