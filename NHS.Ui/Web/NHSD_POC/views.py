@@ -2,7 +2,7 @@ from __future__ import unicode_literals
 from django.shortcuts import render
 import requests
 from django.contrib.auth.decorators import login_required
-from NHSD_POC.AnalyticWebConfigs import config 
+from .AnalyticWebConfigs import config
 
 
 @login_required

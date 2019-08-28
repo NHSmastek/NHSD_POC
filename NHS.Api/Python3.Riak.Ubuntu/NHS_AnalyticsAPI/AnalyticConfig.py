@@ -1,6 +1,6 @@
 config = {
         'Riak': {
-            'Ip': "35.176.37.177", 'Port': 8087,
+            'Ip': "10.10.1.12", 'Port': 8087,
             'Buckets': {
                 "Trust": "TrustPerformance",
                 "Region": "RegionPerformance",
