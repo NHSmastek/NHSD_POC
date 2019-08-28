@@ -1,7 +1,9 @@
 from django.http import JsonResponse, HttpResponse
 import NHS_AnalyticsAPI
-from AnalyticConfig import config
-from riak_connector import Riak_Connector as rc
+from .AnalyticConfig import config
+from .riak_connector import Riak_Connector as rc
+from django.core.serializers.json import DjangoJSONEncoder
+import json
 import random
 
 
@@ -30,7 +32,8 @@ def search_trust(request, trust_name):
         "Region_Data": region_dict,
         "Trust_Data": peer_list,
     }
-    return JsonResponse(resp_data, status=200)
+    resp_data = json.dumps(resp_data, cls=DjangoJSONEncoder)
+    return JsonResponse(resp_data, safe=False, status=200)
 
 
 def _get_peer_list(trust_name, region_code):
@@ -41,7 +44,7 @@ def _get_peer_list(trust_name, region_code):
     for item in peer_id_list:
         tempdict = rc.getRc().get_by_inner_key(
             config['Riak']['Buckets']['Trust'], 'Org_Code', item)
-        peer_list[tempdict.keys()[0]] = tempdict.values()[0]
+        peer_list[list(tempdict.keys())[0]] = list(tempdict.values())[0]
     return peer_list
 
 
