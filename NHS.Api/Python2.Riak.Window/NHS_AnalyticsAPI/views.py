@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 from django.http import JsonResponse, HttpResponse
-from AnalyticConfig import config
-from riak_connector import Riak_Connector as rc
+from .AnalyticConfig import config
+from .riak_connector import Riak_Connector as rc
 import random
 from django.core.serializers.json import DjangoJSONEncoder
 import json
