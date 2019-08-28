@@ -25,6 +25,7 @@ function get_performance_data_for_map(trust_code) {
         document.getElementById("dv_chart_row_panel").style.display = "none";
         $("#region_text").html("");
         $('#Invalid_trust').show();
+        $("#trust_input").val('');
         setTimeout(function() { 
             $('#Invalid_trust').fadeOut(); 
         }, 3000);
@@ -47,7 +48,7 @@ function get_performance_data_for_map(trust_code) {
             createChartsData()
             loadchart(grapType.TvR)
             $("#chart1").addClass("box-shadow");
-            $('#region_nd_other').append('<h4 style="margin-left: 111px;"><i><b>Region '+region_code+' and Other</b></i></h4>')
+            $('#region_nd_other').html('<h4 style="margin-left: 111px;"><i><b>Region '+region_code+' and Other</b></i></h4>')
         },
         error:function(){
             $('#empty_trust').show();
@@ -55,6 +56,7 @@ function get_performance_data_for_map(trust_code) {
                 $('#empty_trust').fadeOut(); 
             }, 5000);
             $("#region_text").html("");
+            $("#trust_input").val('');
             document.getElementById("dv_chart_no_selection_panel").style.display = "block";
             document.getElementById("default-img").style.display = "block";
             document.getElementById("loader").style.display = "none";
