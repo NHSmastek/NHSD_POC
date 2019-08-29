@@ -39,7 +39,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python tests.pytest for poc_test_cases.test_tc02_verify_trust_vs_region_graphs">
+  <component name="RunManager" selected="Python tests.pytest for poc_test_cases.test_tc03_verify_trust_vs_peers_graphs">
     <configuration name="pytest for poc_test_cases.test_tc01_login_to_application" type="tests" factoryName="py.test" temporary="true" nameIsGenerated="true">
       <module name="FrameworkPython" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -147,8 +147,8 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Python tests.pytest for poc_test_cases.test_tc02_verify_trust_vs_region_graphs" />
         <item itemvalue="Python tests.pytest for poc_test_cases.test_tc03_verify_trust_vs_peers_graphs" />
+        <item itemvalue="Python tests.pytest for poc_test_cases.test_tc02_verify_trust_vs_region_graphs" />
         <item itemvalue="Python tests.pytest for poc_test_cases.test_tc04_verify_region_vs_peer_regions_graphs" />
         <item itemvalue="Python tests.pytest for poc_test_cases.test_tc01_login_to_application" />
         <item itemvalue="Python tests.pytest for poc_test_cases.test_tc02_verify_trust_graphs" />
