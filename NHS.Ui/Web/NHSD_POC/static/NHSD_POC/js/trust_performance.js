@@ -49,10 +49,7 @@ function get_performance_data_for_map(trust_code) {
             $("#region_text").html('Belongs to : '+region_code);
             createChartsData()
             loadchart(grapType.TvR)
-            if(FirstGraph != true){
-                FirstGraph = true;
-                $("#chart1").addClass("box-shadow");
-            }
+            
             $('#region_nd_other').show();
             $('#region_display').html(region_code);
             
