@@ -1,5 +1,5 @@
 var ApiResponse = {}
-var region_code, org_Code,FirstGraph;
+var region_code, org_Code;
 function IsValidTrust(trust_code){
     var IsValid;
     $("#trustresults > option").each(function(i){
