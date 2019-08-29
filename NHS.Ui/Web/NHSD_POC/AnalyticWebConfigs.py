@@ -1,8 +1,8 @@
 config = {
     'Anaytics_API': {
-        'Public_Host': "http://127.0.0.1",
-        'Port': 8000,
-        'Private_Host':"http://127.0.0.1"
+        'Public_Host': "http://35.176.37.177",
+        'Port': 8085 ,
+        'Private_Host':"http://10.10.1.12"
     },
     'EndPoints':{'get_trust_list':'/get_trust_list'},
     'Template':{'Trust_Performance':'NHSD_POC/trust_performance.html'}
