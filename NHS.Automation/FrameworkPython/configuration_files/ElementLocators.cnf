@@ -6,13 +6,8 @@ Label_Hello_Admin = //*[@id='myhscic']
 
 [Home_Page]
 drop_down_click = //*[@id='trust_input']
-Label_one = //*[name()='svg']//*[name()='g']//*[text()='Trust RR3 vs Region R1']
-Label_RR1 = //*[name()='svg']//*[name()='g']//*[text()='RR3']
-Label_RR8 = //*[name()='svg']//*[name()='g']//*[text()='RR8']
-Label_Average = //*[name()='svg']//*[name()='g']//*[text()='Average']
-Label_Transition_Time = //*[name()='svg']//*[name()='g']//*[text()='Transition Time (in days)']
-Label_E1 = //*[name()='svg']//*[name()='g']//*[text()='E1']
-Label_E2 = //*[name()='svg']//*[name()='g']//*[text()='E2']
-Label_E3 = //*[name()='svg']//*[name()='g']//*[text()='E3']
-Label_E4 = //*[name()='svg']//*[name()='g']//*[text()='E4']
+graph_label = //*[@id='region_nd_other']
+image_region_vs_peer = //*[@id="chart3"]/a/img
+image_trust_vs_peer = //*[@id="chart2"]/a/img
 logout_click = //*[@class='fa fa-chevron-circle-right fa-2x']
+Label_Transition_Time = //*[name()='svg']//*[name()='g']//*[text()='Transition Time (in days)']

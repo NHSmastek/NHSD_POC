@@ -34,6 +34,8 @@ def test_tc02_verify_trust_vs_region_graphs():
     str_excel_wb, str_excel_ws, str_browser, str_url = common_functions.initalsetup()
     login_cred = str_excel_ws.cell(row=2,column=5).value
     password = str_excel_ws.cell(row=2,column=6).value
+    str_Label_text = str_excel_ws.cell(row=3, column=2).value
+    str_region = str_excel_ws.cell(row=3,column=3).value
 
     #Launch the application browser and URL
     driver = common_functions.launch_browser_url(str_browser, str_url)
@@ -43,7 +45,7 @@ def test_tc02_verify_trust_vs_region_graphs():
 
     #Select trust
     obj_home_page_class = home_page.HomePageClass(driver)
-    obj_home_page_class.select_dropdown_value()
+    obj_home_page_class.select_dropdown_value(str_region,str_Label_text)
 
     #Validate graph
     obj_home_page_class.validate_graph_trust_vs_region(str_excel_ws)
@@ -60,7 +62,8 @@ def test_tc03_verify_trust_vs_peers_graphs():
     str_excel_wb, str_excel_ws, str_browser, str_url = common_functions.initalsetup()
     login_cred = str_excel_ws.cell(row=2, column=5).value
     password = str_excel_ws.cell(row=2, column=6).value
-
+    str_region = str_excel_ws.cell(row=4, column=3).value
+    str_Label_text = str_excel_ws.cell(row=4, column=2).value
 
     # Launch the application browser and URL
     driver = common_functions.launch_browser_url(str_browser, str_url)
@@ -71,7 +74,7 @@ def test_tc03_verify_trust_vs_peers_graphs():
 
     # Select trust
     obj_home_page_class = home_page.HomePageClass(driver)
-    obj_home_page_class.select_dropdown_value()
+    obj_home_page_class.select_dropdown_value(str_region,str_Label_text)
 
      #Click on the Trust vr peers graph & Validate
     obj_home_page_class.select_graph_trust_vs_peers()
@@ -90,6 +93,8 @@ def test_tc04_verify_region_vs_peer_regions_graphs():
     str_excel_wb, str_excel_ws, str_browser, str_url = common_functions.initalsetup()
     login_cred = str_excel_ws.cell(row=2, column=5).value
     password = str_excel_ws.cell(row=2, column=6).value
+    str_region = str_excel_ws.cell(row=5, column=3).value
+    str_Label_text = str_excel_ws.cell(row=5, column=2).value
 
     # Launch the application browser and URL
     driver = common_functions.launch_browser_url(str_browser, str_url)
@@ -99,7 +104,7 @@ def test_tc04_verify_region_vs_peer_regions_graphs():
 
     # Select trust
     obj_home_page_class = home_page.HomePageClass(driver)
-    obj_home_page_class.select_dropdown_value()
+    obj_home_page_class.select_dropdown_value(str_region,str_Label_text)
 
     # Click on the Region vs peer Regions graph & Validate
     obj_home_page_class.select_graph_region_vs_peer_region()
