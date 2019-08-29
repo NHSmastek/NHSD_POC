@@ -752,3 +752,86 @@ table.table-bordered.patient-detail td
 .reports .radio + .radio, .checkbox + .checkbox {
     margin-top: 0px;    
 }
+table {
+    width:100%;
+  }
+  table, th, td {
+    border: 1px solid black;
+    border-collapse: collapse;
+  }
+  th, td {
+    padding: 10px;
+    text-align: left;
+  }
+  table#t01 tr:nth-child(even) {
+     background-color: #eee;
+  }
+  table#t01 tr:nth-child(odd) {
+   background-color: #eee;
+  }
+ 
+  .select2-container .select2-selection--single {
+    height: 34px !important;
+}
+
+.select2-container--default .select2-selection--single {
+    border: 1px solid #ccc !important;
+    border-radius: 0px !important;
+}
+
+#loader {
+    border: 16px solid #f3f3f3;
+    border-radius: 50%;
+    border-top: 16px solid #3498db;
+    width: 120px;
+    height: 120px;
+    -webkit-animation: spin 2s linear infinite;
+    /* Safari */
+    animation: spin 2s linear infinite;
+    display: none;
+    margin-left: 38%;
+    margin-top: 130px;
+}
+
+#loaderc {
+    border: 16px solid #f3f3f3;
+    border-radius: 50%;
+    border-top: 16px solid #3498db;
+    width: 120px;
+    height: 120px;
+    -webkit-animation: spin 2s linear infinite;
+    /* Safari */
+    animation: spin 2s linear infinite;
+    display: none;
+    margin-left: 38%;
+    margin-top: 130px;
+}
+
+#loaderbg {
+    display: block;
+    background-color: black;
+    height: 99%;
+    width: 98%;
+    position: absolute;
+    z-index: 9999;
+    opacity: 0.2;
+    border-radius: 10px;
+    border: 1px solid black;
+}
+.emptyInput{
+    background-color: yellow;
+}
+.inner-addon {
+     position: relative;
+}
+.inner-addon .glyphicon {
+    position: absolute;
+    padding: 7px;
+    pointer-events: none;
+}
+.left-addon .glyphicon  { left:  0px;}
+.right-addon .glyphicon { right: 0px;}
+
+.left-addon input  { padding-left:  30px; }
+.right-addon input { padding-right: 30px; }
+.box-shadow {box-shadow: 10px 5px 5px #38a2de;}

@@ -16,71 +16,7 @@
             display: none
         }
 
-        .select2-container .select2-selection--single {
-            height: 34px !important;
-        }
-
-        .select2-container--default .select2-selection--single {
-            border: 1px solid #ccc !important;
-            border-radius: 0px !important;
-        }
-
-        #loader {
-            border: 16px solid #f3f3f3;
-            border-radius: 50%;
-            border-top: 16px solid #3498db;
-            width: 120px;
-            height: 120px;
-            -webkit-animation: spin 2s linear infinite;
-            /* Safari */
-            animation: spin 2s linear infinite;
-            display: none;
-            margin-left: 38%;
-            margin-top: 130px;
-        }
-
-        #loaderc {
-            border: 16px solid #f3f3f3;
-            border-radius: 50%;
-            border-top: 16px solid #3498db;
-            width: 120px;
-            height: 120px;
-            -webkit-animation: spin 2s linear infinite;
-            /* Safari */
-            animation: spin 2s linear infinite;
-            display: none;
-            margin-left: 38%;
-            margin-top: 130px;
-        }
-
-        #loaderbg {
-            display: block;
-            background-color: black;
-            height: 99%;
-            width: 98%;
-            position: absolute;
-            z-index: 9999;
-            opacity: 0.2;
-            border-radius: 10px;
-            border: 1px solid black;
-        }
-        .emptyInput{
-            background-color: yellow;
-        }
-        .inner-addon {
-             position: relative;
-        }
-        .inner-addon .glyphicon {
-            position: absolute;
-            padding: 7px;
-            pointer-events: none;
-        }
-        .left-addon .glyphicon  { left:  0px;}
-        .right-addon .glyphicon { right: 0px;}
-
-        .left-addon input  { padding-left:  30px; }
-        .right-addon input { padding-right: 30px; }
-        .box-shadow {box-shadow: 10px 5px 5px red;}
+   
     </style>
 
     <link href="{% static 'NHSD_POC/CSS/CWT/bootstrap.css' %}" rel="stylesheet">
@@ -108,7 +44,7 @@
                 <div id="myhscic">
                     Hello {% if request.user.is_authenticated %} {{ request.user.username |upper }} |
                     <a href="{% url 'logout' %}">
-                        <button id="" type="button" class="btn btn-sm btn-primary">
+                        <button id="" type="button" class="btn btn-sm btn-primary" style="background-color:#38a2de">
                             Sign Out&nbsp;<i class="fa fa-chevron-circle-right fa-2x"></i>
                         </button>
                     </a>
@@ -172,7 +108,7 @@
                             <div id="loaderc" style="display: block;position: absolute;top: 0;z-index: 2;background-color: black">
                             </div>
                         </div>
-                        <div id="region_nd_other">
+                        <div id="region_nd_other" style="margin-top: -107px;">
                                 
                         </div>          
                         <div class="HomePageMenuList">
@@ -180,11 +116,17 @@
                             </div>
                         </div>
                         <div style="margin-left:10%;font-size: 18px;">
-                                <b>E1: </b><em>Transition 1</em>, 
-                                 <b>E2: </b><em>Transition 2</em>,
-                                 <b>E3: </b><em>Transition 3</em>,
-                                <b>E4: </b><em>Transition 4</em>
-                             </div>
+                            <table id="t01" style="font-size: 12px;">
+                                <tr>
+                                    <td><strong>W1:</strong> Waiting Time CANCER REFERRAL To TREATMENT(E1) to First Seen (E2)</td>
+                                    <td><strong>W2:</strong> Waiting Time First Seen (E2) To CANCER FASTER DIAGNOSIS PATHWAY END DATE (E3)</td> 
+                                </tr>
+                                <tr>
+                                    <td><strong>W3:</strong> Waiting Time CANCER FASTER DIAGNOSIS PATHWAY END DATE (E3) To CANCER TREATMENT PERIOD START DATE (E4)</td>
+                                    <td><strong>W4:</strong> Waiting Time CANCER TREATMENT PERIOD START DATE (E4) To TREATMENT START DATE 'CANCER' (E5)</td>
+                                </tr>
+                            </table>
+                        </div>
                     </div>
                     
                     <div class="col-sm-2 other_graph" style="border-left: 1px solid black;">
