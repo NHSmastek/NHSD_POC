@@ -1,5 +1,5 @@
 var ApiResponse = {}
-var region_code, org_Code;
+var region_code, org_Code,FirstGraph;
 function IsValidTrust(trust_code){
     var IsValid;
     $("#trustresults > option").each(function(i){
@@ -49,10 +49,13 @@ function get_performance_data_for_map(trust_code) {
             $("#region_text").html('Belongs to : '+region_code);
             createChartsData()
             loadchart(grapType.TvR)
-            $(".dvGraphIcon").removeClass("box-shadow");
-            $("#chart1").addClass("box-shadow");
+            if(FirstGraph != true){
+                FirstGraph = true;
+                $("#chart1").addClass("box-shadow");
+            }
             $('#region_nd_other').show();
             $('#region_display').html(region_code);
+            
         },
         error:function(){
             $('#empty_trust').show();
@@ -102,6 +105,7 @@ function showHideLoaderChart(loaderStatus) {
 }
 window.onload = function () {
     show_Hide_panel()
+    //$("#chart1").addClass("box-shadow");
 }
 function showchart(chartType,chartId)
 {
