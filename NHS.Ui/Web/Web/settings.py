@@ -17,7 +17,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
 # Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
+# See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/l
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = '$u@ej&@wzr+sg1q!x=rr-3s&6u&!dk0&-9c^^z!fn^d0i_^d-f'
@@ -25,9 +25,7 @@ SECRET_KEY = '$u@ej&@wzr+sg1q!x=rr-3s&6u&!dk0&-9c^^z!fn^d0i_^d-f'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = [
-    "35.176.37.177",
-]
+ALLOWED_HOSTS = ["35.176.37.177","10.10.1.12"]
 
 # Application definition
 
@@ -121,8 +119,8 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 LOGIN_REDIRECT_URL = "/NHSD_POC"
-LOGOUT_REDIRECT_URL = "/login"
 LOGIN_URL = "/login"
+LOGOUT_REDIRECT_URL = "/NHSD_POC"
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static/NHSD_POC'),
 ]
