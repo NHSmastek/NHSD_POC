@@ -33,7 +33,7 @@ def search_trust(request, trust_name):
         "Region_Data": region_dict,
         "Trust_Data": peer_list,
     }
-    resp_data = json.dumps(resp_data, cls=DjangoJSONEncoder)
+    # resp_data = json.dumps(resp_data, cls=DjangoJSONEncoder)
     return JsonResponse(resp_data, safe=False, status=200)
 
 
