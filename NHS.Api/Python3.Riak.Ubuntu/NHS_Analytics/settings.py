@@ -22,7 +22,6 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'NHS_AnalyticsAPI',
     'rest_framework',
-    'riak_crud',
     'corsheaders'
 ]
 

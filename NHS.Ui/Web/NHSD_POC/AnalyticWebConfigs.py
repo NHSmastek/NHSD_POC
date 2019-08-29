@@ -4,6 +4,6 @@ config = {
         'Port': 8085 ,
         'Private_Host':"http://10.10.1.12"
     },
-    'EndPoints':{'get_trust_list':'/get_trust_list'},
-    'Template':{'Trust_Performance':'NHSD_POC/trust_performance.html'}
+    'EndPoints': {'get_trust_list':'/get_trust_list'},
+    'Template': {'Trust_Performance':'NHSD_POC/trust_performance.html'}
 }
