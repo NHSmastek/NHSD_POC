@@ -25,10 +25,7 @@ SECRET_KEY = '$u@ej&@wzr+sg1q!x=rr-3s&6u&!dk0&-9c^^z!fn^d0i_^d-f'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
-
-NHS_API_DOMAIN_NAME = "http://172.16.243.211"
-NHS_API_DOMAIN_PORT = "8009"
+ALLOWED_HOSTS = ["172.16.243.215"]
 
 # Application definition
 
@@ -122,8 +119,8 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 LOGIN_REDIRECT_URL = "/NHSD_POC"
-LOGOUT_REDIRECT_URL = "/NHSD_POC"
 LOGIN_URL = "/login"
+LOGOUT_REDIRECT_URL = "/NHSD_POC"
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static/NHSD_POC'),
 ]
