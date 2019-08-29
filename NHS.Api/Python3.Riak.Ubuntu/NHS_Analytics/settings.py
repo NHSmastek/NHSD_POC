@@ -2,25 +2,17 @@ import os
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-# SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'h#xsunyjqs4n+m1v@f-h6jyv9$ed+t310zbe*xtyif1^a9%&e5'
 
-# SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["35.176.37.177","10.10.1.12"]
 
-RIAK_HOST_IP = "35.176.37.177"
-RIAK_HOST_PORT = "8087"
-TRUST_BUCKET_NAME = "TrustPerformance"
-REGION_BUCKET_NAME = "RegionPerformance"
-TRUST_KEY = "TrustData"
-REGION_KEY = "RegionData"
-TRUST_REGION_MAP_BUCKET = "TrustRegionMap"
-TRUST_REGION_MAP_KEY = "TrustRegionMapData"
+# CORS ATTRIBUTES
+CORS_ORIGIN_ALLOW_ALL = True
+
 
 # Application definition
-
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -30,13 +22,16 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'NHS_AnalyticsAPI',
     'rest_framework',
+    'corsheaders'
 ]
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
+    'corsheaders.middleware.CorsPostCsrfMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
@@ -63,15 +58,6 @@ TEMPLATES = [
 WSGI_APPLICATION = 'NHS_Analytics.wsgi.application'
 
 
-# Database
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    }
-}
-
-
 # Password validation
 AUTH_PASSWORD_VALIDATORS = [
     {
@@ -88,8 +74,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
-# Internationalization
 LANGUAGE_CODE = 'en-us'
 
 TIME_ZONE = 'UTC'
@@ -100,6 +84,4 @@ USE_L10N = True
 
 USE_TZ = True
 
-
-# Static files (CSS, JavaScript, Images)
 STATIC_URL = '/static/'
