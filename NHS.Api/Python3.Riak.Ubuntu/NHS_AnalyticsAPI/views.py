@@ -32,7 +32,7 @@ def search_trust(request, trust_name):
         "Region_Data": region_dict,
         "Trust_Data": peer_list,
     }
-    return JsonResponse(json.dumps(resp_data, cls=DjangoJSONEncoder), safe=False)
+    return JsonResponse(resp_data, safe=False)
 
 
 def _get_peer_list(trust_name, region_code):
