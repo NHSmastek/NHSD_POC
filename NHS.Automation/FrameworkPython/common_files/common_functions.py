@@ -24,6 +24,7 @@ def initalsetup():
 def launch_browser_url(str_browser,str_url):
     global driver
 
+    #Check for Browser configurations and invole browser accordingly
     if str_browser == 'Chrome':
         strPath = read_config.read_config_data('ConfigDetails', 'Exe_Path')
         options = Options()
@@ -36,25 +37,19 @@ def launch_browser_url(str_browser,str_url):
 
     return driver
 
-def prepare_test_data_sheet():
-    obj_home_class = home_page.HomePageClass(driver)
-    str_excel_ws.cell(row=2,column=1).value = obj_home_class.read_label_RR1()
-    str_excel_ws.cell(row=3,column=1).value = obj_home_class.read_label_RR8()
-    str_excel_ws.cell(row=4, column=1).value = obj_home_class.read_label_Average()
-    str_excel_ws.cell(row=5, column=1).value = obj_home_class.read_label_Transition_Time()
-    str_excel_ws.cell(row=6, column=1).value = obj_home_class.read_label_E1()
-    str_excel_ws.cell(row=7, column=1).value = obj_home_class.read_label_E2()
-    str_excel_ws.cell(row=8, column=1).value = obj_home_class.read_label_E3()
-    str_excel_ws.cell(row=9, column=1).value = obj_home_class.read_label_E4()
-
-
 def login_application(login_cred,password):
+
     obj_login_class = login.LoginPageClass(driver)
+    #Enter login credentials
     obj_login_class.enter_login(login_cred)
     obj_login_class.enter_password(password)
+
+    #Click on Login button and validate Home page
     obj_login_class.btn_clk_login()
-    obj_login_class.validate_home_page()
+    obj_login_class.validate_home_page(login_cred)
 
 
 def close_browser():
+
+    #Close the browser at end of execution
     return driver.close()

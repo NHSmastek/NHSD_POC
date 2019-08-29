@@ -1,5 +1,5 @@
 import riak
-from AnalyticConfig import config
+from .AnalyticConfig import config
 
 
 class Riak_Connector(object):

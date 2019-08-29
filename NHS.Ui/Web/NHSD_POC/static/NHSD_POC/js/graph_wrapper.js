@@ -135,7 +135,7 @@ function loadchart(type) {
         type=gt
     }
     let obj = dummychartdata[type]
-    
+    $("#dvSidePanel"+type).addClass("box-shadow");
     google.charts.load('current', { 'packages': ['corechart'] });
     google.charts.setOnLoadCallback(drawVisualization);
 

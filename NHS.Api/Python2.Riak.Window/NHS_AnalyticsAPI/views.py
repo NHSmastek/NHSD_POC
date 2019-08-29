@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 from django.http import JsonResponse, HttpResponse
-from AnalyticConfig import config
-from riak_connector import Riak_Connector as rc
+from .AnalyticConfig import config
+from .riak_connector import Riak_Connector as rc
 import random
 from django.core.serializers.json import DjangoJSONEncoder
 import json
@@ -33,7 +33,7 @@ def search_trust(request, trust_name):
         "Region_Data": region_dict,
         "Trust_Data": peer_list,
     }
-    resp_data = json.dumps(resp_data, cls=DjangoJSONEncoder)
+    # resp_data = json.dumps(resp_data, cls=DjangoJSONEncoder)
     return JsonResponse(resp_data, safe=False, status=200)
 
 

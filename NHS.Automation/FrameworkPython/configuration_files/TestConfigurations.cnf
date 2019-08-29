@@ -1,7 +1,7 @@
 [ConfigDetails]
 Test_Browser = Chrome
-Application_URL = http://35.176.37.177:8085/NHSD_POC
-Exe_Path = ..\\chromedriver.exe
-Excel_Path = ../test_data/TestData.xlsx
+Application_URL = http://10.10.1.12:8085/NHSD_POC/
+Exe_Path = /var/www/Driver/chromedriver
+Excel_Path = /var/lib/jenkins/workspace/NHSD_POC/NHS.Automation/FrameworkPython/test_data/TestData.xlsx
 Excel_Sheet = Sheet1
-Head_Less = False
+Head_Less = True
