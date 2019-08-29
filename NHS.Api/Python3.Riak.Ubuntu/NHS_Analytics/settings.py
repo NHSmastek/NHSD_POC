@@ -6,7 +6,7 @@ SECRET_KEY = 'h#xsunyjqs4n+m1v@f-h6jyv9$ed+t310zbe*xtyif1^a9%&e5'
 
 DEBUG = True
 
-ALLOWED_HOSTS = ["35.176.37.177","10.10.1.12","rest_framework"]
+ALLOWED_HOSTS = ["35.176.37.177","10.10.1.12"]
 
 # CORS ATTRIBUTES
 CORS_ORIGIN_ALLOW_ALL = True
