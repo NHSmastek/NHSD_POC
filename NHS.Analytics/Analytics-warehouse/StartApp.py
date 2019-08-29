@@ -14,7 +14,3 @@ def start_App(sc):
 
 scheduler_obj.enter(int(config['Start_Delay']),int( config['Interval']), start_App, (scheduler_obj,))
 scheduler_obj.run()
-
-Analytics().run_Analytic_Engine()
-
-

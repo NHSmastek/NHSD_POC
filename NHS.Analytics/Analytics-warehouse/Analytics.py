@@ -26,7 +26,7 @@ class Analytics(object):
             trustFilePath=config['Files']['TrustDataFile']
             pathMappingFilePath=config['Files']['TrustRegionMappingFile']
 
-        df=spark.read.format("com.databricks.spark.csv")\
+        df_trust_Details=spark.read.format("com.databricks.spark.csv")\
             .option("header",str( sparkReadFormat['options']['header']))\
                 .option("treatEmptyValuesAsNulls", str( sparkReadFormat['options']['treatEmptyValuesAsNulls']))\
                     .option("inferSchema", str( sparkReadFormat['options']['inferSchema']))\
@@ -41,30 +41,30 @@ class Analytics(object):
                         .option("mode",str( sparkReadFormat['options']['mode']))\
                             .load(pathMappingFilePath)
 
-        df.show()
+        df_trust_Details.show()
         dfMapping.printSchema()
         dfMapping.show()
-        df.printSchema()
+        df_trust_Details.printSchema()
 
-        df_final=df.alias('df1').join(df.alias('df2'), 'Nhs_No', 'inner').join(df.alias('df3'), 'Nhs_No', 'inner').join(df.alias(
-            'df4'), 'Nhs_No', 'inner').join(df.alias('df5'), 'Nhs_No', 'inner').join(dfMapping.alias('dfMapping'), 'Org_Code', 'inner')\
+        df_Joined_For_All_Events=df_trust_Details.alias('df1').join(df_trust_Details.alias('df2'), 'Nhs_No', 'inner').join(df_trust_Details.alias('df3'), 'Nhs_No', 'inner').join(df_trust_Details.alias(
+            'df4'), 'Nhs_No', 'inner').join(df_trust_Details.alias('df5'), 'Nhs_No', 'inner').join(dfMapping.alias('dfMapping'), 'Org_Code', 'inner')\
             .where('df1.Event_Id == "E1"')\
                 .where('df2.Event_Id == "E2"').where('df3.Event_Id == "E3"').where('df4.Event_Id == "E4"').where('df5.Event_Id == "E5"')\
                     .select(col('df1.Event_Id'), col('df1.Nhs_No'), col('df1.Org_Code'), col('dfMapping.region_id'), datediff('df2.Date', 'df1.Date').alias('E1_days'), datediff('df3.Date', 'df2.Date').alias('E2_days'),\
                             datediff('df4.Date', 'df3.Date').alias('E3_days'), datediff('df5.Date', 'df4.Date').alias('E4_days'))\
 
 
-        df_final.printSchema()
-        df_final.show()
+        df_Joined_For_All_Events.printSchema()
+        df_Joined_For_All_Events.show()
         print("**********************************************************************************************")
         print("The org performance data")
-        df_trust_performance=df_final.groupBy(df_final.Org_Code).agg(
+        df_trust_performance=df_Joined_For_All_Events.groupBy(df_Joined_For_All_Events.Org_Code).agg(
             {"E1_days": "avg", "E2_days": "avg", "E3_days": "avg", "E4_days": "avg"})\
             .select(col("Org_Code"), col("avg(E1_days)").alias("E1"), col("avg(E2_days)").alias("E2"), col("avg(E3_days)").alias("E3"), col("avg(E4_days)").alias("E4"))
 
-        df_Region_performance=df_final.groupBy(df_final.region_id).agg(
+        df_Region_performance=df_Joined_For_All_Events.groupBy(df_Joined_For_All_Events.region_id).agg(
             {"E1_days": "avg", "E2_days": "avg", "E3_days": "avg", "E4_days": "avg"})\
-            .select(col("region_id"), col("avg(E1_days)").alias("E1"), col("avg(E2_days)").alias("E2"), col("avg(E3_days)").alias("E3"), col("avg(E4_days)").alias("E4"))
+            .select(col("region_id").alias("Region_Code"), col("avg(E1_days)").alias("E1"), col("avg(E2_days)").alias("E2"), col("avg(E3_days)").alias("E3"), col("avg(E4_days)").alias("E4"))
 
 
         trust_data=df_trust_performance.toJSON().map(lambda j: json.loads(j)).collect()
@@ -78,4 +78,4 @@ class Analytics(object):
         # region_data="RegionData:{R1:{E1:95,E2:96,E3:97,E4:50},R2:{E1:95,E2:96,E3:97,E4:50},R3:{E1:95,E2:96,E3:97,E4:50},R8:{E1:95,E2:96,E3:97,E4:50} }"
 
         rc.getRc().write_to_riak(config['Riak']['Buckets']['Trust'], config['Riak']['BucketsKey']['Trust'], trust_data)
-        rc.getRc().write_to_riak(config['Riak']['Buckets']['Region'], config['Riak']['BucketsKey']['Region'], trust_data)
+        rc.getRc().write_to_riak(config['Riak']['Buckets']['Region'], config['Riak']['BucketsKey']['Region'], region_data)
