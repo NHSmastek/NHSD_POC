@@ -1,4 +1,5 @@
 import riak
+from analyticConfigs import config
 
 class Riak_Connector:
     __rc=None
@@ -8,7 +9,7 @@ class Riak_Connector:
         if Riak_Connector.__rc!=None:
             raise Exception("This class is a singleton!")
         else:
-            self._client = riak.RiakClient(host="18.220.160.111")
+            self._client = riak.RiakClient(host=config['Riak']['Ip'])
             Riak_Connector.__rc=self
 
     @staticmethod
