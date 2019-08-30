@@ -135,6 +135,7 @@ function loadchart(type) {
         type=gt
     }
     let obj = dummychartdata[type]
+    getTopHeaderText(type);
     $("#dvSidePanel"+type).addClass("box-shadow");
     google.charts.load('current', { 'packages': ['corechart'] });
     google.charts.setOnLoadCallback(drawVisualization);
@@ -164,4 +165,28 @@ function loadchart(type) {
 
         showHideLoaderChart(false);
     }
+}
+function getTopHeaderText(type){
+    var topText="",PeersTrust="",Trustresult=[],isTrustExist;
+    if(type == "TvP"){
+        Trustresult = ApiResponse.Trust_Data;
+        isTrustExist = org_Code;  
+    }else if(type == "Regions"){
+        Trustresult = ApiResponse.Region_Data;
+        isTrustExist = region_code;
+    }else{}
+    Object.keys(Trustresult).forEach(trust => {
+         if(trust != isTrustExist){
+            PeersTrust += trust+','
+         }
+    });
+    if(type == "TvR"){
+        topText = 'Derived waiting time of trust '+org_Code+' with its underlying region '+region_code+'';
+    }else if(type == "TvP"){
+        topText = 'Derived waiting time of trust '+org_Code+' with peers ('+PeersTrust.slice(0, -1)+'), underlying the same region '+region_code+'';
+    }else if(type == "Regions"){
+        topText = 'Derived waiting time of underlying region '+region_code+' with other regions '+PeersTrust.slice(0, -1)+'';
+    }else{}
+    $('#region_nd_other').show();
+    $('#region_display').html(topText);
 }

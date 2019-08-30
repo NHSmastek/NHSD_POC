@@ -46,13 +46,11 @@ function get_performance_data_for_map(trust_code) {
             ApiResponse = data;       
             region_code = ApiResponse.Region_Code;
             org_Code = trust_code;
+            console.log(ApiResponse);
             $("#region_text").html('Belongs to : '+region_code);
             createChartsData()
+            $('#waiting_time_div').show();
             loadchart(grapType.TvR)
-            
-            $('#region_nd_other').show();
-            $('#region_display').html(region_code);
-            
         },
         error:function(){
             $('#empty_trust').show();
