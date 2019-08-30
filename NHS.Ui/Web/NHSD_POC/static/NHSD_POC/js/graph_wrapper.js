@@ -9,7 +9,7 @@ var graphOption =
 {
     headerRow: {
         header: ['Events'],
-        rows: [['E1'], ['E2'], ['E3'], ['E4']]
+        rows: [['W1'], ['W2'], ['W3'], ['W4']]
     }
 };
 
@@ -135,6 +135,7 @@ function loadchart(type) {
         type=gt
     }
     let obj = dummychartdata[type]
+    getTopHeaderTitle(type);
     $("#dvSidePanel"+type).addClass("box-shadow");
     google.charts.load('current', { 'packages': ['corechart'] });
     google.charts.setOnLoadCallback(drawVisualization);
@@ -164,4 +165,28 @@ function loadchart(type) {
 
         showHideLoaderChart(false);
     }
+}
+function getTopHeaderTitle(type){
+    var topText="",PeersTrust="",Result=[],ResultCode;
+    if(type == grapType.TvP){
+        Result = ApiResponse.Trust_Data;
+        ResultCode = org_Code;  
+    }else if(type == grapType.Regions){
+        Result = ApiResponse.Region_Data;
+        ResultCode = region_code;
+    }else{}
+    Object.keys(Result).forEach(trust => {
+         if(trust != ResultCode){
+            PeersTrust += trust+','
+         }
+    });
+    if(type == grapType.TvR){
+        topText = 'Derived waiting time of trust '+org_Code+' with its underlying region '+region_code+'';
+    }else if(type == grapType.TvP){
+        topText = 'Derived waiting time of trust '+org_Code+' with peers ('+PeersTrust.slice(0, -1)+'), underlying the same region '+region_code+'';
+    }else if(type == grapType.Regions){
+        topText = 'Derived waiting time of underlying region '+region_code+' with other regions '+PeersTrust.slice(0, -1)+'';
+    }else{}
+    $('#region_nd_other').show();
+    $('#region_display').html(topText);
 }
