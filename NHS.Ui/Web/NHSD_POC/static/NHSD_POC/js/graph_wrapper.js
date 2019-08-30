@@ -167,7 +167,7 @@ function loadchart(type) {
     }
 }
 function getTopHeaderTitle(type){
-    var topText="",PeersTrust="",Result=[],isTrustExist;
+    var topText="",PeersTrust="",Result=[],ResultCode;
     if(type == grapType.TvP){
         Result = ApiResponse.Trust_Data;
         ResultCode = org_Code;  
