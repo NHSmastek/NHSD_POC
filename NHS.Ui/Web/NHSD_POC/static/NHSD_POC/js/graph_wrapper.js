@@ -135,7 +135,7 @@ function loadchart(type) {
         type=gt
     }
     let obj = dummychartdata[type]
-    getTopHeaderText(type);
+    getTopHeaderTitle(type);
     $("#dvSidePanel"+type).addClass("box-shadow");
     google.charts.load('current', { 'packages': ['corechart'] });
     google.charts.setOnLoadCallback(drawVisualization);
@@ -166,7 +166,7 @@ function loadchart(type) {
         showHideLoaderChart(false);
     }
 }
-function getTopHeaderText(type){
+function getTopHeaderTitle(type){
     var topText="",PeersTrust="",Trustresult=[],isTrustExist;
     if(type == "TvP"){
         Trustresult = ApiResponse.Trust_Data;
