@@ -7,6 +7,9 @@ import openpyxl
 import time
 import json
 import urllib3.request
+from pyvirtualdisplay import Display
+import os
+
 
 def initalsetup():
 
@@ -24,19 +27,39 @@ def initalsetup():
     str_excel_ws = str_excel_wb[wkSheetName]
     return str_excel_wb, str_excel_ws, str_browser, str_url
 
-def launch_browser_url(str_browser,str_url):
+def launch_browser_url(str_browser, str_url):
     global driver
+    print(str_browser)
 
-    #Check for Browser configurations and invole browser accordingly
     if str_browser == 'Chrome':
         strPath = read_config.read_config_data('ConfigDetails', 'Exe_Path')
-        options = Options()
+        #os.environ["webdriver.chrome.driver"] = strPath
+
         if head_less_flag == 'True':
-            options.add_argument('--headless')
-            options.add_argument('--disable-gpu')
-    driver = webdriver.Chrome(strPath, options=options)
+            chrome_options = webdriver.ChromeOptions()
+            #chrome_options = Options()
+            #chrome_options.add_argument("--window-size=1920,1080")
+            #chrome_options.add_argument("--proxy-server='direct://'")
+            #chrome_options.add_argument("--proxy-bypass-list=*")
+            #chrome_options.add_argument("--start-maximized")
+            chrome_options.add_argument("--headless")
+            chrome_options.add_argument("--disable-extensions")
+            chrome_options.add_argument("--no-sandbox")
+            chrome_options.add_argument("--disable-dev-shm-usage")
+            chrome_options.add_argument("--ignore-certificate-errors")
+
+            display = Display(visible=0, size=(800, 600))
+            display.start()
+            driver = webdriver.Chrome(
+                executable_path="/usr/bin/chromedriver",
+                chrome_options=chrome_options)
+            #driver.set_page_load_timeout(10)
+            #driver.implicitly_wait(20)
+        else:
+            driver = webdriver.Chrome(
+                executable_path="/usr/bin/chromedriver")
     driver.get(str_url)
-    driver.maximize_window()
+    # driver.maximize_window()
 
     return driver
 
@@ -53,9 +76,9 @@ def login_application(login_cred,password):
 
 def validate_trust_data(str_trust_name,value_e1,value_e2,value_e3,value_e4):
     str_url = read_config.read_config_data('ConfigDetails', 'Application_URL')
-    api_url = read_config.read_config_data('ConfigDetails', 'API_URL')
-
-    str_api_url = api_url+str_trust_name+'/'
+    #api_url = read_config.read_config_data('ConfigDetails', 'API_URL')
+    str_api_url = 'http://10.10.1.12:8084/search_trust/AUT'
+    #str_api_url = api_url+str_trust_name+'/'
     http = urllib3.PoolManager()
     str_response_text =http.request('Get',str_api_url).data
     test = http.request('Get',str_api_url).read()
