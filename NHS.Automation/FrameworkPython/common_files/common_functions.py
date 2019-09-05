@@ -4,6 +4,9 @@ from selenium.webdriver.chrome.options import Options
 from page_structure import login
 from library_files import read_config
 import openpyxl
+import time
+import json
+import urllib3.request
 
 def initalsetup():
 
@@ -47,6 +50,28 @@ def login_application(login_cred,password):
     #Click on Login button and validate Home page
     obj_login_class.btn_clk_login()
     obj_login_class.validate_home_page(login_cred)
+
+def validate_trust_data(str_trust_name,value_e1,value_e2,value_e3,value_e4):
+    str_url = read_config.read_config_data('ConfigDetails', 'Application_URL')
+    api_url = read_config.read_config_data('ConfigDetails', 'API_URL')
+
+    str_api_url = api_url+str_trust_name+'/'
+    print(str_api_url)
+    http = urllib3.PoolManager()
+    str_response_text =http.request('Get',str_api_url).data
+    test = http.request('Get',str_api_url).read()
+    str_reponse_data = json.loads(str_response_text)
+    act_e1 = str_reponse_data["Trust_Data"][str_trust_name]["E1"]
+    act_e2 = str_reponse_data["Trust_Data"][str_trust_name]["E2"]
+    act_e3 = str_reponse_data["Trust_Data"][str_trust_name]["E3"]
+    act_e4 = str_reponse_data["Trust_Data"][str_trust_name]["E4"]
+
+    epsilon = 0.000001
+    # Validate the graph labels through assestions
+    assert value_e1 - act_e1 < epsilon, print("Value E1 does not match")
+    assert value_e2 - act_e2 < epsilon, print("Value E2 does not match")
+    assert value_e3 - act_e3 < epsilon, print("Value E3 does not match")
+    assert value_e4 - act_e4 < epsilon, print("Value E4 does not match")
 
 
 def close_browser():

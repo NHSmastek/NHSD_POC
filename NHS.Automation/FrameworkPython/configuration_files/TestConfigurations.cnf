@@ -5,6 +5,8 @@ Application_URL = http://10.10.1.12:8085/NHSD_POC/
 # Windows Path will be removed once tested on server
 # Application_URL = http://35.176.37.177:8085/NHSD_POC/
 
+API_URL = http://35.176.37.177:8084/search_trust/
+
 Exe_Path = ..\\chromedriver.exe
 # Windows Path will be removed once tested on server
 Exe_Path = /var/www/Driver/chromedriver
