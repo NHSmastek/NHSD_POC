@@ -19,7 +19,7 @@ class HomePageClass:
     def select_dropdown_value(self,str_region,str_Label_text):
 
         driver.find_element_by_xpath(read_config.read_element_locator('Home_Page', 'drop_down_click')).send_keys(str_region+Keys.TAB)
-        WebDriverWait(driver, 120).until(ec.visibility_of_element_located( (By.XPATH, "//*[name()='svg']//*[name()='g']//*[text()='Transition Time (in days)']")))
+        WebDriverWait(driver, 120).until(ec.visibility_of_element_located( (By.XPATH, "//*[@id='region_display']")))
 
 
     def validate_graph_trust_vs_region(self,str_excel_ws):
@@ -37,7 +37,7 @@ class HomePageClass:
     def select_graph_trust_vs_peers(self):
 
         #wait for the graph trust vs peers to display
-        WebDriverWait(driver, 20).until(ec.visibility_of_element_located((By.XPATH, "//*[@id='dv_chart_row_panel']/div[2]/div[2]/a/img")))
+        WebDriverWait(driver, 20).until(ec.visibility_of_element_located((By.XPATH, "//*[@id='chart_div']/div/div[1]/div/svg/g[2]/rect")))
 
         #click on the graph link
         image_trust_vs_peer = driver.find_element_by_xpath(read_config.read_element_locator('Home_Page', 'image_trust_vs_peer'))
@@ -49,7 +49,7 @@ class HomePageClass:
         value_graph_one= str_excel_ws.cell(row=4, column=4).value
 
         #wait for the graph to display
-        WebDriverWait(driver, 60).until(ec.visibility_of_element_located((By.XPATH, "//*[@id='region_nd_other']")))
+        WebDriverWait(driver, 60).until(ec.visibility_of_element_located((By.XPATH, "//*[@id='chart_div']/div/div[1]/div/svg/g[2]/rect")))
         label_graph = driver.find_element_by_xpath(read_config.read_element_locator('Home_Page', 'graph_label'))
         label_graph_one_text=label_graph.text
 

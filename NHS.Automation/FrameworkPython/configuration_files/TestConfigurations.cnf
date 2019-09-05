@@ -1,7 +1,17 @@
 [ConfigDetails]
 Test_Browser = Chrome
+
 Application_URL = http://10.10.1.12:8085/NHSD_POC/
+# Windows Path will be removed once tested on server
+# Application_URL = http://35.176.37.177:8085/NHSD_POC/
+
+Exe_Path = ..\\chromedriver.exe
+# Windows Path will be removed once tested on server
 Exe_Path = /var/www/Driver/chromedriver
-Excel_Path = /var/lib/jenkins/workspace/NHSD_POC/NHS.Automation/FrameworkPython/test_data/TestData.xlsx
+
+# Windows Path will be removed once tested on server
+#Excel_Path = ../test_data/TestData.xlsx
+Excel_Path = /var/www/Automation_TestCases/NHSD_POC/NHS.Automation/FrameworkPython/test_data/TestData.xlsx
+
 Excel_Sheet = Sheet1
 Head_Less = True
