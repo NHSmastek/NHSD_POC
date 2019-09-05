@@ -11,7 +11,7 @@ Exe_Path = /var/www/Driver/chromedriver
 
 # Windows Path will be removed once tested on server
 #Excel_Path = ../test_data/TestData.xlsx
-Excel_Path = /var/www/Automation_TestCases/NHSD_POC/NHS.Automation/FrameworkPython/test_data/TestData.xlsx
+Excel_Path = /var/lib/jenkins/workspace/NHSD_POC/NHS.Automation/FrameworkPython/test_data/TestData.xlsx
 
 Excel_Sheet = Sheet1
 Head_Less = True
