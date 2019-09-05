@@ -1,84 +1,102 @@
-import time
-
-from selenium.webdriver.common.by import By
-from selenium.webdriver.common.keys import Keys
-from selenium.webdriver.support.wait import WebDriverWait
-from selenium.webdriver.support import expected_conditions as ec
+from selenium import webdriver
+from selenium.webdriver import Chrome,ie,firefox,safari
+from selenium.webdriver.chrome.options import Options
+from page_structure import login
 from library_files import read_config
-
-class HomePageClass:
-
-    def __init__(self,obj):
-        global driver
-        driver=obj
-
-        @property
-        def drive(self):
-            return driver
-
-    def select_dropdown_value(self,str_region,str_Label_text):
-
-        driver.find_element_by_xpath(read_config.read_element_locator('Home_Page', 'drop_down_click')).send_keys(str_region+Keys.TAB)
-        WebDriverWait(driver, 120).until(ec.visibility_of_element_located( (By.XPATH, "//*[name()='svg']//*[name()='g']//*[text()='Transition Time (in days)']")))
+import openpyxl
+import time
+import json
+import urllib3.request
+from pyvirtualdisplay import Display
+import os
 
 
-    def validate_graph_trust_vs_region(self,str_excel_ws):
+def initalsetup():
 
-        value_graph_two = str_excel_ws.cell(row=3, column=2).value
+    global str_excel_wb, str_excel_ws, str_browser, str_url, head_less_flag
 
-        #wait for the graph to display on browser
-        WebDriverWait(driver, 20).until(ec.visibility_of_element_located((By.XPATH, "//*[@id='region_nd_other']")))
-        label_graph = driver.find_element_by_xpath(read_config.read_element_locator('Home_Page', 'graph_label'))
-        label_graph_text = label_graph.text
+    #Initialize browser and application URL
+    str_browser = read_config.read_config_data('ConfigDetails', 'Test_Browser')
+    str_url = read_config.read_config_data('ConfigDetails', 'Application_URL')
 
-        #Validate the graph labels through assestions
-        assert label_graph_text.find(value_graph_two) != -1, print("Verified that graph is loaded successfully")
+    #Initialize the excel path and load test data files
+    wkBookName = read_config.read_config_data('ConfigDetails', 'Excel_Path')
+    wkSheetName = read_config.read_config_data('ConfigDetails', 'Excel_Sheet')
+    head_less_flag = read_config.read_config_data('ConfigDetails', 'Head_Less')
+    str_excel_wb = openpyxl.load_workbook(wkBookName)
+    str_excel_ws = str_excel_wb[wkSheetName]
+    return str_excel_wb, str_excel_ws, str_browser, str_url
 
-    def select_graph_trust_vs_peers(self):
+def launch_browser_url(str_browser, str_url):
+    global driver
+    print(str_browser)
 
-        #wait for the graph trust vs peers to display
-        WebDriverWait(driver, 20).until(ec.visibility_of_element_located((By.XPATH, "//*[@id='dv_chart_row_panel']/div[2]/div[2]/a/img")))
+    if str_browser == 'Chrome':
+        strPath = read_config.read_config_data('ConfigDetails', 'Exe_Path')
+        #os.environ["webdriver.chrome.driver"] = strPath
 
-        #click on the graph link
-        image_trust_vs_peer = driver.find_element_by_xpath(read_config.read_element_locator('Home_Page', 'image_trust_vs_peer'))
-        image_trust_vs_peer.click()
+        if head_less_flag == 'True':
+            chrome_options = webdriver.ChromeOptions()
+            #chrome_options = Options()
+            #chrome_options.add_argument("--window-size=1920,1080")
+            #chrome_options.add_argument("--proxy-server='direct://'")
+            #chrome_options.add_argument("--proxy-bypass-list=*")
+            #chrome_options.add_argument("--start-maximized")
+            chrome_options.add_argument("--headless")
+            chrome_options.add_argument("--disable-extensions")
+            chrome_options.add_argument("--no-sandbox")
+            chrome_options.add_argument("--disable-dev-shm-usage")
+            chrome_options.add_argument("--ignore-certificate-errors")
+
+            display = Display(visible=0, size=(800, 600))
+            display.start()
+            driver = webdriver.Chrome(
+                executable_path="/usr/bin/chromedriver",
+                chrome_options=chrome_options)
+            #driver.set_page_load_timeout(10)
+            #driver.implicitly_wait(20)
+        else:
+            driver = webdriver.Chrome(
+                executable_path="/usr/bin/chromedriver")
+    driver.get(str_url)
+    # driver.maximize_window()
+
+    return driver
+
+def login_application(login_cred,password):
+
+    obj_login_class = login.LoginPageClass(driver)
+    #Enter login credentials
+    obj_login_class.enter_login(login_cred)
+    obj_login_class.enter_password(password)
+
+    #Click on Login button and validate Home page
+    obj_login_class.btn_clk_login()
+    obj_login_class.validate_home_page(login_cred)
+
+def validate_trust_data(str_trust_name,value_e1,value_e2,value_e3,value_e4):
+    str_url = read_config.read_config_data('ConfigDetails', 'Application_URL')
+    #api_url = read_config.read_config_data('ConfigDetails', 'API_URL')
+    str_api_url = 'http://10.10.1.12:8084/search_trust/AUT'
+    #str_api_url = api_url+str_trust_name+'/'
+    http = urllib3.PoolManager()
+    str_response_text =http.request('Get',str_api_url).data
+    test = http.request('Get',str_api_url).read()
+    str_reponse_data = json.loads(str_response_text)
+    act_e1 = str_reponse_data["Trust_Data"][str_trust_name]["E1"]
+    act_e2 = str_reponse_data["Trust_Data"][str_trust_name]["E2"]
+    act_e3 = str_reponse_data["Trust_Data"][str_trust_name]["E3"]
+    act_e4 = str_reponse_data["Trust_Data"][str_trust_name]["E4"]
+
+    epsilon = 0.000001
+    # Validate the graph labels through assestions
+    assert value_e1 - act_e1 < epsilon, print("Value E1 does not match")
+    assert value_e2 - act_e2 < epsilon, print("Value E2 does not match")
+    assert value_e3 - act_e3 < epsilon, print("Value E3 does not match")
+    assert value_e4 - act_e4 < epsilon, print("Value E4 does not match")
 
 
-    def validate_graph_trust_vs_peers(self,str_excel_ws):
+def close_browser():
 
-        value_graph_one= str_excel_ws.cell(row=4, column=4).value
-
-        #wait for the graph to display
-        WebDriverWait(driver, 60).until(ec.visibility_of_element_located((By.XPATH, "//*[@id='region_nd_other']")))
-        label_graph = driver.find_element_by_xpath(read_config.read_element_locator('Home_Page', 'graph_label'))
-        label_graph_one_text=label_graph.text
-
-        #assert that the graph is loaded sucessfully
-        assert label_graph_one_text.find(value_graph_one) != -1, print("Verified that graph is loaded successfully")
-
-    def select_graph_region_vs_peer_region(self):
-
-        #wait for the graph to display
-        WebDriverWait(driver, 20).until(ec.visibility_of_element_located((By.XPATH, "//*[@id='dv_chart_row_panel']/div[2]/div[4]/a/img")))
-        img_reg_vs_peer = driver.find_element_by_xpath(read_config.read_element_locator('Home_Page', 'image_region_vs_peer'))
-
-        #click on the graph link to display on page
-        img_reg_vs_peer.click()
-
-    def validate_graph_trust_vs_peer_region(self,str_excel_ws):
-
-        value_graph_one = str_excel_ws.cell(row=5, column=4).value
-        # wait for the graph to display
-        WebDriverWait(driver, 60).until(ec.visibility_of_element_located((By.XPATH, "//*[@id='region_nd_other']")))
-        label_graph = driver.find_element_by_xpath(read_config.read_element_locator('Home_Page', 'graph_label'))
-        label_graph_two_text=label_graph.text
-
-        #assert that the graph is loaded correctly
-        assert label_graph_two_text.find(value_graph_one) != -1, print("Verified that graph is loaded successfully")
-
-
-    def click_logout(self):
-
-        #click on Log out button
-        driver.find_element_by_xpath(read_config.read_element_locator('Home_Page','logout_click')).click()
-        time.sleep(3)
+    #Close the browser at end of execution
+    return driver.close()
