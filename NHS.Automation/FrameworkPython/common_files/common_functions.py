@@ -56,7 +56,6 @@ def validate_trust_data(str_trust_name,value_e1,value_e2,value_e3,value_e4):
     api_url = read_config.read_config_data('ConfigDetails', 'API_URL')
 
     str_api_url = api_url+str_trust_name+'/'
-    #print(str_api_url)
     http = urllib3.PoolManager()
     str_response_text =http.request('Get',str_api_url).data
     test = http.request('Get',str_api_url).read()
