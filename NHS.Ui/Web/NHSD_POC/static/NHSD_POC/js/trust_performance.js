@@ -52,6 +52,8 @@ function get_performance_data_for_map(trust_code) {
             loadchart(grapType.TvR)
             toggle('region_display_auto_div_InsideAjax')
             toggle('region_display_auto_InsideAjax')
+            toggle('region_display_auto_div')
+            toggle('region_display_auto')
         },
         error:function(){
             $('#empty_trust').show();
