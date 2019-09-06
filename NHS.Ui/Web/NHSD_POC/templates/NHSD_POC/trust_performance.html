@@ -2,6 +2,7 @@
 <!DOCTYPE html>
 <html lang="en" style="display: block;"
     class=" js flexbox flexboxlegacy canvas canvastext webgl no-touch geolocation postmessage websqldatabase indexeddb hashchange history draganddrop websockets rgba hsla multiplebgs backgroundsize borderimage borderradius boxshadow textshadow opacity cssanimations csscolumns cssgradients cssreflections csstransforms no-csstransforms3d csstransitions fontface no-generatedcontent video audio localstorage sessionstorage webworkers applicationcache svg inlinesvg smil svgclippaths">
+
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <title>Exploratory Analytics | Patient Waiting Times | Home</title>
@@ -25,10 +26,11 @@
         } else {
             top.location = self.location;
         }
-       var ajax_url = "{{ api_url }}";
+        var ajax_url = "{{ api_url }}";
     </script>
 </head>
-<body cz-shortcut-listen="true" >
+
+<body cz-shortcut-listen="true">
     <div id="wrap">
         <div class="navbar navbar-static-top">
             <div class="container" style="padding-top:2px; padding-bottom:2px">
@@ -45,7 +47,7 @@
                     {% endif %}
                 </div>
                 <div class="navbar-title">
-                    <h1>Patient Waiting Times- <em style="font-size: 18px;">Exploratory Analytics</em> </h1> 
+                    <h1>Patient Waiting Times- <em style="font-size: 18px;">Exploratory Analytics</em> </h1>
                     <div class="notification-message "> </div>
                 </div>
             </div>
@@ -54,19 +56,24 @@
             <ul class="nav navbar-nav hscic-nav"
                 style="padding-top:3px; padding-bottom:2px; border-bottom:0;  padding-top: 5px;">
                 <li style="float: right; width: 16%">
-                       <template id="trustResultsTemplate">
-                                {% for trust in trust_list %}
-                                <option>{{trust}}</option>
-                                {% endfor %}
-                       </template>
-                        <div class="inner-addon right-addon">
-                                <i class="glyphicon glyphicon-search"></i>
-                                <input type="text" name="search" id="trust_input"  placeholder="Select The Trust" list="trustresults" autocomplete="off" class="form-control trust_input" onchange="get_performance_data_for_map(this.value)"/>
-                        </div>
-                        <datalist id="trustresults"></datalist>   
-                        <input type="hidden" id="current_selected_graph">
-                        <br>
-                        <span><p id="region_text"></p><hr></span>
+                    <template id="trustResultsTemplate">
+                        {% for trust in trust_list %}
+                        <option>{{trust}}</option>
+                        {% endfor %}
+                    </template>
+                    <div class="inner-addon right-addon">
+                        <i class="glyphicon glyphicon-search"></i>
+                        <input type="text" name="search" id="trust_input" placeholder="Select The Trust"
+                            list="trustresults" autocomplete="off" class="form-control trust_input"
+                            onchange="get_performance_data_for_map(this.value)" />
+                    </div>
+                    <datalist id="trustresults"></datalist>
+                    <input type="hidden" id="current_selected_graph">
+                    <br>
+                    <span>
+                        <p id="region_text"></p>
+                        <hr>
+                    </span>
                 </li>
             </ul>
         </div>
@@ -76,29 +83,46 @@
                     <div id="" style="display: block;">
                         <div id="loader" style="position: absolute;top: 0;z-index: 2; margin-top:20%;"></div>
                     </div>
-                    <div class="col-sm-10" id="default-img" style="display: block;margin-left: -36px;margin-top: -72px;">
-                       <img src="{% static 'NHSD_POC/images/CWT/waiting_times.png' %}" style="width: 100%">
-                       <div class="pull-right" style="margin-top: 40px;font-size: 15px;">
-                            <a href="JavaScript:Void(0);" onclick="focusToSearchTrust()" > Click here </a><strong>To Select the Trust</strong></br>
-                            <strong id="Invalid_trust" style="color:red;display: none">Trust code is Invalid</strong><br>
-                            <strong id="empty_trust" style="color:red;display: none">Trust details is not available</strong>
-                        </div> 
+                    <div class="col-sm-10" id="default-img"
+                        style="display: block;margin-left: -36px;margin-top: -72px;">
+                        <img src="{% static 'NHSD_POC/images/CWT/waiting_times.png' %}" style="width: 100%">
+                        <div class="pull-right" style="margin-top: 40px;font-size: 15px;">
+                            <a href="JavaScript:Void(0);" onclick="focusToSearchTrust()"> Click here </a><strong>To
+                                Select the Trust</strong></br>
+                            <strong id="Invalid_trust" style="color:red;display: none">Trust code is
+                                Invalid</strong><br>
+                            <strong id="empty_trust" style="color:red;display: none">Trust details is not
+                                available</strong>
+                        </div>
                     </div>
+                </div>
+                <div style="/* display: none; *//* margin-left: -36px; */top: -111px;position: relative;">
+                    <h1> outside div</h1>
+                    <span id="region_display_auto">Derived waiting time of trust AUT with its underlying region
+                        R1</span>
+                    
+                    <div id="region_display_auto_div">Derived waiting time of trust AUT </div>
+                    
                 </div>
                 <div id="dv_chart_row_panel" class="row" style="display: none">
                     <div class="col-sm-10">
                         <div id="loaderbg">
-                            <div id="loaderc" style="display: block;position: absolute;top: 0;z-index: 2;background-color: black">
+                            <div id="loaderc"
+                                style="display: block;position: absolute;top: 0;z-index: 2;background-color: black">
                             </div>
                         </div>
-                        <!-- start test case for automation-->
-                        <span id="region_display_auto">Derived waiting time of trust AUT with its underlying region R1</span> <input value="Toggle trust" type="button" onclick="myFunctionSpan()">
-                        <div id="region_display_auto_div">Derived waiting time of trust AUT </div><input value="Toggle Region" type="button" onclick="myFunctionDiv()"> 
-                        <!-- end test case for automation-->
+
                         <div id="region_nd_other" style="display: block; margin-top: -107px;">
-                                <h4 style="margin-left: 111px;"><i><b> <span id="region_display"></span></b></i></h4>  
-                        </div> 
-                                 
+                            <h4 style="margin-left: 111px;"><i><b> <span id="region_display"></span></b></i></h4>
+                            <span id="region_display_auto_InsideAjax" style="display:none">Derived waiting time of trust AUT with its
+                                underlying region R1</span>
+                            
+                            <div id="region_display_auto_div_InsideAjax" style="display:none">Derived waiting time of trust AUT </div>
+                            
+                        </div>
+                        <!-- start test case for automation-->
+
+                        <!-- end test case for automation-->
                         <div class="HomePageMenuList">
                             <div class="chartHome" id="chart_div" style="width: 100%; height: 400px; display: block ">
                             </div>
@@ -106,12 +130,16 @@
                         <div style="margin-left:10%;margin-top: -14px;display: none" id="waiting_time_div">
                             <table id="t01" style="font-size: 10px;">
                                 <tr>
-                                    <td><strong>W1:</strong> Waiting Time CANCER REFERRAL To TREATMENT(E1) to First Seen (E2)</td>
-                                    <td><strong>W2:</strong> Waiting Time First Seen (E2) To CANCER FASTER DIAGNOSIS PATHWAY END DATE (E3)</td> 
+                                    <td><strong>W1:</strong> Waiting Time CANCER REFERRAL To TREATMENT(E1) to First Seen
+                                        (E2)</td>
+                                    <td><strong>W2:</strong> Waiting Time First Seen (E2) To CANCER FASTER DIAGNOSIS
+                                        PATHWAY END DATE (E3)</td>
                                 </tr>
                                 <tr>
-                                    <td><strong>W3:</strong> Waiting Time CANCER FASTER DIAGNOSIS PATHWAY END DATE (E3) To CANCER TREATMENT PERIOD START DATE (E4)</td>
-                                    <td><strong>W4:</strong> Waiting Time CANCER TREATMENT PERIOD START DATE (E4) To TREATMENT START DATE 'CANCER' (E5)</td>
+                                    <td><strong>W3:</strong> Waiting Time CANCER FASTER DIAGNOSIS PATHWAY END DATE (E3)
+                                        To CANCER TREATMENT PERIOD START DATE (E4)</td>
+                                    <td><strong>W4:</strong> Waiting Time CANCER TREATMENT PERIOD START DATE (E4) To
+                                        TREATMENT START DATE 'CANCER' (E5)</td>
                                 </tr>
                             </table>
                         </div>
@@ -120,20 +148,23 @@
                         <div id="side-bar-chart-option">
                             <center><strong>Other Graph </strong></center>
                         </div>
-                        <div id="dvSidePanelTvR" class="dvGraphIcon" onclick="showchart(grapType.TvR, this.id )" style="border-bottom: 1px solid black;margin: 7px 0px 0px 0px;padding:  5px;text-align: center;height: 120px;">
-                            <a style="cursor: pointer" >
+                        <div id="dvSidePanelTvR" class="dvGraphIcon" onclick="showchart(grapType.TvR, this.id )"
+                            style="border-bottom: 1px solid black;margin: 7px 0px 0px 0px;padding:  5px;text-align: center;height: 120px;">
+                            <a style="cursor: pointer">
                                 <img src="{% static 'NHSD_POC/images/trustvsregion.png' %}" style="width: 100%">
                                 <span style="display: block">Trust vs Region </span>
                             </a>
                         </div>
-                        <div id="dvSidePanelTvP" class="dvGraphIcon" onclick="showchart(grapType.TvP, this.id )" style="border-bottom: 1px solid black;margin: 7px 0px 0px 0px;padding: 5px;text-align: center;height: 120px;">
-                            <a style="cursor: pointer" >
+                        <div id="dvSidePanelTvP" class="dvGraphIcon" onclick="showchart(grapType.TvP, this.id )"
+                            style="border-bottom: 1px solid black;margin: 7px 0px 0px 0px;padding: 5px;text-align: center;height: 120px;">
+                            <a style="cursor: pointer">
                                 <img src="{% static 'NHSD_POC/images/regions.png' %}" style="width: 100%">
                                 <span style="display: block">Trust vs Peers</span>
                             </a>
                         </div>
-                        <div id="dvSidePanelRegions" class="dvGraphIcon" onclick="showchart(grapType.Regions, this.id )" style="margin: 7px 0px 0px 0px;padding:  5px;text-align: center;height: 120px;">
-                            <a style="cursor: pointer" >
+                        <div id="dvSidePanelRegions" class="dvGraphIcon" onclick="showchart(grapType.Regions, this.id )"
+                            style="margin: 7px 0px 0px 0px;padding:  5px;text-align: center;height: 120px;">
+                            <a style="cursor: pointer">
                                 <img src="{% static 'NHSD_POC/images/trustwise.png' %}" style="width: 100%">
                                 <span style="display: block">Regions</span>
                             </a>
@@ -143,7 +174,7 @@
             </div>
             <br>
         </div>
-    <div id="push"></div>
+        <div id="push"></div>
     </div>
     <div id="footer" class="fixed-bottom">
         <div class="navbar navbar-inverse" role="navigation">
@@ -159,17 +190,18 @@
                     <a class="navbar-brand" href="javascript:void()">Version:-Alfa</a>
                 </div>
                 <div class="navbar-header" style="margin-left:40%">
-                        <a class="navbar-brand" href="https://www.mastek.com/" >Copyright © 2019 Mastek</a>
+                    <a class="navbar-brand" href="https://www.mastek.com/">Copyright © 2019 Mastek</a>
                 </div>
                 <div class="navbar-collapse collapse footer-navbar-collapse">
                     <ul class="nav navbar-nav pull-right">
                         <li>
-                            <a href="//www.linkedin.com/company/164825?trk=tyah&amp;trkInfo=clickedVertical%3Acompany%2CclickedEntityId%3A164825%  2Cidx%3A3-1-8%2CtarId%3A1458651117535%2Ctas%3AMastek%20">
+                            <a
+                                href="//www.linkedin.com/company/164825?trk=tyah&amp;trkInfo=clickedVertical%3Acompany%2CclickedEntityId%3A164825%  2Cidx%3A3-1-8%2CtarId%3A1458651117535%2Ctas%3AMastek%20">
                                 <img src="{% static 'NHSD_POC/images/CWT/icon-linkedin.png' %}"
                                     style="width: 1em; height: 1em; margin-top: -1px;">
                                 LinkedIn
                             </a>
-                       </li>
+                        </li>
                         <li><a href="https://www.mastek.com/contact-us">Contact Us</a></li>
                     </ul>
                 </div>
@@ -184,4 +216,5 @@
     <script src="{% static 'NHSD_POC/js/graph_wrapper.js' %}"></script>
     <script src="{% static 'NHSD_POC/js/trust_performance.js' %}"></script>
 </body>
+
 </html>
