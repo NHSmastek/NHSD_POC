@@ -129,3 +129,22 @@ function focusToSearchTrust() {
     // To update cursor position to recently added character in textBox
     trustInput.setSelectionRange(newVal.length, newVal.length);
 }
+
+//start test case for automation
+function myFunctionSpan() {
+    var x = document.getElementById("region_display_auto");
+    togleSpanDiv(x)
+}
+function myFunctionDiv() {
+    var x = document.getElementById("region_display_auto_div");
+    togleSpanDiv(x)
+}
+
+function togleSpanDiv(x) {
+    if (x.style.display === "none") {
+        x.style.display = "block";
+      } else {
+        x.style.display = "none";
+    }
+}
+//end test case for automation
