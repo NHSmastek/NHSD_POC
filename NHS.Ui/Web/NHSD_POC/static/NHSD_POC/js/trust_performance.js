@@ -50,6 +50,8 @@ function get_performance_data_for_map(trust_code) {
             createChartsData()
             $('#waiting_time_div').show();
             loadchart(grapType.TvR)
+            toggle('region_display_auto_div_InsideAjax')
+            toggle('region_display_auto_InsideAjax')
         },
         error:function(){
             $('#empty_trust').show();
@@ -131,20 +133,16 @@ function focusToSearchTrust() {
 }
 
 //start test case for automation
-function myFunctionSpan() {
-    var x = document.getElementById("region_display_auto");
-    togleSpanDiv(x)
-}
-function myFunctionDiv() {
-    var x = document.getElementById("region_display_auto_div");
-    togleSpanDiv(x)
+function toggle(elemId)
+{
+    var elem=document.getElementById(elemId)
+    if (elem.style.display === "none") {
+        elem.style.display = "block";
+      } else {
+        elem.style.display = "none";
+    }
+    
 }
 
-function togleSpanDiv(x) {
-    if (x.style.display === "none") {
-        x.style.display = "block";
-      } else {
-        x.style.display = "none";
-    }
-}
+
 //end test case for automation
