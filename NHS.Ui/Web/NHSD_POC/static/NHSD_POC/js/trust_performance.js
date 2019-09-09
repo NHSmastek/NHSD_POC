@@ -1,5 +1,13 @@
 var ApiResponse = {}
 var region_code, org_Code;
+
+/*// start test case for automation
+$(document).ready(function(){
+    //setVisibility(document.getElementById("region_display_auto_div"),true)
+    //setVisibility(document.getElementById("region_display_auto"),true)
+    toggle(document.getElementById("region_display_auto_div"),true)
+    toggle(document.getElementById("region_display_auto"),true)
+}) */
 function IsValidTrust(trust_code) {
     var IsValid;
     $("#trustresults > option").each(function (i) {
@@ -49,10 +57,12 @@ function get_performance_data_for_map(trust_code) {
             createChartsData()
             $('#waiting_time_div').show();
             loadchart(grapType.TvR)
-            setVisibility(document.getElementById("region_display_auto_div_InsideAjax"),true)
-            setVisibility(document.getElementById("region_display_auto_InsideAjax"),true)
-            setVisibility(document.getElementById("region_display_auto_div"),true)
-            setVisibility(document.getElementById("region_display_auto"),true)
+            //start test case for automation
+                //setVisibility(document.getElementById("region_display_auto_div_InsideAjax"),true)
+                //setVisibility(document.getElementById("region_display_auto_InsideAjax"),true)
+                // setVisibility(document.getElementById("region_display_auto_div"),true)
+                // setVisibility(document.getElementById("region_display_auto"),true)
+            //end test case for automation
         },
         error: function () {
             $('#empty_trust').show();
@@ -134,23 +144,22 @@ function focusToSearchTrust() {
 
 //start test case for automation
 function toggle(elemId) {
-    var elem = document.getElementById(elemId)
-    // if (elem.style.display === "none") {
-    //     elem.style.display = "block";
-    //   } else {
-    //     elem.style.display = "none";
+     if (elemId.style.display === "none") {
+        elemId.style.display = "block";
+       } else {
+        elemId.style.display = "none";
+     }
+    // if (elem.style.visibility === "hidden") {
+    //     elem.style.visibility = "visible";
+    // } else {
+    //     elem.style.visibility = "hidden";
     // }
-    if (elem.style.visibility === "hidden") {
-        elem.style.visibility = "visible";
-    } else {
-        elem.style.visibility = "hidden";
-    }
-
 }
+//end test case for automation
+
+//start test case for automation
 function setVisibility(elem, isVisible) {
     var visibilityProp = isVisible ? 'visible' : 'hidden'
     elem.style.visibility = visibilityProp;
 }
-
-
 //end test case for automation
