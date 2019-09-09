@@ -1,63 +1,62 @@
 var ApiResponse = {}
 var region_code, org_Code;
-function IsValidTrust(trust_code){
+function IsValidTrust(trust_code) {
     var IsValid;
-    $("#trustresults > option").each(function(i){
-          trust_cd = $(this).text().trim();
-          if(trust_cd == trust_code.toUpperCase()){
+    $("#trustresults > option").each(function (i) {
+        trust_cd = $(this).text().trim();
+        if (trust_cd == trust_code.toUpperCase()) {
             IsValid = true;
-          }
+        }
     });
     return IsValid;
 }
-function show_error_panel(){
+function show_error_panel() {
     document.getElementById("dv_chart_no_selection_panel").style.display = "block";
     document.getElementById("default-img").style.display = "block";
     document.getElementById("loader").style.display = "none";
     document.getElementById("dv_chart_row_panel").style.display = "none";
 }
-function IsTrustEmpty(trust_code){
-    if(trust_code == ''){
+function IsTrustEmpty(trust_code) {
+    if (trust_code == '') {
         $('.trust_input').css("background-color", "lightgoldenrodyellow");
-    }else{
+    } else {
         $('.trust_input').css("background-color", "");
     }
-} 
+}
 function get_performance_data_for_map(trust_code) {
     IsTrustEmpty(trust_code);
-    if(trust_code == '' || IsValidTrust(trust_code) != true)
-    {
+    if (trust_code == '' || IsValidTrust(trust_code) != true) {
         show_error_panel();
         $("#region_text").html("");
         $('#Invalid_trust').show();
         $("#trust_input").val('');
-        setTimeout(function() { $('#Invalid_trust').fadeOut(); }, 3000);
+        setTimeout(function () { $('#Invalid_trust').fadeOut(); }, 3000);
         return false;
     }
     $.ajax({
-        url: ajax_url+"search_trust/" + trust_code,
-        beforeSend: function() {
+        url: ajax_url + "search_trust/" + trust_code,
+        beforeSend: function () {
             showHideLoaderContent(true);
             showHideLoaderChart(true);
-            show_Hide_panel(); 
+            show_Hide_panel();
         },
-        success:function(data) {
-            ApiResponse = {};        
-            ApiResponse = data;       
+        success: function (data) {
+            ApiResponse = {};
+            ApiResponse = data;
             region_code = ApiResponse.Region_Code;
             org_Code = trust_code;
-            $("#region_text").html('Belongs to : '+region_code);
+            $("#region_text").html('Belongs to : ' + region_code);
             createChartsData()
             $('#waiting_time_div').show();
             loadchart(grapType.TvR)
-            toggle('region_display_auto_div_InsideAjax')
-            toggle('region_display_auto_InsideAjax')
-            toggle('region_display_auto_div')
-            toggle('region_display_auto')
+            setVisibility(document.getElementById("region_display_auto_div_InsideAjax"),true)
+            setVisibility(document.getElementById("region_display_auto_InsideAjax"),true)
+            setVisibility(document.getElementById("region_display_auto_div"),true)
+            setVisibility(document.getElementById("region_display_auto"),true)
         },
-        error:function(){
+        error: function () {
             $('#empty_trust').show();
-            setTimeout(function() { $('#empty_trust').fadeOut();}, 5000);
+            setTimeout(function () { $('#empty_trust').fadeOut(); }, 5000);
             $("#region_text").html("");
             $("#trust_input").val('');
             show_error_panel();
@@ -87,7 +86,7 @@ function showHideLoaderContent(loaderStatus) {
         document.getElementById("default-img").style.display = "none";
         document.getElementById("loaderbg").style.display = "block";
         document.getElementById("loader").style.display = "block";
-    }else {
+    } else {
         document.getElementById("loaderbg").style.display = "none";
         document.getElementById("loader").style.display = "none";
         document.getElementById("default-img").style.display = "block";
@@ -97,7 +96,7 @@ function showHideLoaderContent(loaderStatus) {
 function showHideLoaderChart(loaderStatus) {
     if (loaderStatus) {
         document.getElementById("loaderbg").style.display = "block";
-    }else {
+    } else {
         document.getElementById("loaderbg").style.display = "none";
     }
 }
@@ -105,11 +104,10 @@ window.onload = function () {
     show_Hide_panel()
     //$("#chart1").addClass("box-shadow");
 }
-function showchart(chartType,chartId)
-{
+function showchart(chartType, chartId) {
     document.getElementById("current_selected_graph").value = chartType;
     $(".dvGraphIcon").removeClass("box-shadow");
-    $("#"+chartId).addClass("box-shadow");
+    $("#" + chartId).addClass("box-shadow");
     loadchart(chartType)
 }
 var search = document.querySelector('#trust_input');
@@ -135,15 +133,23 @@ function focusToSearchTrust() {
 }
 
 //start test case for automation
-function toggle(elemId)
-{
-    var elem=document.getElementById(elemId)
-    if (elem.style.display === "none") {
-        elem.style.display = "block";
-      } else {
-        elem.style.display = "none";
+function toggle(elemId) {
+    var elem = document.getElementById(elemId)
+    // if (elem.style.display === "none") {
+    //     elem.style.display = "block";
+    //   } else {
+    //     elem.style.display = "none";
+    // }
+    if (elem.style.visibility === "hidden") {
+        elem.style.visibility = "visible";
+    } else {
+        elem.style.visibility = "hidden";
     }
-    
+
+}
+function setVisibility(elem, isVisible) {
+    var visibilityProp = isVisible ? 'visible' : 'hidden'
+    elem.style.visibility = visibilityProp;
 }
 
 
