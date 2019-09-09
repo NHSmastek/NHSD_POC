@@ -19,7 +19,7 @@ class HomePageClass:
     def select_dropdown_value(self,str_region,str_Label_text):
 
         driver.find_element_by_xpath(read_config.read_element_locator('Home_Page', 'drop_down_click')).send_keys(str_region+Keys.TAB)
-        WebDriverWait(driver, 20).until(ec.visibility_of_element_located((By.XPATH, "//*[@id='region_display']")))
+        #WebDriverWait(driver, 20).until(ec.visibility_of_element_located((By.XPATH, "//*[@id='region_display']")))
 
     def validate_graph_trust_vs_region(self,str_excel_ws):
 
