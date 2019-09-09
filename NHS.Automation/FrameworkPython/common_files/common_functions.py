@@ -57,7 +57,7 @@ def launch_browser_url(str_browser, str_url):
             #driver.implicitly_wait(20)
         else:
             driver = webdriver.Chrome(
-                executable_path="/usr/bin/chromedriver")
+                executable_path="..\\chromedriver.exe")
     driver.get(str_url)
     # driver.maximize_window()
 
@@ -76,8 +76,9 @@ def login_application(login_cred,password):
 
 def validate_trust_data(str_trust_name,value_e1,value_e2,value_e3,value_e4):
     str_url = read_config.read_config_data('ConfigDetails', 'Application_URL')
-    #api_url = read_config.read_config_data('ConfigDetails', 'API_URL')
+    #Modify the URL as per execution on Linux or Windows
     str_api_url = 'http://10.10.1.12:8084/search_trust/AUT'
+    #str_api_url = 'http://35.176.37.177:8084/search_trust/AUT'
     #str_api_url = api_url+str_trust_name+'/'
     http = urllib3.PoolManager()
     str_response_text =http.request('Get',str_api_url).data
