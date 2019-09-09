@@ -19,8 +19,7 @@ class HomePageClass:
     def select_dropdown_value(self,str_region,str_Label_text):
 
         driver.find_element_by_xpath(read_config.read_element_locator('Home_Page', 'drop_down_click')).send_keys(str_region+Keys.TAB)
-        #WebDriverWait(driver, 120).until(ec.visibility_of_element_located( (By.XPATH, "//*[name()='svg']//*[name()='g']//*[text()='Transition Time (in days)']")))
-
+        WebDriverWait(driver, 20).until(ec.visibility_of_element_located((By.XPATH, "//*[@id='region_display']")))
 
     def validate_graph_trust_vs_region(self,str_excel_ws):
 
@@ -37,7 +36,7 @@ class HomePageClass:
     def select_graph_trust_vs_peers(self):
 
         #wait for the graph trust vs peers to display
-        #WebDriverWait(driver, 20).until(ec.visibility_of_element_located((By.XPATH, "//*[@id='dv_chart_row_panel']/div[2]/div[2]/a/img")))
+        WebDriverWait(driver, 20).until(ec.visibility_of_element_located((By.XPATH, "//*[@id='dv_chart_row_panel']/div[2]/div[2]/a/img")))
 
         #click on the graph link
         image_trust_vs_peer = driver.find_element_by_xpath(read_config.read_element_locator('Home_Page', 'image_trust_vs_peer'))
@@ -49,7 +48,7 @@ class HomePageClass:
         value_graph_one= str_excel_ws.cell(row=4, column=4).value
 
         #wait for the graph to display
-        #WebDriverWait(driver, 60).until(ec.visibility_of_element_located((By.XPATH, "//*[@id='region_nd_other']")))
+        WebDriverWait(driver, 60).until(ec.visibility_of_element_located((By.XPATH, "//*[@id='region_nd_other']")))
         label_graph = driver.find_element_by_xpath(read_config.read_element_locator('Home_Page', 'graph_label'))
         label_graph_one_text=label_graph.text
 
@@ -72,10 +71,9 @@ class HomePageClass:
         WebDriverWait(driver, 60).until(ec.visibility_of_element_located((By.XPATH, "//*[@id='region_nd_other']")))
         label_graph = driver.find_element_by_xpath(read_config.read_element_locator('Home_Page', 'graph_label'))
         label_graph_two_text=label_graph.text
-        print("Actual Label: "+label_graph_two_text)
-        print("Expected Label: "+value_graph_one)
+
         #assert that the graph is loaded correctly
-        assert label_graph_two_text.find(value_graph_one) != -1, print("Verified that graph is loaded successfully")
+        assert label_graph_two_text.find(value_graph_one) != -1, print("Failed to verify Region vs Peer Regions graph")
 
 
     def click_logout(self):
