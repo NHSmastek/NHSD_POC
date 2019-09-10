@@ -56,7 +56,7 @@ def test_tc02_verify_trust_vs_region_graphs():
     obj_home_page_class.select_dropdown_value(str_region,str_Label_text)
 
     #Validate graph
-    #obj_home_page_class.validate_graph_trust_vs_region(str_excel_ws)
+    obj_home_page_class.validate_graph_trust_vs_region(str_excel_ws)
 
     #Validate trust data by analyzing API response
     common_functions.validate_trust_data(str_trust_name,value_e1,value_e2,value_e3,value_e4)
@@ -95,7 +95,7 @@ def test_tc03_verify_trust_vs_peers_graphs():
 
      #Click on the Trust vr peers graph & Validate
     obj_home_page_class.select_graph_trust_vs_peers()
-    #obj_home_page_class.validate_graph_trust_vs_peers(str_excel_ws)
+    obj_home_page_class.validate_graph_trust_vs_peers(str_excel_ws)
 
     #Validate trust data by analyzing API response
     common_functions.validate_trust_data(str_trust_name,value_e1,value_e2,value_e3,value_e4)
@@ -128,7 +128,7 @@ def test_tc04_verify_region_vs_peer_regions_graphs():
 
     # Click on the Region vs peer Regions graph & Validate
     obj_home_page_class.select_graph_region_vs_peer_region()
-    #obj_home_page_class.validate_graph_trust_vs_peer_region(str_excel_ws)
+    obj_home_page_class.validate_graph_trust_vs_peer_region(str_excel_ws)
 
     # Logout From the Application
     obj_home_page_class.click_logout()
