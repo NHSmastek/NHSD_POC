@@ -29,20 +29,14 @@ def initalsetup():
 
 def launch_browser_url(str_browser, str_url):
     global driver
-    print(str_browser)
+
 
     if str_browser == 'Chrome':
         strPath = read_config.read_config_data('ConfigDetails', 'Exe_Path')
-        #os.environ["webdriver.chrome.driver"] = strPath
+
 
         if head_less_flag == 'True':
             chrome_options = webdriver.ChromeOptions()
-            #chrome_options = Options()
-            #chrome_options.add_argument("--window-size=1920,1080")
-            #chrome_options.add_argument("--proxy-server='direct://'")
-            #chrome_options.add_argument("--proxy-bypass-list=*")
-            #chrome_options.add_argument("--start-maximized")
-            chrome_options.add_argument("--headless")
             chrome_options.add_argument("--disable-extensions")
             chrome_options.add_argument("--no-sandbox")
             chrome_options.add_argument("--disable-dev-shm-usage")
@@ -53,13 +47,10 @@ def launch_browser_url(str_browser, str_url):
             driver = webdriver.Chrome(
                 executable_path="/usr/bin/chromedriver",
                 chrome_options=chrome_options)
-            #driver.set_page_load_timeout(10)
-            #driver.implicitly_wait(20)
         else:
             driver = webdriver.Chrome(
                 executable_path="..\\chromedriver.exe")
     driver.get(str_url)
-    # driver.maximize_window()
 
     return driver
 
@@ -78,8 +69,8 @@ def validate_trust_data(str_trust_name,value_e1,value_e2,value_e3,value_e4):
     str_url = read_config.read_config_data('ConfigDetails', 'Application_URL')
     #Modify the URL as per execution on Linux or Windows
     str_api_url = 'http://10.10.1.12:8084/search_trust/AUT'
+    #Use below Link for Windows
     #str_api_url = 'http://35.176.37.177:8084/search_trust/AUT'
-    #str_api_url = api_url+str_trust_name+'/'
     http = urllib3.PoolManager()
     str_response_text =http.request('Get',str_api_url).data
     test = http.request('Get',str_api_url).read()
