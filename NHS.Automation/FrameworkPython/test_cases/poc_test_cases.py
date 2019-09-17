@@ -1,13 +1,9 @@
-import time
-import json
-import urllib3
-
+import pytest
 from common_files import common_functions
-from library_files import read_config
-from page_structure import home_page
-from page_structure import login
 from page_structure import  home_page
 
+@pytest.mark.smoke
+@pytest.mark.regression
 def test_tc01_login_to_application():
 
     global driver,str_excel_wb, str_excel_ws
@@ -29,6 +25,8 @@ def test_tc01_login_to_application():
     #Closing the Browser
     close = common_functions.close_browser()
 
+@pytest.mark.smoke
+@pytest.mark.regression
 def test_tc02_verify_trust_vs_region_graphs():
 
     global driver,str_excel_wb, str_excel_ws
@@ -67,6 +65,7 @@ def test_tc02_verify_trust_vs_region_graphs():
     #Close browser
     close = common_functions.close_browser()
 
+@pytest.mark.regression
 def test_tc03_verify_trust_vs_peers_graphs():
     global driver, str_excel_wb, str_excel_ws
     # Initialize the configuration variables required for executing tests
@@ -106,7 +105,7 @@ def test_tc03_verify_trust_vs_peers_graphs():
     #Close browser
     close = common_functions.close_browser()
 
-
+@pytest.mark.regression
 def test_tc04_verify_region_vs_peer_regions_graphs():
     global driver, str_excel_wb, str_excel_ws
     # Initialize the configuration variables required for executing tests
